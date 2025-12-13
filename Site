@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Empruntez Où Que Vous Soyez</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        body { font-family: 'Poppins', sans-serif; }
+        .brand-blue { color: #1A2B49; } 
+        .bg-brand-blue { background-color: #1A2B49; }
+        .bg-brand-light { background-color: #F0F8FF; }
+        
+        /* Orange Button Style */
+        .btn-orange { 
+            background-color: #E67E22; 
+            color: white; 
+            transition: all 0.3s ease; 
+        }
+        .btn-orange:hover { 
+            background-color: #d35400; 
+            transform: translateY(-2px); 
+            box-shadow: 0 10px 15px -3px rgba(230, 126, 34, 0.4); 
+        }
+        
+        /* Hero Background Style */
+        .hero-bg {
+            background-image: 
+                linear-gradient(to bottom right, rgba(26, 43, 73, 0.9), rgba(26, 43, 73, 0.6)),
+                url('https://i.postimg.cc/FFZqJQ87/Screenshot-2025-12-10-at-1-44-14-PM.png');
+            
+            background-size: cover;
+            background-position: center;
+            background-attachment: scroll;
+        }
+
+        .photo-frame {
+            overflow: hidden;
+            border-radius: 1.5rem;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            background-color: #e5e7eb;
+        }
+        .photo-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.7s ease;
+        }
+        .photo-frame:hover img {
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <!-- NAVIGATION -->
+    <nav class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="container mx-auto px-6 py-3 flex justify-between items-center">
+            
+            <!-- LOGO MODIFIED HERE -->
+            <a href="#" class="block">
+                <img src="https://i.postimg.cc/DzzFGDKh/Screenshot-2025-12-12-at-7-32-57-AM.png" alt="Logo EOQVS" class="h-14 w-auto object-contain">
+            </a>
+            
+            <div class="hidden md:flex space-x-8 text-sm font-medium text-gray-600">
+                <a href="#" class="hover:text-orange-500 transition">Accueil</a>
+                <a href="#" class="hover:text-orange-500 transition">Nos Prêts</a>
+                <a href="#" class="hover:text-orange-500 transition">Contact</a>
+            </div>
+            <button class="bg-brand-blue text-white px-6 py-2 rounded-full font-semibold hover:bg-blue-900 transition shadow-lg">
+                Mon Espace
+            </button>
+        </div>
+    </nav>
+
+    <!-- HERO HEADER -->
+    <header class="hero-bg pt-24 pb-32 text-center px-4 relative">
+        <span class="text-orange-400 font-bold tracking-widest text-xs uppercase mb-4 block">Rapide • Simple • Sécurisé</span>
+        
+        <h1 class="text-4xl md:text-6xl font-bold text-white mb-6 leading-tight">
+            Réalisez vos projets,<br>peu importe l'étape de votre vie.
+        </h1>
+        
+        <p class="text-lg text-gray-100 mb-10 max-w-2xl mx-auto font-light">
+            Auto, Maison, Études ou Retraite. Obtenez une approbation rapide et commencez à vivre vos rêves dès aujourd'hui avec un partenaire solide.
+        </p>
+        
+        <a href="#" class="btn-orange px-10 py-4 rounded-full text-lg font-bold shadow-lg border-2 border-transparent hover:border-orange-300">
+            Démarrer ma demande
+        </a>
+    </header>
+
+    <!-- SECTION PRÊTS (ZIG-ZAG) -->
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            
+            <!-- 1. AUTO -->
+            <div class="flex flex-col md:flex-row items-center mb-24 gap-12 group">
+                <div class="w-full md:w-1/2 h-[400px] photo-frame relative">
+                    <img src="https://i.postimg.cc/0jrNs2Sr/CRE-DIT-A-LA-CONSOMMATION-2.jpg" alt="Femme conduisant voiture bleue">
+                    <div class="absolute bottom-6 left-6 bg-white/95 backdrop-blur px-6 py-2 rounded-lg text-brand-blue font-bold shadow-lg">
+                        <i class="fas fa-car mr-2 text-orange-500"></i> Automobile
+                    </div>
+                </div>
+                <div class="w-full md:w-1/2 md:pl-10">
+                    <h3 class="text-3xl md:text-4xl font-bold brand-blue mb-4">La route vers la liberté</h3>
+                    <div class="w-16 h-1 bg-orange-500 mb-6"></div>
+                    <p class="text-gray-600 text-lg mb-6 leading-relaxed">
+                        Que ce soit pour une voiture neuve ou d'occasion, nous finançons votre véhicule rapidement. Prenez le volant sans attendre.
+                    </p>
+                    <a href="#" class="text-orange-500 font-bold hover:text-orange-600 flex items-center group-hover:translate-x-2 transition-transform">
+                        Voir les taux auto <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- 2. MAISON -->
+            <div class="flex flex-col md:flex-row-reverse items-center mb-24 gap-12 group">
+                <div class="w-full md:w-1/2 h-[400px] photo-frame relative">
+                    <img src="https://i.postimg.cc/Fs9M1nn5/CRE-DIT-A-LA-CONSOMMATION.jpg" alt="Cuisine moderne">
+                    <div class="absolute bottom-6 right-6 bg-white/95 backdrop-blur px-6 py-2 rounded-lg text-brand-blue font-bold shadow-lg">
+                        <i class="fas fa-home mr-2 text-orange-500"></i> Maison
+                    </div>
+                </div>
+                <div class="w-full md:w-1/2 md:pr-10 text-left md:text-right">
+                    <h3 class="text-3xl md:text-4xl font-bold brand-blue mb-4">Un confort repensé</h3>
+                    <div class="w-16 h-1 bg-orange-500 mb-6 md:ml-auto"></div>
+                    <p class="text-gray-600 text-lg mb-6 leading-relaxed">
+                        Envie d'une cuisine moderne ? Financez vos rénovations et vos nouveaux électroménagers pour transformer votre maison.
+                    </p>
+                    <a href="#" class="text-orange-500 font-bold hover:text-orange-600 flex items-center md:justify-end group-hover:-translate-x-2 transition-transform">
+                        <i class="fas fa-arrow-left mr-2 hidden md:inline-block"></i> Découvrir les prêts réno <i class="fas fa-arrow-right ml-2 md:hidden"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- 3. ÉTUDES -->
+            <div class="flex flex-col md:flex-row items-center mb-24 gap-12 group">
+                <div class="w-full md:w-1/2 h-[400px] photo-frame relative">
+                    <img src="https://i.postimg.cc/PfK6VfKF/CRE-DIT-SCOLAIRE.jpg" alt="Écolière">
+                    <div class="absolute bottom-6 left-6 bg-white/95 backdrop-blur px-6 py-2 rounded-lg text-brand-blue font-bold shadow-lg">
+                        <i class="fas fa-graduation-cap mr-2 text-orange-500"></i> Scolarité
+                    </div>
+                </div>
+                <div class="w-full md:w-1/2 md:pl-10">
+                    <h3 class="text-3xl md:text-4xl font-bold brand-blue mb-4">Investir dans leur sourire</h3>
+                    <div class="w-16 h-1 bg-orange-500 mb-6"></div>
+                    <p class="text-gray-600 text-lg mb-6 leading-relaxed">
+                        Assurez la réussite scolaire de vos enfants. Frais de scolarité, matériel ou activités : offrez-leur le meilleur départ.
+                    </p>
+                    <a href="#" class="text-orange-500 font-bold hover:text-orange-600 flex items-center group-hover:translate-x-2 transition-transform">
+                        Planifier l'avenir <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- 4. SENIOR -->
+            <div class="flex flex-col md:flex-row-reverse items-center gap-12 group">
+                <div class="w-full md:w-1/2 h-[400px] photo-frame relative">
+                    <img src="https://i.postimg.cc/jd4J4CXH/RETRAITE-PAISIBLE.jpg" alt="Dame senior souriante">
+                    <div class="absolute bottom-6 right-6 bg-white/95 backdrop-blur px-6 py-2 rounded-lg text-brand-blue font-bold shadow-lg">
+                        <i class="fas fa-heart mr-2 text-orange-500"></i> Personnel
+                    </div>
+                </div>
+                <div class="w-full md:w-1/2 md:pr-10 text-left md:text-right">
+                    <h3 class="text-3xl md:text-4xl font-bold brand-blue mb-4">Profitez de chaque instant</h3>
+                    <div class="w-16 h-1 bg-orange-500 mb-6 md:ml-auto"></div>
+                    <p class="text-gray-600 text-lg mb-6 leading-relaxed">
+                        La retraite est le début d'une nouvelle aventure. Pour un voyage ou un projet personnel, nous sommes à vos côtés.
+                    </p>
+                    <a href="#" class="text-orange-500 font-bold hover:text-orange-600 flex items-center md:justify-end group-hover:-translate-x-2 transition-transform">
+                        <i class="fas fa-arrow-left mr-2 hidden md:inline-block"></i> Voir les prêts personnels <i class="fas fa-arrow-right ml-2 md:hidden"></i>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- SECTION SERVICE CLIENT -->
+    <section class="bg-blue-50 py-20">
+        <div class="container mx-auto px-6">
+            <div class="bg-white rounded-3xl p-8 md:p-12 shadow-xl flex flex-col md:flex-row items-center gap-12">
+                <div class="w-full md:w-1/3">
+                    <div class="w-full h-64 md:h-80 photo-frame">
+                        <img src="https://i.postimg.cc/bwdNSvFc/CRE-DIT-E-VE-NEMENT.jpg" alt="Service client professionnel">
+                    </div>
+                </div>
+                <div class="w-full md:w-2/3 text-center md:text-left">
+                    <h2 class="text-3xl font-bold brand-blue mb-4">Un accompagnement humain</h2>
+                    <p class="text-gray-600 text-lg mb-8">
+                        Derrière chaque demande, il y a une personne. Nos conseillers sont là pour vous guider. Pas de robots, juste des solutions adaptées à vos besoins.
+                    </p>
+                    <button class="btn-orange px-10 py-5 rounded-full font-bold shadow-lg">
+                        Parler à un conseiller
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-brand-blue text-white py-12 text-center mt-10">
+        <p class="text-2xl font-bold mb-4">EOQVS<span class="text-orange-500">.</span></p>
+        <p class="opacity-60 text-sm">&copy; 2025 Empruntez Où Que Vous Soyez™. Tous droits réservés.</p>
+    </footer>
+
+</body>
+</html>
