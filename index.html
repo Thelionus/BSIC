@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Empruntez Où Que Vous Soyez</title>
+    <title>BSIC Bénin - Empruntez Où Que Vous Soyez</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -58,20 +58,43 @@
 
     <!-- NAVIGATION -->
     <nav class="bg-white shadow-sm sticky top-0 z-50">
-        <div class="container mx-auto px-6 py-3 flex justify-between items-center">
+        <div class="container mx-auto px-6 py-2 flex justify-between items-center">
             
-            <!-- LOGO MODIFIED HERE -->
-            <a href="#" class="block">
-                <img src="https://i.postimg.cc/DzzFGDKh/Screenshot-2025-12-12-at-7-32-57-AM.png" alt="Logo EOQVS" class="h-14 w-auto object-contain">
+            <!-- LOGO & BANQUE NAME SECTION -->
+            <a href="#" class="flex items-center gap-3 group">
+                <!-- Logo Image -->
+                <img src="https://i.postimg.cc/DzzFGDKh/Screenshot-2025-12-12-at-7-32-57-AM.png" 
+                     alt="Logo BSIC" 
+                     class="h-16 w-auto object-contain">
+                
+                <!-- Nom de la Banque -->
+                <div class="flex flex-col justify-center">
+                    <!-- Nom complet (masqué sur très petits écrans pour éviter la surcharge, visible sur tablette/PC) -->
+                    <span class="hidden lg:block text-[10px] font-semibold text-gray-500 uppercase tracking-tight leading-tight max-w-xs">
+                        Banque Sahelo-Saharienne pour l’Investissement et le Commerce
+                    </span>
+                    <!-- Nom Court / Abréviation (Toujours visible) -->
+                    <span class="text-sm md:text-lg font-bold brand-blue leading-tight group-hover:text-orange-500 transition-colors">
+                        BSIC BÉNIN SA
+                    </span>
+                </div>
             </a>
             
-            <div class="hidden md:flex space-x-8 text-sm font-medium text-gray-600">
+            <!-- MENU LIENS -->
+            <div class="hidden md:flex space-x-8 text-sm font-medium text-gray-600 items-center">
                 <a href="#" class="hover:text-orange-500 transition">Accueil</a>
                 <a href="#" class="hover:text-orange-500 transition">Nos Prêts</a>
                 <a href="#" class="hover:text-orange-500 transition">Contact</a>
             </div>
-            <button class="bg-brand-blue text-white px-6 py-2 rounded-full font-semibold hover:bg-blue-900 transition shadow-lg">
+
+            <!-- BOUTON -->
+            <button class="hidden md:block bg-brand-blue text-white px-5 py-2 rounded-full font-semibold hover:bg-blue-900 transition shadow-lg text-sm">
                 Mon Espace
+            </button>
+            
+            <!-- Menu Burger Mobile (Icone seulement pour décorer ici) -->
+            <button class="md:hidden text-brand-blue text-2xl">
+                <i class="fas fa-bars"></i>
             </button>
         </div>
     </nav>
@@ -85,7 +108,7 @@
         </h1>
         
         <p class="text-lg text-gray-100 mb-10 max-w-2xl mx-auto font-light">
-            Auto, Maison, Études ou Retraite. Obtenez une approbation rapide et commencez à vivre vos rêves dès aujourd'hui avec un partenaire solide.
+            Auto, Maison, Études ou Retraite. Avec la <strong>BSIC BÉNIN SA</strong>, obtenez une approbation rapide et commencez à vivre vos rêves dès aujourd'hui.
         </p>
         
         <a href="#" class="btn-orange px-10 py-4 rounded-full text-lg font-bold shadow-lg border-2 border-transparent hover:border-orange-300">
@@ -192,7 +215,7 @@
                 <div class="w-full md:w-2/3 text-center md:text-left">
                     <h2 class="text-3xl font-bold brand-blue mb-4">Un accompagnement humain</h2>
                     <p class="text-gray-600 text-lg mb-8">
-                        Derrière chaque demande, il y a une personne. Nos conseillers sont là pour vous guider. Pas de robots, juste des solutions adaptées à vos besoins.
+                        Derrière chaque demande, il y a une personne. Nos conseillers <strong>BSIC</strong> sont là pour vous guider. Pas de robots, juste des solutions adaptées à vos besoins.
                     </p>
                     <button class="btn-orange px-10 py-5 rounded-full font-bold shadow-lg">
                         Parler à un conseiller
@@ -204,8 +227,9 @@
 
     <!-- FOOTER -->
     <footer class="bg-brand-blue text-white py-12 text-center mt-10">
-        <p class="text-2xl font-bold mb-4">EOQVS<span class="text-orange-500">.</span></p>
-        <p class="opacity-60 text-sm">&copy; 2025 Empruntez Où Que Vous Soyez™. Tous droits réservés.</p>
+        <p class="text-2xl font-bold mb-4">BSIC BÉNIN SA<span class="text-orange-500">.</span></p>
+        <p class="opacity-60 text-sm max-w-lg mx-auto mb-4">Banque Sahelo-Saharienne pour l’Investissement et le Commerce</p>
+        <p class="opacity-40 text-xs">&copy; 2025 BSIC BÉNIN SA. Tous droits réservés.</p>
     </footer>
 
 </body>
