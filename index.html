@@ -3,234 +3,271 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BSIC Bénin - Empruntez Où Que Vous Soyez</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <title>BSIC Bénin - Formulaire</title>
     
+    <!-- FONTS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+
     <style>
-        body { font-family: 'Poppins', sans-serif; }
-        .brand-blue { color: #1A2B49; } 
-        .bg-brand-blue { background-color: #1A2B49; }
-        .bg-brand-light { background-color: #F0F8FF; }
-        
-        /* Orange Button Style */
-        .btn-orange { 
-            background-color: #E67E22; 
-            color: white; 
-            transition: all 0.3s ease; 
-        }
-        .btn-orange:hover { 
-            background-color: #d35400; 
-            transform: translateY(-2px); 
-            box-shadow: 0 10px 15px -3px rgba(230, 126, 34, 0.4); 
-        }
-        
-        /* Hero Background Style */
-        .hero-bg {
-            background-image: 
-                linear-gradient(to bottom right, rgba(26, 43, 73, 0.9), rgba(26, 43, 73, 0.6)),
-                url('https://i.postimg.cc/FFZqJQ87/Screenshot-2025-12-10-at-1-44-14-PM.png');
-            
-            background-size: cover;
-            background-position: center;
-            background-attachment: scroll;
+        :root {
+            --bsic-blue: #002B49;
+            --bsic-gold: #E5B65D;
+            --bg-grey: #F4F7F6;
+            --text-dark: #1A1A1A;
+            --input-border: #ccc;
         }
 
-        .photo-frame {
-            overflow: hidden;
-            border-radius: 1.5rem;
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-            background-color: #e5e7eb;
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body { 
+            font-family: 'Roboto', sans-serif; 
+            background-color: var(--bg-grey); 
+            color: var(--text-dark);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-bottom: 40px;
         }
-        .photo-frame img {
+
+        /* HEADER */
+        header {
+            width: 100%;
+            background-color: white;
+            padding: 15px 0;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            margin-bottom: 20px;
+        }
+        
+        .logo { 
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700; 
+            color: var(--bsic-blue); 
+            font-size: 1.4rem; 
+            letter-spacing: 0.5px; 
+        }
+
+        /* CARD CONTAINER - RESPONSIVE WIDTH */
+        .card-container {
+            background-color: white;
+            /* Mobile First: Take up almost full width */
+            width: 95%; 
+            /* Desktop Constraint: Never get wider than 460px */
+            max-width: 460px; 
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+            margin-top: 10px;
+        }
+
+        /* BANNER */
+        .card-banner {
+            height: 180px; /* Slightly shorter to save vertical space */
+            width: 100%;
+            background-color: var(--bsic-blue);
+            position: relative;
+        }
+        .card-banner img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.7s ease;
+            object-position: top center;
         }
-        .photo-frame:hover img {
-            transform: scale(1.05);
+
+        /* BODY */
+        .card-body { padding: 25px 20px; }
+
+        /* PROGRESS BAR */
+        .progress-bar {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 25px;
+            position: relative;
+            padding: 0 2px;
         }
+        .progress-bar::before {
+            content: ''; position: absolute; top: 10px; left: 5px; right: 5px; height: 2px; background: #EEF1F3; z-index: 0;
+        }
+        
+        .step { position: relative; z-index: 1; }
+        
+        .step-circle {
+            width: 22px; height: 22px; 
+            background: white; 
+            border: 2px solid #E0E0E0; 
+            border-radius: 50%; 
+            display: flex; align-items: center; justify-content: center;
+            font-size: 0.7rem; color: #BBB; font-weight: 700;
+        }
+
+        .step.completed .step-circle { background: var(--bsic-gold); border-color: var(--bsic-gold); color: white; }
+        .step.active .step-circle { border-color: var(--bsic-gold); color: var(--bsic-blue); background: #FFF; box-shadow: 0 0 0 3px rgba(229, 182, 93, 0.15); }
+
+        /* TYPOGRAPHY */
+        h2 { 
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            color: var(--bsic-blue); 
+            margin-bottom: 5px; 
+            text-align: center; 
+            font-size: 1.4rem; 
+        }
+        
+        p.desc { 
+            text-align: center; 
+            color: #757575; 
+            margin-bottom: 25px; 
+            font-size: 0.9rem; 
+        }
+
+        .input-group { margin-bottom: 14px; }
+        
+        label { 
+            display: block; 
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.8rem; 
+            margin-bottom: 4px;
+            font-weight: 500; 
+            color: #555; 
+        }
+        
+        /* 
+           UPDATED: SLIMMER INPUTS 
+           Target Height: 32px (Reduced from 40px)
+        */
+        input, select {
+            width: 100%; 
+            
+            /* Specific height set to 32px */
+            height: 32px; 
+            
+            /* Reduced vertical padding to 0, use line-height to center text */
+            padding: 0 10px;
+            line-height: 30px; 
+
+            border: 1px solid var(--input-border); 
+            border-radius: 6px; 
+            
+            /* Slightly smaller font to fit the 32px box comfortably */
+            font-size: 0.9rem; 
+            
+            font-family: 'Roboto', sans-serif;
+            color: #333;
+            background-color: #FAFAFA;
+            transition: all 0.2s ease-in-out;
+        }
+
+        /* Dropdown Arrow Fix */
+        select {
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23002B49%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+            background-repeat: no-repeat;
+            background-position: right 10px center; /* Vertically centered */
+            background-size: 8px auto;
+        }
+
+        input:focus, select:focus {
+            border-color: var(--bsic-gold);
+            background-color: white;
+            outline: none;
+        }
+
+        /* BUTTON */
+        .btn-submit {
+            width: 100%;
+            background-color: var(--bsic-gold);
+            color: white; border: none; padding: 12px; border-radius: 6px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem; font-weight: 600; cursor: pointer; margin-top: 15px;
+            box-shadow: 0 4px 10px rgba(229, 182, 93, 0.25);
+            transition: transform 0.2s;
+        }
+        .btn-submit:hover { background-color: #dca646; transform: translateY(-1px); }
+
+        /* RESPONSIVE MEDIA QUERY */
+        @media (min-width: 600px) {
+            /* Styles for Tablet/Desktop */
+            body { padding-top: 20px; }
+            .card-container { width: 460px; margin-top: 20px; }
+        }
+
     </style>
 </head>
-<body class="bg-gray-50 text-gray-800">
+<body>
 
-    <!-- NAVIGATION -->
-    <nav class="bg-white shadow-sm sticky top-0 z-50">
-        <div class="container mx-auto px-6 py-2 flex justify-between items-center">
-            
-            <!-- LOGO & BANQUE NAME SECTION -->
-            <a href="#" class="flex items-center gap-3 group">
-                <!-- Logo Image -->
-                <img src="https://i.postimg.cc/DzzFGDKh/Screenshot-2025-12-12-at-7-32-57-AM.png" 
-                     alt="Logo BSIC" 
-                     class="h-16 w-auto object-contain">
-                
-                <!-- Nom de la Banque -->
-                <div class="flex flex-col justify-center">
-                    <!-- Nom complet (masqué sur très petits écrans pour éviter la surcharge, visible sur tablette/PC) -->
-                    <span class="hidden lg:block text-[10px] font-semibold text-gray-500 uppercase tracking-tight leading-tight max-w-xs">
-                        Banque Sahelo-Saharienne pour l’Investissement et le Commerce
-                    </span>
-                    <!-- Nom Court / Abréviation (Toujours visible) -->
-                    <span class="text-sm md:text-lg font-bold brand-blue leading-tight group-hover:text-orange-500 transition-colors">
-                        BSIC BÉNIN SA
-                    </span>
-                </div>
-            </a>
-            
-            <!-- MENU LIENS -->
-            <div class="hidden md:flex space-x-8 text-sm font-medium text-gray-600 items-center">
-                <a href="#" class="hover:text-orange-500 transition">Accueil</a>
-                <a href="#" class="hover:text-orange-500 transition">Nos Prêts</a>
-                <a href="#" class="hover:text-orange-500 transition">Contact</a>
-            </div>
-
-            <!-- BOUTON -->
-            <button class="hidden md:block bg-brand-blue text-white px-5 py-2 rounded-full font-semibold hover:bg-blue-900 transition shadow-lg text-sm">
-                Mon Espace
-            </button>
-            
-            <!-- Menu Burger Mobile (Icone seulement pour décorer ici) -->
-            <button class="md:hidden text-brand-blue text-2xl">
-                <i class="fas fa-bars"></i>
-            </button>
-        </div>
-    </nav>
-
-    <!-- HERO HEADER -->
-    <header class="hero-bg pt-24 pb-32 text-center px-4 relative">
-        <span class="text-orange-400 font-bold tracking-widest text-xs uppercase mb-4 block">Rapide • Simple • Sécurisé</span>
-        
-        <h1 class="text-4xl md:text-6xl font-bold text-white mb-6 leading-tight">
-            Réalisez vos projets,<br>peu importe l'étape de votre vie.
-        </h1>
-        
-        <p class="text-lg text-gray-100 mb-10 max-w-2xl mx-auto font-light">
-            Auto, Maison, Études ou Retraite. Avec la <strong>BSIC BÉNIN SA</strong>, obtenez une approbation rapide et commencez à vivre vos rêves dès aujourd'hui.
-        </p>
-        
-        <a href="#" class="btn-orange px-10 py-4 rounded-full text-lg font-bold shadow-lg border-2 border-transparent hover:border-orange-300">
-            Démarrer ma demande
-        </a>
+    <header>
+        <div class="logo">BSIC BÉNIN</div>
     </header>
 
-    <!-- SECTION PRÊTS (ZIG-ZAG) -->
-    <section class="py-20 bg-white">
-        <div class="container mx-auto px-6">
+    <div class="card-container">
+        
+        <div class="card-banner">
+            <img src="https://i.postimg.cc/zG7JfcRS/BSIC-BANQUE-TOTEM75-V2-copie-(1).jpg" alt="BSIC Banner">
+        </div>
+
+        <div class="card-body">
             
-            <!-- 1. AUTO -->
-            <div class="flex flex-col md:flex-row items-center mb-24 gap-12 group">
-                <div class="w-full md:w-1/2 h-[400px] photo-frame relative">
-                    <img src="https://i.postimg.cc/0jrNs2Sr/CRE-DIT-A-LA-CONSOMMATION-2.jpg" alt="Femme conduisant voiture bleue">
-                    <div class="absolute bottom-6 left-6 bg-white/95 backdrop-blur px-6 py-2 rounded-lg text-brand-blue font-bold shadow-lg">
-                        <i class="fas fa-car mr-2 text-orange-500"></i> Automobile
-                    </div>
-                </div>
-                <div class="w-full md:w-1/2 md:pl-10">
-                    <h3 class="text-3xl md:text-4xl font-bold brand-blue mb-4">La route vers la liberté</h3>
-                    <div class="w-16 h-1 bg-orange-500 mb-6"></div>
-                    <p class="text-gray-600 text-lg mb-6 leading-relaxed">
-                        Que ce soit pour une voiture neuve ou d'occasion, nous finançons votre véhicule rapidement. Prenez le volant sans attendre.
-                    </p>
-                    <a href="#" class="text-orange-500 font-bold hover:text-orange-600 flex items-center group-hover:translate-x-2 transition-transform">
-                        Voir les taux auto <i class="fas fa-arrow-right ml-2"></i>
-                    </a>
-                </div>
+            <div class="progress-bar">
+                <div class="step completed"><div class="step-circle">✓</div></div>
+                <div class="step active"><div class="step-circle">2</div></div>
+                <div class="step"><div class="step-circle">3</div></div>
+                <div class="step"><div class="step-circle">4</div></div>
+                <div class="step"><div class="step-circle">5</div></div>
+                <div class="step"><div class="step-circle">6</div></div>
+                <div class="step"><div class="step-circle">7</div></div>
+                <div class="step"><div class="step-circle">8</div></div>
             </div>
 
-            <!-- 2. MAISON -->
-            <div class="flex flex-col md:flex-row-reverse items-center mb-24 gap-12 group">
-                <div class="w-full md:w-1/2 h-[400px] photo-frame relative">
-                    <img src="https://i.postimg.cc/Fs9M1nn5/CRE-DIT-A-LA-CONSOMMATION.jpg" alt="Cuisine moderne">
-                    <div class="absolute bottom-6 right-6 bg-white/95 backdrop-blur px-6 py-2 rounded-lg text-brand-blue font-bold shadow-lg">
-                        <i class="fas fa-home mr-2 text-orange-500"></i> Maison
-                    </div>
-                </div>
-                <div class="w-full md:w-1/2 md:pr-10 text-left md:text-right">
-                    <h3 class="text-3xl md:text-4xl font-bold brand-blue mb-4">Un confort repensé</h3>
-                    <div class="w-16 h-1 bg-orange-500 mb-6 md:ml-auto"></div>
-                    <p class="text-gray-600 text-lg mb-6 leading-relaxed">
-                        Envie d'une cuisine moderne ? Financez vos rénovations et vos nouveaux électroménagers pour transformer votre maison.
-                    </p>
-                    <a href="#" class="text-orange-500 font-bold hover:text-orange-600 flex items-center md:justify-end group-hover:-translate-x-2 transition-transform">
-                        <i class="fas fa-arrow-left mr-2 hidden md:inline-block"></i> Découvrir les prêts réno <i class="fas fa-arrow-right ml-2 md:hidden"></i>
-                    </a>
-                </div>
-            </div>
+            <h2>Informations</h2>
+            <p class="desc">Veuillez renseigner vos informations.</p>
 
-            <!-- 3. ÉTUDES -->
-            <div class="flex flex-col md:flex-row items-center mb-24 gap-12 group">
-                <div class="w-full md:w-1/2 h-[400px] photo-frame relative">
-                    <img src="https://i.postimg.cc/PfK6VfKF/CRE-DIT-SCOLAIRE.jpg" alt="Écolière">
-                    <div class="absolute bottom-6 left-6 bg-white/95 backdrop-blur px-6 py-2 rounded-lg text-brand-blue font-bold shadow-lg">
-                        <i class="fas fa-graduation-cap mr-2 text-orange-500"></i> Scolarité
-                    </div>
+            <form>
+                
+                <div class="input-group">
+                    <label>Êtes vous clients ?</label>
+                    <select>
+                        <option>Non, nouveau client</option>
+                        <option>Oui, je suis déjà client</option>
+                    </select>
                 </div>
-                <div class="w-full md:w-1/2 md:pl-10">
-                    <h3 class="text-3xl md:text-4xl font-bold brand-blue mb-4">Investir dans leur sourire</h3>
-                    <div class="w-16 h-1 bg-orange-500 mb-6"></div>
-                    <p class="text-gray-600 text-lg mb-6 leading-relaxed">
-                        Assurez la réussite scolaire de vos enfants. Frais de scolarité, matériel ou activités : offrez-leur le meilleur départ.
-                    </p>
-                    <a href="#" class="text-orange-500 font-bold hover:text-orange-600 flex items-center group-hover:translate-x-2 transition-transform">
-                        Planifier l'avenir <i class="fas fa-arrow-right ml-2"></i>
-                    </a>
-                </div>
-            </div>
 
-            <!-- 4. SENIOR -->
-            <div class="flex flex-col md:flex-row-reverse items-center gap-12 group">
-                <div class="w-full md:w-1/2 h-[400px] photo-frame relative">
-                    <img src="https://i.postimg.cc/jd4J4CXH/RETRAITE-PAISIBLE.jpg" alt="Dame senior souriante">
-                    <div class="absolute bottom-6 right-6 bg-white/95 backdrop-blur px-6 py-2 rounded-lg text-brand-blue font-bold shadow-lg">
-                        <i class="fas fa-heart mr-2 text-orange-500"></i> Personnel
-                    </div>
+                <div class="input-group">
+                    <label>Agence souhaitée</label>
+                    <select>
+                        <option>Cotonou - Siège</option>
+                        <option>Porto-Novo</option>
+                        <option>Parakou</option>
+                    </select>
                 </div>
-                <div class="w-full md:w-1/2 md:pr-10 text-left md:text-right">
-                    <h3 class="text-3xl md:text-4xl font-bold brand-blue mb-4">Profitez de chaque instant</h3>
-                    <div class="w-16 h-1 bg-orange-500 mb-6 md:ml-auto"></div>
-                    <p class="text-gray-600 text-lg mb-6 leading-relaxed">
-                        La retraite est le début d'une nouvelle aventure. Pour un voyage ou un projet personnel, nous sommes à vos côtés.
-                    </p>
-                    <a href="#" class="text-orange-500 font-bold hover:text-orange-600 flex items-center md:justify-end group-hover:-translate-x-2 transition-transform">
-                        <i class="fas fa-arrow-left mr-2 hidden md:inline-block"></i> Voir les prêts personnels <i class="fas fa-arrow-right ml-2 md:hidden"></i>
-                    </a>
+
+                <div class="input-group">
+                    <label>Prénom</label>
+                    <input type="text" placeholder="Ex: Jean">
                 </div>
-            </div>
+
+                <div class="input-group">
+                    <label>Nom de famille</label>
+                    <input type="text" placeholder="Ex: Dupont">
+                </div>
+
+                <div class="input-group">
+                    <label>Email</label>
+                    <input type="email" placeholder="nom@exemple.com">
+                </div>
+
+                <div class="input-group">
+                    <label>Mobile</label>
+                    <input type="tel" placeholder="+229 ...">
+                </div>
+
+                <button type="button" class="btn-submit">Suivant</button>
+            </form>
 
         </div>
-    </section>
-
-    <!-- SECTION SERVICE CLIENT -->
-    <section class="bg-blue-50 py-20">
-        <div class="container mx-auto px-6">
-            <div class="bg-white rounded-3xl p-8 md:p-12 shadow-xl flex flex-col md:flex-row items-center gap-12">
-                <div class="w-full md:w-1/3">
-                    <div class="w-full h-64 md:h-80 photo-frame">
-                        <img src="https://i.postimg.cc/bwdNSvFc/CRE-DIT-E-VE-NEMENT.jpg" alt="Service client professionnel">
-                    </div>
-                </div>
-                <div class="w-full md:w-2/3 text-center md:text-left">
-                    <h2 class="text-3xl font-bold brand-blue mb-4">Un accompagnement humain</h2>
-                    <p class="text-gray-600 text-lg mb-8">
-                        Derrière chaque demande, il y a une personne. Nos conseillers <strong>BSIC</strong> sont là pour vous guider. Pas de robots, juste des solutions adaptées à vos besoins.
-                    </p>
-                    <button class="btn-orange px-10 py-5 rounded-full font-bold shadow-lg">
-                        Parler à un conseiller
-                    </button>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- FOOTER -->
-    <footer class="bg-brand-blue text-white py-12 text-center mt-10">
-        <p class="text-2xl font-bold mb-4">BSIC BÉNIN SA<span class="text-orange-500">.</span></p>
-        <p class="opacity-60 text-sm max-w-lg mx-auto mb-4">Banque Sahelo-Saharienne pour l’Investissement et le Commerce</p>
-        <p class="opacity-40 text-xs">&copy; 2025 BSIC BÉNIN SA. Tous droits réservés.</p>
-    </footer>
+    </div>
 
 </body>
 </html>
