@@ -1,0 +1,2079 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Business Banker - Setup Configuration</title>
+
+    <!-- FONTS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <!-- Material Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+
+    <style>
+        /* ========================================
+           CSS VARIABLES
+           ======================================== */
+        :root {
+            --bsic-blue: #002B49;
+            --bsic-blue-light: #003d66;
+            --bsic-gold: #E5B65D;
+            --bsic-gold-hover: #dca646;
+            --bg-grey: #F4F7F6;
+            --bg-white: #FFFFFF;
+            --text-dark: #1A1A1A;
+            --text-mid: #555;
+            --text-light: #757575;
+            --input-border: #D5DAE0;
+            --border-light: #E8ECF0;
+            --sidebar-width: 280px;
+            --header-height: 60px;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
+            --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
+            --shadow-lg: 0 8px 24px rgba(0,0,0,0.1);
+            --radius-sm: 6px;
+            --radius-md: 10px;
+            --radius-lg: 14px;
+            --transition: 0.2s ease-in-out;
+        }
+
+        /* ========================================
+           RESET & BASE
+           ======================================== */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--bg-grey);
+            color: var(--text-dark);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* ========================================
+           TOP HEADER
+           ======================================== */
+        .top-header {
+            width: 100%;
+            height: var(--header-height);
+            background-color: var(--bsic-blue);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 28px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .logo {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            color: white;
+            font-size: 1.2rem;
+            letter-spacing: 0.5px;
+        }
+
+        .logo span {
+            color: var(--bsic-gold);
+            font-weight: 600;
+            font-size: 0.85rem;
+            margin-left: 8px;
+            padding-left: 12px;
+            border-left: 1px solid rgba(255,255,255,0.25);
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+
+        .header-env {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--bsic-gold);
+            background: rgba(229,182,93,0.12);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .header-avatar {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            background: var(--bsic-gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--bsic-blue);
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            font-size: 0.8rem;
+            cursor: pointer;
+        }
+
+        /* ========================================
+           LAYOUT
+           ======================================== */
+        .layout {
+            display: flex;
+            margin-top: var(--header-height);
+            min-height: calc(100vh - var(--header-height));
+        }
+
+        /* ========================================
+           SIDEBAR
+           ======================================== */
+        .sidebar {
+            width: var(--sidebar-width);
+            background: var(--bg-white);
+            border-right: 1px solid var(--border-light);
+            padding: 28px 0;
+            position: fixed;
+            top: var(--header-height);
+            left: 0;
+            height: calc(100vh - var(--header-height));
+            overflow-y: auto;
+            z-index: 50;
+        }
+
+        .sidebar-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--text-light);
+            padding: 0 24px;
+            margin-bottom: 16px;
+            font-weight: 600;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 12px 24px;
+            cursor: pointer;
+            transition: all var(--transition);
+            border-left: 3px solid transparent;
+            position: relative;
+        }
+
+        .nav-item:hover {
+            background: rgba(0,43,73,0.03);
+        }
+
+        .nav-item.active {
+            background: rgba(229,182,93,0.08);
+            border-left-color: var(--bsic-gold);
+        }
+
+        .nav-item.completed .nav-icon {
+            background: var(--bsic-gold);
+            color: white;
+            border-color: var(--bsic-gold);
+        }
+
+        .nav-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            border: 2px solid var(--border-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            color: var(--text-light);
+            font-weight: 700;
+            font-family: 'Poppins', sans-serif;
+            background: var(--bg-white);
+            flex-shrink: 0;
+            transition: all var(--transition);
+        }
+
+        .nav-item.active .nav-icon {
+            border-color: var(--bsic-gold);
+            color: var(--bsic-blue);
+            box-shadow: 0 0 0 3px rgba(229,182,93,0.15);
+        }
+
+        .nav-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .nav-label {
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.88rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            line-height: 1.2;
+        }
+
+        .nav-item.active .nav-label {
+            color: var(--bsic-blue);
+        }
+
+        .nav-desc {
+            font-size: 0.72rem;
+            color: var(--text-light);
+            line-height: 1.3;
+            margin-top: 1px;
+        }
+
+        .nav-connector {
+            position: absolute;
+            left: 39px;
+            top: 44px;
+            width: 2px;
+            height: 20px;
+            background: var(--border-light);
+        }
+
+        .nav-item.completed .nav-connector {
+            background: var(--bsic-gold);
+        }
+
+        .nav-item:last-child .nav-connector {
+            display: none;
+        }
+
+        .sidebar-footer {
+            margin-top: auto;
+            padding: 20px 24px;
+            border-top: 1px solid var(--border-light);
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--bg-white);
+        }
+
+        .sidebar-footer-info {
+            font-size: 0.72rem;
+            color: var(--text-light);
+            line-height: 1.5;
+        }
+
+        .sidebar-footer-info strong {
+            color: var(--text-mid);
+        }
+
+        /* ========================================
+           MAIN CONTENT
+           ======================================== */
+        .main-content {
+            flex: 1;
+            margin-left: var(--sidebar-width);
+            padding: 32px 40px;
+            max-width: 900px;
+        }
+
+        /* Page Header */
+        .page-header {
+            margin-bottom: 28px;
+        }
+
+        .page-header h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--bsic-blue);
+            margin-bottom: 6px;
+        }
+
+        .page-header p {
+            color: var(--text-light);
+            font-size: 0.92rem;
+            line-height: 1.5;
+        }
+
+        /* ========================================
+           CARD / SECTION
+           ======================================== */
+        .config-card {
+            background: var(--bg-white);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-light);
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+
+        .config-card-header {
+            padding: 18px 24px;
+            border-bottom: 1px solid var(--border-light);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .config-card-header h3 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--bsic-blue);
+        }
+
+        .config-card-header .card-badge {
+            font-size: 0.7rem;
+            background: rgba(229,182,93,0.12);
+            color: var(--bsic-gold-hover);
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .config-card-body {
+            padding: 24px;
+        }
+
+        /* ========================================
+           FORM ELEMENTS
+           ======================================== */
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        .form-row.single {
+            grid-template-columns: 1fr;
+        }
+
+        .form-row.triple {
+            grid-template-columns: 1fr 1fr 1fr;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group label {
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.78rem;
+            font-weight: 500;
+            color: var(--text-mid);
+            margin-bottom: 6px;
+        }
+
+        .form-group label .required {
+            color: #E74C3C;
+            margin-left: 2px;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            height: 38px;
+            padding: 0 12px;
+            border: 1px solid var(--input-border);
+            border-radius: var(--radius-sm);
+            font-size: 0.88rem;
+            font-family: 'Roboto', sans-serif;
+            color: var(--text-dark);
+            background: #FAFBFC;
+            transition: all var(--transition);
+        }
+
+        .form-group textarea {
+            height: 80px;
+            padding: 10px 12px;
+            resize: vertical;
+            line-height: 1.5;
+        }
+
+        .form-group select {
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23002B49%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+            background-repeat: no-repeat;
+            background-position: right 12px center;
+            background-size: 8px auto;
+            padding-right: 32px;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: var(--bsic-gold);
+            background: white;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(229,182,93,0.1);
+        }
+
+        .form-group input::placeholder {
+            color: #B0B8C1;
+        }
+
+        .form-hint {
+            font-size: 0.72rem;
+            color: var(--text-light);
+            margin-top: 4px;
+        }
+
+        /* ========================================
+           TABLE LIST (for roles, statuses, etc.)
+           ======================================== */
+        .config-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .config-table thead th {
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.72rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            color: var(--text-light);
+            text-align: left;
+            padding: 10px 16px;
+            border-bottom: 2px solid var(--border-light);
+            background: #FAFBFC;
+        }
+
+        .config-table tbody tr {
+            border-bottom: 1px solid var(--border-light);
+            transition: background var(--transition);
+        }
+
+        .config-table tbody tr:hover {
+            background: rgba(229,182,93,0.04);
+        }
+
+        .config-table tbody tr:last-child {
+            border-bottom: none;
+        }
+
+        .config-table td {
+            padding: 12px 16px;
+            font-size: 0.88rem;
+            vertical-align: middle;
+        }
+
+        .table-role-name {
+            font-weight: 500;
+            color: var(--bsic-blue);
+        }
+
+        .table-badge {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .badge-active {
+            background: #E8F8EF;
+            color: #27AE60;
+        }
+
+        .badge-inactive {
+            background: #FDF0E6;
+            color: #E67E22;
+        }
+
+        .badge-blue {
+            background: rgba(0,43,73,0.08);
+            color: var(--bsic-blue);
+        }
+
+        .badge-gold {
+            background: rgba(229,182,93,0.15);
+            color: #B8922E;
+        }
+
+        .table-actions {
+            display: flex;
+            gap: 6px;
+        }
+
+        .table-actions button {
+            width: 30px;
+            height: 30px;
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-sm);
+            background: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-light);
+            transition: all var(--transition);
+            font-size: 0.85rem;
+        }
+
+        .table-actions button:hover {
+            border-color: var(--bsic-gold);
+            color: var(--bsic-blue);
+            background: rgba(229,182,93,0.06);
+        }
+
+        .table-actions button.delete:hover {
+            border-color: #E74C3C;
+            color: #E74C3C;
+            background: rgba(231,76,60,0.05);
+        }
+
+        /* ========================================
+           BUTTONS
+           ======================================== */
+        .btn {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            font-size: 0.85rem;
+            border: none;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            transition: all var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 9px 20px;
+        }
+
+        .btn-primary {
+            background: var(--bsic-gold);
+            color: white;
+            box-shadow: 0 2px 8px rgba(229,182,93,0.25);
+        }
+
+        .btn-primary:hover {
+            background: var(--bsic-gold-hover);
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: var(--bsic-blue);
+            border: 1px solid var(--input-border);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--bsic-blue);
+            background: rgba(0,43,73,0.03);
+        }
+
+        .btn-add {
+            background: rgba(0,43,73,0.06);
+            color: var(--bsic-blue);
+            font-size: 0.8rem;
+            padding: 7px 14px;
+        }
+
+        .btn-add:hover {
+            background: rgba(0,43,73,0.1);
+        }
+
+        .btn-icon {
+            font-size: 1rem;
+            line-height: 1;
+        }
+
+        .actions-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 24px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-light);
+        }
+
+        /* ========================================
+           TOGGLE SWITCH
+           ======================================== */
+        .toggle-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 14px 0;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .toggle-row:last-child {
+            border-bottom: none;
+        }
+
+        .toggle-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .toggle-label {
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.88rem;
+            font-weight: 500;
+            color: var(--text-dark);
+        }
+
+        .toggle-desc {
+            font-size: 0.78rem;
+            color: var(--text-light);
+            margin-top: 2px;
+        }
+
+        .toggle-switch {
+            position: relative;
+            width: 44px;
+            height: 24px;
+            flex-shrink: 0;
+        }
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .toggle-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: #D5DAE0;
+            border-radius: 24px;
+            transition: var(--transition);
+        }
+
+        .toggle-slider::before {
+            content: '';
+            position: absolute;
+            height: 18px;
+            width: 18px;
+            left: 3px;
+            bottom: 3px;
+            background: white;
+            border-radius: 50%;
+            transition: var(--transition);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .toggle-switch input:checked + .toggle-slider {
+            background: var(--bsic-gold);
+        }
+
+        .toggle-switch input:checked + .toggle-slider::before {
+            transform: translateX(20px);
+        }
+
+        /* ========================================
+           WORKFLOW STEP CARDS
+           ======================================== */
+        .workflow-steps {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .workflow-step {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 16px;
+            background: #FAFBFC;
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-md);
+            transition: all var(--transition);
+            cursor: grab;
+        }
+
+        .workflow-step:hover {
+            border-color: var(--bsic-gold);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .workflow-step-drag {
+            color: #C0C7CF;
+            cursor: grab;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+
+        .workflow-step-number {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: var(--bsic-blue);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .workflow-step-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .workflow-step-name {
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.88rem;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .workflow-step-meta {
+            font-size: 0.75rem;
+            color: var(--text-light);
+            margin-top: 2px;
+            display: flex;
+            gap: 12px;
+        }
+
+        .workflow-step-meta span {
+            display: flex;
+            align-items: center;
+            gap: 3px;
+        }
+
+        .workflow-step-actions {
+            display: flex;
+            gap: 6px;
+            flex-shrink: 0;
+        }
+
+        .workflow-step-actions button {
+            width: 30px;
+            height: 30px;
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-sm);
+            background: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-light);
+            transition: all var(--transition);
+            font-size: 0.8rem;
+        }
+
+        .workflow-step-actions button:hover {
+            border-color: var(--bsic-gold);
+            color: var(--bsic-blue);
+        }
+
+        .workflow-connector {
+            width: 2px;
+            height: 12px;
+            background: var(--border-light);
+            margin-left: 55px;
+        }
+
+        /* ========================================
+           STATUS COLOR DOT
+           ======================================== */
+        .status-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 6px;
+            flex-shrink: 0;
+        }
+
+        .status-cell {
+            display: flex;
+            align-items: center;
+        }
+
+        /* ========================================
+           FIELD CONFIGURATION ROWS
+           ======================================== */
+        .field-row {
+            display: grid;
+            grid-template-columns: 1fr 140px 100px 80px 60px;
+            gap: 12px;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .field-row:last-child {
+            border-bottom: none;
+        }
+
+        .field-row-header {
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.72rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            color: var(--text-light);
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--border-light);
+        }
+
+        .field-name {
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--text-dark);
+        }
+
+        .field-type {
+            font-size: 0.78rem;
+            color: var(--text-light);
+        }
+
+        .field-section {
+            font-size: 0.78rem;
+            color: var(--bsic-blue);
+            font-weight: 500;
+        }
+
+        .checkbox-centered {
+            display: flex;
+            justify-content: center;
+        }
+
+        .checkbox-centered input[type="checkbox"] {
+            width: 16px;
+            height: 16px;
+            accent-color: var(--bsic-gold);
+            cursor: pointer;
+        }
+
+        /* ========================================
+           EMPTY STATE
+           ======================================== */
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--text-light);
+        }
+
+        .empty-state .material-icons-outlined {
+            font-size: 2.5rem;
+            color: var(--border-light);
+            margin-bottom: 12px;
+        }
+
+        .empty-state p {
+            font-size: 0.88rem;
+            margin-bottom: 16px;
+        }
+
+        /* ========================================
+           TAB SECTION HIDDEN/SHOWN
+           ======================================== */
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* ========================================
+           RESPONSIVE
+           ======================================== */
+        @media (max-width: 900px) {
+            .sidebar { width: 220px; }
+            .main-content { margin-left: 220px; padding: 24px 20px; }
+            :root { --sidebar-width: 220px; }
+            .form-row { grid-template-columns: 1fr; }
+            .form-row.triple { grid-template-columns: 1fr 1fr; }
+        }
+
+        @media (max-width: 600px) {
+            .sidebar {
+                display: none;
+            }
+            .main-content {
+                margin-left: 0;
+                padding: 20px 16px;
+            }
+        }
+
+        /* ========================================
+           SCORING THEME PILL SELECTORS
+           ======================================== */
+        .pill-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 4px;
+        }
+
+        .pill {
+            padding: 6px 16px;
+            border: 1px solid var(--input-border);
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 500;
+            color: var(--text-mid);
+            background: white;
+            cursor: pointer;
+            transition: all var(--transition);
+        }
+
+        .pill:hover {
+            border-color: var(--bsic-gold);
+            color: var(--bsic-blue);
+        }
+
+        .pill.selected {
+            background: var(--bsic-blue);
+            border-color: var(--bsic-blue);
+            color: white;
+        }
+
+        /* ========================================
+           INFO BANNER
+           ======================================== */
+        .info-banner {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 14px 18px;
+            background: rgba(0,43,73,0.04);
+            border-radius: var(--radius-sm);
+            border-left: 3px solid var(--bsic-blue);
+            margin-bottom: 20px;
+        }
+
+        .info-banner .material-icons-outlined {
+            color: var(--bsic-blue);
+            font-size: 1.2rem;
+            margin-top: 1px;
+        }
+
+        .info-banner p {
+            font-size: 0.82rem;
+            color: var(--text-mid);
+            line-height: 1.5;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- ============================================
+         TOP HEADER
+         ============================================ -->
+    <div class="top-header">
+        <div class="header-left">
+            <div class="logo">
+                BUSINESS BANKER <span>Configuration</span>
+            </div>
+        </div>
+        <div class="header-right">
+            <div class="header-env">Setup Mode</div>
+            <div class="header-avatar">AD</div>
+        </div>
+    </div>
+
+    <!-- ============================================
+         LAYOUT: SIDEBAR + MAIN
+         ============================================ -->
+    <div class="layout">
+
+        <!-- SIDEBAR NAVIGATION -->
+        <nav class="sidebar">
+            <div class="sidebar-title">Setup Steps</div>
+
+            <div class="nav-item completed" onclick="showTab('roles')">
+                <div class="nav-icon">&#10003;</div>
+                <div class="nav-text">
+                    <div class="nav-label">Roles</div>
+                    <div class="nav-desc">Define user roles &amp; permissions</div>
+                </div>
+                <div class="nav-connector"></div>
+            </div>
+
+            <div class="nav-item active" onclick="showTab('workflow')">
+                <div class="nav-icon">2</div>
+                <div class="nav-text">
+                    <div class="nav-label">Workflow</div>
+                    <div class="nav-desc">Configure decisioning steps</div>
+                </div>
+                <div class="nav-connector"></div>
+            </div>
+
+            <div class="nav-item" onclick="showTab('statuses')">
+                <div class="nav-icon">3</div>
+                <div class="nav-text">
+                    <div class="nav-label">Statuses</div>
+                    <div class="nav-desc">Application status lifecycle</div>
+                </div>
+                <div class="nav-connector"></div>
+            </div>
+
+            <div class="nav-item" onclick="showTab('client')">
+                <div class="nav-icon">4</div>
+                <div class="nav-text">
+                    <div class="nav-label">Client Profile</div>
+                    <div class="nav-desc">Applicant data &amp; fields</div>
+                </div>
+                <div class="nav-connector"></div>
+            </div>
+
+            <div class="nav-item" onclick="showTab('request')">
+                <div class="nav-icon">5</div>
+                <div class="nav-text">
+                    <div class="nav-label">Loan Request</div>
+                    <div class="nav-desc">Products, amounts &amp; criteria</div>
+                </div>
+            </div>
+
+            <div class="sidebar-footer">
+                <div class="sidebar-footer-info">
+                    <strong>BSIC B&eacute;nin</strong><br>
+                    Business Banker v2.1<br>
+                    No-Code Configurator
+                </div>
+            </div>
+        </nav>
+
+        <!-- ============================================
+             MAIN CONTENT AREA
+             ============================================ -->
+        <div class="main-content">
+
+            <!-- ==========================================
+                 TAB 1: ROLES
+                 ========================================== -->
+            <div id="tab-roles" class="tab-content">
+                <div class="page-header">
+                    <h1>Roles &amp; Permissions</h1>
+                    <p>Define the actors involved in the loan decisioning process. Each role determines what a user can see, do, and approve.</p>
+                </div>
+
+                <div class="info-banner">
+                    <span class="material-icons-outlined">info</span>
+                    <p>Roles are referenced throughout the workflow. Create roles first so you can assign them to workflow steps, decision committees, and approval thresholds.</p>
+                </div>
+
+                <!-- Roles List -->
+                <div class="config-card">
+                    <div class="config-card-header">
+                        <h3>Defined Roles</h3>
+                        <button class="btn btn-add" onclick="return false;">
+                            <span class="btn-icon">+</span> Add Role
+                        </button>
+                    </div>
+                    <div class="config-card-body" style="padding: 0;">
+                        <table class="config-table">
+                            <thead>
+                                <tr>
+                                    <th>Role Name</th>
+                                    <th>Level</th>
+                                    <th>Approval Limit</th>
+                                    <th>Status</th>
+                                    <th style="width:90px">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="table-role-name">Credit Analyst</td>
+                                    <td><span class="table-badge badge-blue">Operator</span></td>
+                                    <td>-</td>
+                                    <td><span class="table-badge badge-active">Active</span></td>
+                                    <td>
+                                        <div class="table-actions">
+                                            <button title="Edit">&#9998;</button>
+                                            <button class="delete" title="Delete">&#10005;</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="table-role-name">Branch Manager</td>
+                                    <td><span class="table-badge badge-blue">Approver</span></td>
+                                    <td>50,000,000 XOF</td>
+                                    <td><span class="table-badge badge-active">Active</span></td>
+                                    <td>
+                                        <div class="table-actions">
+                                            <button title="Edit">&#9998;</button>
+                                            <button class="delete" title="Delete">&#10005;</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="table-role-name">Credit Committee</td>
+                                    <td><span class="table-badge badge-gold">Committee</span></td>
+                                    <td>500,000,000 XOF</td>
+                                    <td><span class="table-badge badge-active">Active</span></td>
+                                    <td>
+                                        <div class="table-actions">
+                                            <button title="Edit">&#9998;</button>
+                                            <button class="delete" title="Delete">&#10005;</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="table-role-name">Risk Officer</td>
+                                    <td><span class="table-badge badge-blue">Reviewer</span></td>
+                                    <td>-</td>
+                                    <td><span class="table-badge badge-active">Active</span></td>
+                                    <td>
+                                        <div class="table-actions">
+                                            <button title="Edit">&#9998;</button>
+                                            <button class="delete" title="Delete">&#10005;</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="table-role-name">Board Committee</td>
+                                    <td><span class="table-badge badge-gold">Committee</span></td>
+                                    <td>Unlimited</td>
+                                    <td><span class="table-badge badge-inactive">Inactive</span></td>
+                                    <td>
+                                        <div class="table-actions">
+                                            <button title="Edit">&#9998;</button>
+                                            <button class="delete" title="Delete">&#10005;</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Role Configuration -->
+                <div class="config-card">
+                    <div class="config-card-header">
+                        <h3>Role Permissions</h3>
+                        <span class="card-badge">Per Role</span>
+                    </div>
+                    <div class="config-card-body">
+                        <div class="toggle-row">
+                            <div class="toggle-info">
+                                <div class="toggle-label">Can view all applications</div>
+                                <div class="toggle-desc">Access to the full pipeline, not just assigned applications</div>
+                            </div>
+                            <label class="toggle-switch">
+                                <input type="checkbox" checked>
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                        <div class="toggle-row">
+                            <div class="toggle-info">
+                                <div class="toggle-label">Can approve / reject</div>
+                                <div class="toggle-desc">Ability to make final decisions on loan applications</div>
+                            </div>
+                            <label class="toggle-switch">
+                                <input type="checkbox">
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                        <div class="toggle-row">
+                            <div class="toggle-info">
+                                <div class="toggle-label">Can override risk score</div>
+                                <div class="toggle-desc">Manually adjust the automated risk assessment</div>
+                            </div>
+                            <label class="toggle-switch">
+                                <input type="checkbox">
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                        <div class="toggle-row">
+                            <div class="toggle-info">
+                                <div class="toggle-label">Can configure system</div>
+                                <div class="toggle-desc">Access to this setup/configuration panel</div>
+                            </div>
+                            <label class="toggle-switch">
+                                <input type="checkbox">
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="actions-bar">
+                    <button class="btn btn-secondary">Back</button>
+                    <button class="btn btn-primary" onclick="showTab('workflow')">Save &amp; Continue</button>
+                </div>
+            </div>
+
+
+            <!-- ==========================================
+                 TAB 2: WORKFLOW
+                 ========================================== -->
+            <div id="tab-workflow" class="tab-content active">
+                <div class="page-header">
+                    <h1>Workflow Configuration</h1>
+                    <p>Define the step-by-step decisioning process from application intake to final payout. Drag steps to reorder them.</p>
+                </div>
+
+                <div class="info-banner">
+                    <span class="material-icons-outlined">info</span>
+                    <p>The workflow engine uses <strong>Cognitive Engineering</strong> to embed senior credit officer expertise into each step. Each step can run automatically or be flagged for human review via the Safety Net.</p>
+                </div>
+
+                <!-- Workflow Steps -->
+                <div class="config-card">
+                    <div class="config-card-header">
+                        <h3>Decisioning Steps</h3>
+                        <button class="btn btn-add" onclick="return false;">
+                            <span class="btn-icon">+</span> Add Step
+                        </button>
+                    </div>
+                    <div class="config-card-body">
+                        <div class="workflow-steps">
+
+                            <div class="workflow-step">
+                                <div class="workflow-step-drag">&#8942;&#8942;</div>
+                                <div class="workflow-step-number">1</div>
+                                <div class="workflow-step-content">
+                                    <div class="workflow-step-name">Application Intake</div>
+                                    <div class="workflow-step-meta">
+                                        <span>Assigned: <strong>Credit Analyst</strong></span>
+                                        <span>SLA: <strong>Instant</strong></span>
+                                        <span>Mode: <strong>Automatic</strong></span>
+                                    </div>
+                                </div>
+                                <div class="workflow-step-actions">
+                                    <button title="Edit">&#9998;</button>
+                                    <button title="Delete">&#10005;</button>
+                                </div>
+                            </div>
+
+                            <div class="workflow-step">
+                                <div class="workflow-step-drag">&#8942;&#8942;</div>
+                                <div class="workflow-step-number">2</div>
+                                <div class="workflow-step-content">
+                                    <div class="workflow-step-name">Smart Validation</div>
+                                    <div class="workflow-step-meta">
+                                        <span>Assigned: <strong>System</strong></span>
+                                        <span>SLA: <strong>Instant</strong></span>
+                                        <span>Mode: <strong>Automatic</strong></span>
+                                    </div>
+                                </div>
+                                <div class="workflow-step-actions">
+                                    <button title="Edit">&#9998;</button>
+                                    <button title="Delete">&#10005;</button>
+                                </div>
+                            </div>
+
+                            <div class="workflow-step">
+                                <div class="workflow-step-drag">&#8942;&#8942;</div>
+                                <div class="workflow-step-number">3</div>
+                                <div class="workflow-step-content">
+                                    <div class="workflow-step-name">Document Analysis</div>
+                                    <div class="workflow-step-meta">
+                                        <span>Assigned: <strong>System + Credit Analyst</strong></span>
+                                        <span>SLA: <strong>2 min</strong></span>
+                                        <span>Mode: <strong>Hybrid</strong></span>
+                                    </div>
+                                </div>
+                                <div class="workflow-step-actions">
+                                    <button title="Edit">&#9998;</button>
+                                    <button title="Delete">&#10005;</button>
+                                </div>
+                            </div>
+
+                            <div class="workflow-step">
+                                <div class="workflow-step-drag">&#8942;&#8942;</div>
+                                <div class="workflow-step-number">4</div>
+                                <div class="workflow-step-content">
+                                    <div class="workflow-step-name">Risk Assessment &amp; Scoring</div>
+                                    <div class="workflow-step-meta">
+                                        <span>Assigned: <strong>Risk Officer</strong></span>
+                                        <span>SLA: <strong>1 min</strong></span>
+                                        <span>Mode: <strong>Automatic</strong></span>
+                                    </div>
+                                </div>
+                                <div class="workflow-step-actions">
+                                    <button title="Edit">&#9998;</button>
+                                    <button title="Delete">&#10005;</button>
+                                </div>
+                            </div>
+
+                            <div class="workflow-step">
+                                <div class="workflow-step-drag">&#8942;&#8942;</div>
+                                <div class="workflow-step-number">5</div>
+                                <div class="workflow-step-content">
+                                    <div class="workflow-step-name">Committee Decision</div>
+                                    <div class="workflow-step-meta">
+                                        <span>Assigned: <strong>Credit Committee</strong></span>
+                                        <span>SLA: <strong>5 min</strong></span>
+                                        <span>Mode: <strong>Manual</strong></span>
+                                    </div>
+                                </div>
+                                <div class="workflow-step-actions">
+                                    <button title="Edit">&#9998;</button>
+                                    <button title="Delete">&#10005;</button>
+                                </div>
+                            </div>
+
+                            <div class="workflow-step">
+                                <div class="workflow-step-drag">&#8942;&#8942;</div>
+                                <div class="workflow-step-number">6</div>
+                                <div class="workflow-step-content">
+                                    <div class="workflow-step-name">Offer &amp; Disbursement</div>
+                                    <div class="workflow-step-meta">
+                                        <span>Assigned: <strong>Branch Manager</strong></span>
+                                        <span>SLA: <strong>24h</strong></span>
+                                        <span>Mode: <strong>Hybrid</strong></span>
+                                    </div>
+                                </div>
+                                <div class="workflow-step-actions">
+                                    <button title="Edit">&#9998;</button>
+                                    <button title="Delete">&#10005;</button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Workflow Settings -->
+                <div class="config-card">
+                    <div class="config-card-header">
+                        <h3>Automation Settings</h3>
+                        <span class="card-badge">Safety Net</span>
+                    </div>
+                    <div class="config-card-body">
+                        <div class="toggle-row">
+                            <div class="toggle-info">
+                                <div class="toggle-label">Enable confidence scoring</div>
+                                <div class="toggle-desc">Automatically flag low-certainty decisions for human review</div>
+                            </div>
+                            <label class="toggle-switch">
+                                <input type="checkbox" checked>
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                        <div class="toggle-row">
+                            <div class="toggle-info">
+                                <div class="toggle-label">Auto-approve high confidence</div>
+                                <div class="toggle-desc">Applications scoring above threshold proceed without manual review</div>
+                            </div>
+                            <label class="toggle-switch">
+                                <input type="checkbox" checked>
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                        <div class="form-row" style="margin-top: 16px;">
+                            <div class="form-group">
+                                <label>Confidence Threshold (%)</label>
+                                <input type="number" value="85" min="0" max="100">
+                                <span class="form-hint">Decisions below this score require human review</span>
+                            </div>
+                            <div class="form-group">
+                                <label>Target Accuracy Level</label>
+                                <select>
+                                    <option selected>Level 3 - 99% Accuracy</option>
+                                    <option>Level 2 - 95% Accuracy</option>
+                                    <option>Level 1 - 90% Accuracy</option>
+                                </select>
+                                <span class="form-hint">Higher accuracy = more human review flags</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="actions-bar">
+                    <button class="btn btn-secondary" onclick="showTab('roles')">Back</button>
+                    <button class="btn btn-primary" onclick="showTab('statuses')">Save &amp; Continue</button>
+                </div>
+            </div>
+
+
+            <!-- ==========================================
+                 TAB 3: STATUSES
+                 ========================================== -->
+            <div id="tab-statuses" class="tab-content">
+                <div class="page-header">
+                    <h1>Application Statuses</h1>
+                    <p>Configure the lifecycle statuses that a loan application can have. Each status maps to a workflow stage.</p>
+                </div>
+
+                <div class="config-card">
+                    <div class="config-card-header">
+                        <h3>Status Definitions</h3>
+                        <button class="btn btn-add" onclick="return false;">
+                            <span class="btn-icon">+</span> Add Status
+                        </button>
+                    </div>
+                    <div class="config-card-body" style="padding: 0;">
+                        <table class="config-table">
+                            <thead>
+                                <tr>
+                                    <th>Status</th>
+                                    <th>Workflow Stage</th>
+                                    <th>Category</th>
+                                    <th>Visible to Client</th>
+                                    <th style="width:90px">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div class="status-cell">
+                                            <span class="status-dot" style="background:#3498DB;"></span>
+                                            <span class="table-role-name">Submitted</span>
+                                        </div>
+                                    </td>
+                                    <td>Application Intake</td>
+                                    <td><span class="table-badge badge-blue">New</span></td>
+                                    <td>Yes</td>
+                                    <td>
+                                        <div class="table-actions">
+                                            <button title="Edit">&#9998;</button>
+                                            <button class="delete" title="Delete">&#10005;</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="status-cell">
+                                            <span class="status-dot" style="background:#F39C12;"></span>
+                                            <span class="table-role-name">Validation Pending</span>
+                                        </div>
+                                    </td>
+                                    <td>Smart Validation</td>
+                                    <td><span class="table-badge badge-gold">In Progress</span></td>
+                                    <td>Yes</td>
+                                    <td>
+                                        <div class="table-actions">
+                                            <button title="Edit">&#9998;</button>
+                                            <button class="delete" title="Delete">&#10005;</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="status-cell">
+                                            <span class="status-dot" style="background:#E74C3C;"></span>
+                                            <span class="table-role-name">Incomplete</span>
+                                        </div>
+                                    </td>
+                                    <td>Smart Validation</td>
+                                    <td><span class="table-badge badge-gold">In Progress</span></td>
+                                    <td>Yes</td>
+                                    <td>
+                                        <div class="table-actions">
+                                            <button title="Edit">&#9998;</button>
+                                            <button class="delete" title="Delete">&#10005;</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="status-cell">
+                                            <span class="status-dot" style="background:#9B59B6;"></span>
+                                            <span class="table-role-name">Under Analysis</span>
+                                        </div>
+                                    </td>
+                                    <td>Document Analysis</td>
+                                    <td><span class="table-badge badge-gold">In Progress</span></td>
+                                    <td>Yes</td>
+                                    <td>
+                                        <div class="table-actions">
+                                            <button title="Edit">&#9998;</button>
+                                            <button class="delete" title="Delete">&#10005;</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="status-cell">
+                                            <span class="status-dot" style="background:#E67E22;"></span>
+                                            <span class="table-role-name">Risk Flagged</span>
+                                        </div>
+                                    </td>
+                                    <td>Risk Assessment</td>
+                                    <td><span class="table-badge badge-gold">In Progress</span></td>
+                                    <td>No</td>
+                                    <td>
+                                        <div class="table-actions">
+                                            <button title="Edit">&#9998;</button>
+                                            <button class="delete" title="Delete">&#10005;</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="status-cell">
+                                            <span class="status-dot" style="background:#1ABC9C;"></span>
+                                            <span class="table-role-name">Committee Review</span>
+                                        </div>
+                                    </td>
+                                    <td>Committee Decision</td>
+                                    <td><span class="table-badge badge-gold">In Progress</span></td>
+                                    <td>Yes</td>
+                                    <td>
+                                        <div class="table-actions">
+                                            <button title="Edit">&#9998;</button>
+                                            <button class="delete" title="Delete">&#10005;</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="status-cell">
+                                            <span class="status-dot" style="background:#27AE60;"></span>
+                                            <span class="table-role-name">Approved</span>
+                                        </div>
+                                    </td>
+                                    <td>Committee Decision</td>
+                                    <td><span class="table-badge badge-active">Final</span></td>
+                                    <td>Yes</td>
+                                    <td>
+                                        <div class="table-actions">
+                                            <button title="Edit">&#9998;</button>
+                                            <button class="delete" title="Delete">&#10005;</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="status-cell">
+                                            <span class="status-dot" style="background:#E74C3C;"></span>
+                                            <span class="table-role-name">Rejected</span>
+                                        </div>
+                                    </td>
+                                    <td>Committee Decision</td>
+                                    <td><span class="table-badge badge-active">Final</span></td>
+                                    <td>Yes</td>
+                                    <td>
+                                        <div class="table-actions">
+                                            <button title="Edit">&#9998;</button>
+                                            <button class="delete" title="Delete">&#10005;</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="status-cell">
+                                            <span class="status-dot" style="background:#2ECC71;"></span>
+                                            <span class="table-role-name">Disbursed</span>
+                                        </div>
+                                    </td>
+                                    <td>Offer &amp; Disbursement</td>
+                                    <td><span class="table-badge badge-active">Final</span></td>
+                                    <td>Yes</td>
+                                    <td>
+                                        <div class="table-actions">
+                                            <button title="Edit">&#9998;</button>
+                                            <button class="delete" title="Delete">&#10005;</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="actions-bar">
+                    <button class="btn btn-secondary" onclick="showTab('workflow')">Back</button>
+                    <button class="btn btn-primary" onclick="showTab('client')">Save &amp; Continue</button>
+                </div>
+            </div>
+
+
+            <!-- ==========================================
+                 TAB 4: CLIENT PROFILE
+                 ========================================== -->
+            <div id="tab-client" class="tab-content">
+                <div class="page-header">
+                    <h1>Client Profile Fields</h1>
+                    <p>Configure what information is collected from the applicant. Fields marked as required will enforce 100% completion via Smart Validation.</p>
+                </div>
+
+                <div class="info-banner">
+                    <span class="material-icons-outlined">info</span>
+                    <p>The self-serve mobile interface uses these fields to build the client application form. Smart Validation rules ensure applications are <strong>100% complete</strong> before submission.</p>
+                </div>
+
+                <!-- Personal Information -->
+                <div class="config-card">
+                    <div class="config-card-header">
+                        <h3>Personal Information</h3>
+                        <button class="btn btn-add" onclick="return false;">
+                            <span class="btn-icon">+</span> Add Field
+                        </button>
+                    </div>
+                    <div class="config-card-body">
+                        <div class="field-row field-row-header">
+                            <div>Field Name</div>
+                            <div>Type</div>
+                            <div>Section</div>
+                            <div style="text-align:center">Required</div>
+                            <div style="text-align:center">Visible</div>
+                        </div>
+                        <div class="field-row">
+                            <div class="field-name">First Name</div>
+                            <div class="field-type">Text</div>
+                            <div class="field-section">Identity</div>
+                            <div class="checkbox-centered"><input type="checkbox" checked></div>
+                            <div class="checkbox-centered"><input type="checkbox" checked></div>
+                        </div>
+                        <div class="field-row">
+                            <div class="field-name">Last Name</div>
+                            <div class="field-type">Text</div>
+                            <div class="field-section">Identity</div>
+                            <div class="checkbox-centered"><input type="checkbox" checked></div>
+                            <div class="checkbox-centered"><input type="checkbox" checked></div>
+                        </div>
+                        <div class="field-row">
+                            <div class="field-name">Date of Birth</div>
+                            <div class="field-type">Date</div>
+                            <div class="field-section">Identity</div>
+                            <div class="checkbox-centered"><input type="checkbox" checked></div>
+                            <div class="checkbox-centered"><input type="checkbox" checked></div>
+                        </div>
+                        <div class="field-row">
+                            <div class="field-name">National ID / Passport</div>
+                            <div class="field-type">Text + Upload</div>
+                            <div class="field-section">Identity</div>
+                            <div class="checkbox-centered"><input type="checkbox" checked></div>
+                            <div class="checkbox-centered"><input type="checkbox" checked></div>
+                        </div>
+                        <div class="field-row">
+                            <div class="field-name">Email Address</div>
+                            <div class="field-type">Email</div>
+                            <div class="field-section">Contact</div>
+                            <div class="checkbox-centered"><input type="checkbox" checked></div>
+                            <div class="checkbox-centered"><input type="checkbox" checked></div>
+                        </div>
+                        <div class="field-row">
+                            <div class="field-name">Phone Number</div>
+                            <div class="field-type">Phone</div>
+                            <div class="field-section">Contact</div>
+                            <div class="checkbox-centered"><input type="checkbox" checked></div>
+                            <div class="checkbox-centered"><input type="checkbox" checked></div>
+                        </div>
+                        <div class="field-row">
+                            <div class="field-name">Physical Address</div>
+                            <div class="field-type">Address</div>
+                            <div class="field-section">Contact</div>
+                            <div class="checkbox-centered"><input type="checkbox" checked></div>
+                            <div class="checkbox-centered"><input type="checkbox" checked></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Business Information -->
+                <div class="config-card">
+                    <div class="config-card-header">
+                        <h3>Business Information</h3>
+                        <button class="btn btn-add" onclick="return false;">
+                            <span class="btn-icon">+</span> Add Field
+                        </button>
+                    </div>
+                    <div class="config-card-body">
+                        <div class="field-row field-row-header">
+                            <div>Field Name</div>
+                            <div>Type</div>
+                            <div>Section</div>
+                            <div style="text-align:center">Required</div>
+                            <div style="text-align:center">Visible</div>
+                        </div>
+                        <div class="field-row">
+                            <div class="field-name">Business Name</div>
+                            <div class="field-type">Text</div>
+                            <div class="field-section">Company</div>
+                            <div class="checkbox-centered"><input type="checkbox" checked></div>
+                            <div class="checkbox-centered"><input type="checkbox" checked></div>
+                        </div>
+                        <div class="field-row">
+                            <div class="field-name">Registration Number (RCCM)</div>
+                            <div class="field-type">Text</div>
+                            <div class="field-section">Company</div>
+                            <div class="checkbox-centered"><input type="checkbox" checked></div>
+                            <div class="checkbox-centered"><input type="checkbox" checked></div>
+                        </div>
+                        <div class="field-row">
+                            <div class="field-name">Tax ID (IFU)</div>
+                            <div class="field-type">Text</div>
+                            <div class="field-section">Company</div>
+                            <div class="checkbox-centered"><input type="checkbox" checked></div>
+                            <div class="checkbox-centered"><input type="checkbox" checked></div>
+                        </div>
+                        <div class="field-row">
+                            <div class="field-name">Industry Sector</div>
+                            <div class="field-type">Dropdown</div>
+                            <div class="field-section">Company</div>
+                            <div class="checkbox-centered"><input type="checkbox" checked></div>
+                            <div class="checkbox-centered"><input type="checkbox" checked></div>
+                        </div>
+                        <div class="field-row">
+                            <div class="field-name">Years in Operation</div>
+                            <div class="field-type">Number</div>
+                            <div class="field-section">Company</div>
+                            <div class="checkbox-centered"><input type="checkbox" checked></div>
+                            <div class="checkbox-centered"><input type="checkbox" checked></div>
+                        </div>
+                        <div class="field-row">
+                            <div class="field-name">Annual Revenue</div>
+                            <div class="field-type">Currency</div>
+                            <div class="field-section">Financial</div>
+                            <div class="checkbox-centered"><input type="checkbox" checked></div>
+                            <div class="checkbox-centered"><input type="checkbox" checked></div>
+                        </div>
+                        <div class="field-row">
+                            <div class="field-name">Number of Employees</div>
+                            <div class="field-type">Number</div>
+                            <div class="field-section">Company</div>
+                            <div class="checkbox-centered"><input type="checkbox"></div>
+                            <div class="checkbox-centered"><input type="checkbox" checked></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Financial Documents -->
+                <div class="config-card">
+                    <div class="config-card-header">
+                        <h3>Required Documents</h3>
+                        <button class="btn btn-add" onclick="return false;">
+                            <span class="btn-icon">+</span> Add Document
+                        </button>
+                    </div>
+                    <div class="config-card-body">
+                        <div class="field-row field-row-header">
+                            <div>Document Name</div>
+                            <div>Format</div>
+                            <div>Category</div>
+                            <div style="text-align:center">Required</div>
+                            <div style="text-align:center">Visible</div>
+                        </div>
+                        <div class="field-row">
+                            <div class="field-name">Financial Statements (3 yrs)</div>
+                            <div class="field-type">PDF / Image</div>
+                            <div class="field-section">Financial</div>
+                            <div class="checkbox-centered"><input type="checkbox" checked></div>
+                            <div class="checkbox-centered"><input type="checkbox" checked></div>
+                        </div>
+                        <div class="field-row">
+                            <div class="field-name">Bank Statements (6 months)</div>
+                            <div class="field-type">PDF</div>
+                            <div class="field-section">Financial</div>
+                            <div class="checkbox-centered"><input type="checkbox" checked></div>
+                            <div class="checkbox-centered"><input type="checkbox" checked></div>
+                        </div>
+                        <div class="field-row">
+                            <div class="field-name">Business Plan</div>
+                            <div class="field-type">PDF / DOC</div>
+                            <div class="field-section">Company</div>
+                            <div class="checkbox-centered"><input type="checkbox"></div>
+                            <div class="checkbox-centered"><input type="checkbox" checked></div>
+                        </div>
+                        <div class="field-row">
+                            <div class="field-name">Collateral Documentation</div>
+                            <div class="field-type">PDF / Image</div>
+                            <div class="field-section">Security</div>
+                            <div class="checkbox-centered"><input type="checkbox"></div>
+                            <div class="checkbox-centered"><input type="checkbox" checked></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="actions-bar">
+                    <button class="btn btn-secondary" onclick="showTab('statuses')">Back</button>
+                    <button class="btn btn-primary" onclick="showTab('request')">Save &amp; Continue</button>
+                </div>
+            </div>
+
+
+            <!-- ==========================================
+                 TAB 5: LOAN REQUEST
+                 ========================================== -->
+            <div id="tab-request" class="tab-content">
+                <div class="page-header">
+                    <h1>Loan Request Configuration</h1>
+                    <p>Define the loan products, amount ranges, terms, and scoring criteria used by the decision engine.</p>
+                </div>
+
+                <!-- Loan Products -->
+                <div class="config-card">
+                    <div class="config-card-header">
+                        <h3>Loan Products</h3>
+                        <button class="btn btn-add" onclick="return false;">
+                            <span class="btn-icon">+</span> Add Product
+                        </button>
+                    </div>
+                    <div class="config-card-body" style="padding: 0;">
+                        <table class="config-table">
+                            <thead>
+                                <tr>
+                                    <th>Product Name</th>
+                                    <th>Segment</th>
+                                    <th>Min Amount</th>
+                                    <th>Max Amount</th>
+                                    <th>Max Term</th>
+                                    <th style="width:90px">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="table-role-name">SME Growth Loan</td>
+                                    <td><span class="table-badge badge-blue">SME</span></td>
+                                    <td>5,000,000 XOF</td>
+                                    <td>500,000,000 XOF</td>
+                                    <td>60 months</td>
+                                    <td>
+                                        <div class="table-actions">
+                                            <button title="Edit">&#9998;</button>
+                                            <button class="delete" title="Delete">&#10005;</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="table-role-name">Micro-Credit</td>
+                                    <td><span class="table-badge badge-gold">Micro</span></td>
+                                    <td>100,000 XOF</td>
+                                    <td>5,000,000 XOF</td>
+                                    <td>24 months</td>
+                                    <td>
+                                        <div class="table-actions">
+                                            <button title="Edit">&#9998;</button>
+                                            <button class="delete" title="Delete">&#10005;</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="table-role-name">Individual Loan</td>
+                                    <td><span class="table-badge badge-blue">Individual</span></td>
+                                    <td>500,000 XOF</td>
+                                    <td>50,000,000 XOF</td>
+                                    <td>36 months</td>
+                                    <td>
+                                        <div class="table-actions">
+                                            <button title="Edit">&#9998;</button>
+                                            <button class="delete" title="Delete">&#10005;</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="table-role-name">Equipment Finance</td>
+                                    <td><span class="table-badge badge-blue">SME</span></td>
+                                    <td>2,000,000 XOF</td>
+                                    <td>200,000,000 XOF</td>
+                                    <td>48 months</td>
+                                    <td>
+                                        <div class="table-actions">
+                                            <button title="Edit">&#9998;</button>
+                                            <button class="delete" title="Delete">&#10005;</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Acceptance Criteria -->
+                <div class="config-card">
+                    <div class="config-card-header">
+                        <h3>Minimum Acceptance Criteria</h3>
+                        <span class="card-badge">Decision Engine</span>
+                    </div>
+                    <div class="config-card-body">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Minimum Years in Business <span class="required">*</span></label>
+                                <input type="number" value="2">
+                            </div>
+                            <div class="form-group">
+                                <label>Minimum Annual Revenue (XOF) <span class="required">*</span></label>
+                                <input type="text" value="10,000,000">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Max Debt-to-Income Ratio (%)</label>
+                                <input type="number" value="40">
+                            </div>
+                            <div class="form-group">
+                                <label>Minimum Credit Score</label>
+                                <input type="number" value="350">
+                                <span class="form-hint">Based on local credit bureau data</span>
+                            </div>
+                        </div>
+                        <div class="form-row single">
+                            <div class="form-group">
+                                <label>Excluded Sectors</label>
+                                <input type="text" placeholder="e.g. Gambling, Weapons, Mining (comma-separated)">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Risk Scoring Themes -->
+                <div class="config-card">
+                    <div class="config-card-header">
+                        <h3>Risk Scoring Themes</h3>
+                        <span class="card-badge">Risk Models</span>
+                    </div>
+                    <div class="config-card-body">
+                        <p style="font-size: 0.85rem; color: var(--text-mid); margin-bottom: 14px;">Select the scoring dimensions used to evaluate probability of default.</p>
+                        <div class="pill-group">
+                            <span class="pill selected">Financial Ratios</span>
+                            <span class="pill selected">Cash Flow Analysis</span>
+                            <span class="pill selected">Industry Risk</span>
+                            <span class="pill selected">Management Quality</span>
+                            <span class="pill">Collateral Coverage</span>
+                            <span class="pill selected">Repayment History</span>
+                            <span class="pill">Market Conditions</span>
+                            <span class="pill">Geographic Risk</span>
+                            <span class="pill selected">Business Maturity</span>
+                        </div>
+
+                        <div class="form-row" style="margin-top: 20px;">
+                            <div class="form-group">
+                                <label>Default Risk Model</label>
+                                <select>
+                                    <option selected>Probability of Default (PD) - SME</option>
+                                    <option>Probability of Default (PD) - Individual</option>
+                                    <option>Probability of Default (PD) - Micro</option>
+                                    <option>Custom Model</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Scoring Scale</label>
+                                <select>
+                                    <option>1 - 100</option>
+                                    <option selected>1 - 1000</option>
+                                    <option>A - F Grade</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Integration -->
+                <div class="config-card">
+                    <div class="config-card-header">
+                        <h3>Integration &amp; Deployment</h3>
+                        <span class="card-badge">Plug &amp; Play</span>
+                    </div>
+                    <div class="config-card-body">
+                        <div class="toggle-row">
+                            <div class="toggle-info">
+                                <div class="toggle-label">Connect to Core Banking System</div>
+                                <div class="toggle-desc">API integration with existing legacy system</div>
+                            </div>
+                            <label class="toggle-switch">
+                                <input type="checkbox" checked>
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                        <div class="toggle-row">
+                            <div class="toggle-info">
+                                <div class="toggle-label">Enable Mobile Self-Serve</div>
+                                <div class="toggle-desc">Allow clients to submit applications via mobile interface</div>
+                            </div>
+                            <label class="toggle-switch">
+                                <input type="checkbox" checked>
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                        <div class="toggle-row">
+                            <div class="toggle-info">
+                                <div class="toggle-label">Private Cloud Deployment</div>
+                                <div class="toggle-desc">SOC 2 compliant - models run locally, no public LLM exposure</div>
+                            </div>
+                            <label class="toggle-switch">
+                                <input type="checkbox" checked>
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                        <div class="form-row" style="margin-top: 16px;">
+                            <div class="form-group">
+                                <label>API Endpoint URL</label>
+                                <input type="text" placeholder="https://core.bsic.bj/api/v2">
+                            </div>
+                            <div class="form-group">
+                                <label>Environment</label>
+                                <select>
+                                    <option>Sandbox (Testing)</option>
+                                    <option selected>Staging</option>
+                                    <option>Production</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="actions-bar">
+                    <button class="btn btn-secondary" onclick="showTab('client')">Back</button>
+                    <button class="btn btn-primary" style="background: var(--bsic-blue); box-shadow: 0 2px 8px rgba(0,43,73,0.25);">
+                        Activate Configuration
+                    </button>
+                </div>
+            </div>
+
+        </div><!-- /main-content -->
+
+    </div><!-- /layout -->
+
+    <!-- ============================================
+         JAVASCRIPT: Tab Navigation
+         ============================================ -->
+    <script>
+        function showTab(tabId) {
+            // Hide all tabs
+            document.querySelectorAll('.tab-content').forEach(function(tab) {
+                tab.classList.remove('active');
+            });
+
+            // Show selected tab
+            var target = document.getElementById('tab-' + tabId);
+            if (target) {
+                target.classList.add('active');
+            }
+
+            // Update sidebar navigation
+            var tabs = ['roles', 'workflow', 'statuses', 'client', 'request'];
+            var currentIndex = tabs.indexOf(tabId);
+
+            document.querySelectorAll('.nav-item').forEach(function(item, index) {
+                item.classList.remove('active', 'completed');
+                if (index < currentIndex) {
+                    item.classList.add('completed');
+                } else if (index === currentIndex) {
+                    item.classList.add('active');
+                }
+            });
+
+            // Update nav icons
+            document.querySelectorAll('.nav-item').forEach(function(item, index) {
+                var icon = item.querySelector('.nav-icon');
+                if (index < currentIndex) {
+                    icon.innerHTML = '&#10003;';
+                } else {
+                    icon.innerHTML = (index + 1).toString();
+                }
+            });
+
+            // Scroll to top
+            window.scrollTo(0, 0);
+        }
+
+        // Pill selection toggle
+        document.querySelectorAll('.pill').forEach(function(pill) {
+            pill.addEventListener('click', function() {
+                this.classList.toggle('selected');
+            });
+        });
+    </script>
+
+</body>
+</html>
