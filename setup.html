@@ -1488,8 +1488,7 @@
                                 <tr>
                                     <th>Role Name</th>
                                     <th>Level</th>
-                                    <th>Approval Limit</th>
-                                    <th>Status</th>
+                                    <th>Permission</th>
                                     <th style="width:90px">Actions</th>
                                 </tr>
                             </thead>
@@ -1497,8 +1496,7 @@
                                 <tr>
                                     <td class="table-role-name">Credit Analyst</td>
                                     <td><span class="table-badge badge-blue">Operator</span></td>
-                                    <td>-</td>
-                                    <td><span class="table-badge badge-active">Active</span></td>
+                                    <td>View, Edit, Submit</td>
                                     <td>
                                         <div class="table-actions">
                                             <button title="Edit">&#9998;</button>
@@ -1509,8 +1507,7 @@
                                 <tr>
                                     <td class="table-role-name">Branch Manager</td>
                                     <td><span class="table-badge badge-blue">Approver</span></td>
-                                    <td>50,000,000 XOF</td>
-                                    <td><span class="table-badge badge-active">Active</span></td>
+                                    <td>View, Approve, Reject</td>
                                     <td>
                                         <div class="table-actions">
                                             <button title="Edit">&#9998;</button>
@@ -1521,8 +1518,7 @@
                                 <tr>
                                     <td class="table-role-name">Credit Committee</td>
                                     <td><span class="table-badge badge-gold">Committee</span></td>
-                                    <td>500,000,000 XOF</td>
-                                    <td><span class="table-badge badge-active">Active</span></td>
+                                    <td>View, Approve, Reject, Override</td>
                                     <td>
                                         <div class="table-actions">
                                             <button title="Edit">&#9998;</button>
@@ -1533,8 +1529,7 @@
                                 <tr>
                                     <td class="table-role-name">Risk Officer</td>
                                     <td><span class="table-badge badge-blue">Reviewer</span></td>
-                                    <td>-</td>
-                                    <td><span class="table-badge badge-active">Active</span></td>
+                                    <td>View, Score, Flag</td>
                                     <td>
                                         <div class="table-actions">
                                             <button title="Edit">&#9998;</button>
@@ -1545,8 +1540,7 @@
                                 <tr>
                                     <td class="table-role-name">Board Committee</td>
                                     <td><span class="table-badge badge-gold">Committee</span></td>
-                                    <td>Unlimited</td>
-                                    <td><span class="table-badge badge-inactive">Inactive</span></td>
+                                    <td>Full Access</td>
                                     <td>
                                         <div class="table-actions">
                                             <button title="Edit">&#9998;</button>
@@ -1952,164 +1946,54 @@
                                 <tr>
                                     <th>Status</th>
                                     <th>Workflow Stage</th>
-                                    <th>Category</th>
-                                    <th>Visible to Client</th>
                                     <th style="width:90px">Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>
-                                        <div class="status-cell">
-                                            <span class="status-dot" style="background:#3498DB;"></span>
-                                            <span class="table-role-name">Submitted</span>
-                                        </div>
-                                    </td>
+                                    <td><div class="status-cell"><span class="status-dot" style="background:#3498DB;"></span><span class="table-role-name">Submitted</span></div></td>
                                     <td>Application Intake</td>
-                                    <td><span class="table-badge badge-blue">New</span></td>
-                                    <td>Yes</td>
-                                    <td>
-                                        <div class="table-actions">
-                                            <button title="Edit">&#9998;</button>
-                                            <button class="delete" title="Delete">&#10005;</button>
-                                        </div>
-                                    </td>
+                                    <td><div class="table-actions"><button title="Edit">&#9998;</button><button class="delete" title="Delete">&#10005;</button></div></td>
                                 </tr>
                                 <tr>
-                                    <td>
-                                        <div class="status-cell">
-                                            <span class="status-dot" style="background:#F39C12;"></span>
-                                            <span class="table-role-name">Validation Pending</span>
-                                        </div>
-                                    </td>
+                                    <td><div class="status-cell"><span class="status-dot" style="background:#F39C12;"></span><span class="table-role-name">Validation Pending</span></div></td>
                                     <td>Smart Validation</td>
-                                    <td><span class="table-badge badge-gold">In Progress</span></td>
-                                    <td>Yes</td>
-                                    <td>
-                                        <div class="table-actions">
-                                            <button title="Edit">&#9998;</button>
-                                            <button class="delete" title="Delete">&#10005;</button>
-                                        </div>
-                                    </td>
+                                    <td><div class="table-actions"><button title="Edit">&#9998;</button><button class="delete" title="Delete">&#10005;</button></div></td>
                                 </tr>
                                 <tr>
-                                    <td>
-                                        <div class="status-cell">
-                                            <span class="status-dot" style="background:#E74C3C;"></span>
-                                            <span class="table-role-name">Incomplete</span>
-                                        </div>
-                                    </td>
+                                    <td><div class="status-cell"><span class="status-dot" style="background:#E74C3C;"></span><span class="table-role-name">Incomplete</span></div></td>
                                     <td>Smart Validation</td>
-                                    <td><span class="table-badge badge-gold">In Progress</span></td>
-                                    <td>Yes</td>
-                                    <td>
-                                        <div class="table-actions">
-                                            <button title="Edit">&#9998;</button>
-                                            <button class="delete" title="Delete">&#10005;</button>
-                                        </div>
-                                    </td>
+                                    <td><div class="table-actions"><button title="Edit">&#9998;</button><button class="delete" title="Delete">&#10005;</button></div></td>
                                 </tr>
                                 <tr>
-                                    <td>
-                                        <div class="status-cell">
-                                            <span class="status-dot" style="background:#9B59B6;"></span>
-                                            <span class="table-role-name">Under Analysis</span>
-                                        </div>
-                                    </td>
+                                    <td><div class="status-cell"><span class="status-dot" style="background:#9B59B6;"></span><span class="table-role-name">Under Analysis</span></div></td>
                                     <td>Document Analysis</td>
-                                    <td><span class="table-badge badge-gold">In Progress</span></td>
-                                    <td>Yes</td>
-                                    <td>
-                                        <div class="table-actions">
-                                            <button title="Edit">&#9998;</button>
-                                            <button class="delete" title="Delete">&#10005;</button>
-                                        </div>
-                                    </td>
+                                    <td><div class="table-actions"><button title="Edit">&#9998;</button><button class="delete" title="Delete">&#10005;</button></div></td>
                                 </tr>
                                 <tr>
-                                    <td>
-                                        <div class="status-cell">
-                                            <span class="status-dot" style="background:#E67E22;"></span>
-                                            <span class="table-role-name">Risk Flagged</span>
-                                        </div>
-                                    </td>
+                                    <td><div class="status-cell"><span class="status-dot" style="background:#E67E22;"></span><span class="table-role-name">Risk Flagged</span></div></td>
                                     <td>Risk Assessment</td>
-                                    <td><span class="table-badge badge-gold">In Progress</span></td>
-                                    <td>No</td>
-                                    <td>
-                                        <div class="table-actions">
-                                            <button title="Edit">&#9998;</button>
-                                            <button class="delete" title="Delete">&#10005;</button>
-                                        </div>
-                                    </td>
+                                    <td><div class="table-actions"><button title="Edit">&#9998;</button><button class="delete" title="Delete">&#10005;</button></div></td>
                                 </tr>
                                 <tr>
-                                    <td>
-                                        <div class="status-cell">
-                                            <span class="status-dot" style="background:#1ABC9C;"></span>
-                                            <span class="table-role-name">Committee Review</span>
-                                        </div>
-                                    </td>
+                                    <td><div class="status-cell"><span class="status-dot" style="background:#1ABC9C;"></span><span class="table-role-name">Committee Review</span></div></td>
                                     <td>Committee Decision</td>
-                                    <td><span class="table-badge badge-gold">In Progress</span></td>
-                                    <td>Yes</td>
-                                    <td>
-                                        <div class="table-actions">
-                                            <button title="Edit">&#9998;</button>
-                                            <button class="delete" title="Delete">&#10005;</button>
-                                        </div>
-                                    </td>
+                                    <td><div class="table-actions"><button title="Edit">&#9998;</button><button class="delete" title="Delete">&#10005;</button></div></td>
                                 </tr>
                                 <tr>
-                                    <td>
-                                        <div class="status-cell">
-                                            <span class="status-dot" style="background:#27AE60;"></span>
-                                            <span class="table-role-name">Approved</span>
-                                        </div>
-                                    </td>
+                                    <td><div class="status-cell"><span class="status-dot" style="background:#27AE60;"></span><span class="table-role-name">Approved</span></div></td>
                                     <td>Committee Decision</td>
-                                    <td><span class="table-badge badge-active">Final</span></td>
-                                    <td>Yes</td>
-                                    <td>
-                                        <div class="table-actions">
-                                            <button title="Edit">&#9998;</button>
-                                            <button class="delete" title="Delete">&#10005;</button>
-                                        </div>
-                                    </td>
+                                    <td><div class="table-actions"><button title="Edit">&#9998;</button><button class="delete" title="Delete">&#10005;</button></div></td>
                                 </tr>
                                 <tr>
-                                    <td>
-                                        <div class="status-cell">
-                                            <span class="status-dot" style="background:#E74C3C;"></span>
-                                            <span class="table-role-name">Rejected</span>
-                                        </div>
-                                    </td>
+                                    <td><div class="status-cell"><span class="status-dot" style="background:#E74C3C;"></span><span class="table-role-name">Rejected</span></div></td>
                                     <td>Committee Decision</td>
-                                    <td><span class="table-badge badge-active">Final</span></td>
-                                    <td>Yes</td>
-                                    <td>
-                                        <div class="table-actions">
-                                            <button title="Edit">&#9998;</button>
-                                            <button class="delete" title="Delete">&#10005;</button>
-                                        </div>
-                                    </td>
+                                    <td><div class="table-actions"><button title="Edit">&#9998;</button><button class="delete" title="Delete">&#10005;</button></div></td>
                                 </tr>
                                 <tr>
-                                    <td>
-                                        <div class="status-cell">
-                                            <span class="status-dot" style="background:#2ECC71;"></span>
-                                            <span class="table-role-name">Disbursed</span>
-                                        </div>
-                                    </td>
+                                    <td><div class="status-cell"><span class="status-dot" style="background:#2ECC71;"></span><span class="table-role-name">Disbursed</span></div></td>
                                     <td>Offer &amp; Disbursement</td>
-                                    <td><span class="table-badge badge-active">Final</span></td>
-                                    <td>Yes</td>
-                                    <td>
-                                        <div class="table-actions">
-                                            <button title="Edit">&#9998;</button>
-                                            <button class="delete" title="Delete">&#10005;</button>
-                                        </div>
-                                    </td>
+                                    <td><div class="table-actions"><button title="Edit">&#9998;</button><button class="delete" title="Delete">&#10005;</button></div></td>
                                 </tr>
                             </tbody>
                         </table>
