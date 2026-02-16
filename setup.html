@@ -1374,6 +1374,403 @@
             flex-shrink: 0;
         }
 
+        /* ========================================
+           LOAN REQUEST: Section Tabs & Data Grid
+           ======================================== */
+        .req-section-tabs {
+            display: flex;
+            gap: 0;
+            overflow-x: auto;
+            flex: 1;
+        }
+
+        .req-tab {
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.78rem;
+            font-weight: 500;
+            color: var(--text-light);
+            background: none;
+            border: none;
+            border-bottom: 2px solid transparent;
+            padding: 14px 18px;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all var(--transition);
+        }
+
+        .req-tab:hover { color: var(--bsic-blue); }
+
+        .req-tab.active {
+            color: var(--bsic-blue);
+            font-weight: 600;
+            border-bottom-color: var(--bsic-gold);
+        }
+
+        .req-section-config {
+            display: flex;
+            gap: 14px;
+            padding: 12px 20px;
+            background: #FAFBFC;
+            border-bottom: 1px solid var(--border-light);
+            align-items: end;
+            flex-wrap: wrap;
+        }
+
+        .req-grid-wrap {
+            overflow-x: auto;
+        }
+
+        .req-grid {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.78rem;
+            min-width: 900px;
+        }
+
+        .req-grid thead th {
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.65rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            color: var(--text-light);
+            padding: 8px 6px;
+            text-align: left;
+            border-bottom: 2px solid var(--border-light);
+            background: #FAFBFC;
+            white-space: nowrap;
+            position: sticky;
+            top: 0;
+        }
+
+        .req-grid tbody tr {
+            border-bottom: 1px solid var(--border-light);
+            transition: background var(--transition);
+        }
+
+        .req-grid tbody tr:hover {
+            background: rgba(229,182,93,0.04);
+        }
+
+        .req-grid td {
+            padding: 4px 4px;
+            vertical-align: middle;
+        }
+
+        .req-grid-num {
+            text-align: center;
+            font-weight: 600;
+            color: var(--text-light);
+            font-size: 0.72rem;
+        }
+
+        .req-grid-input {
+            width: 100%;
+            height: 30px;
+            padding: 0 8px;
+            border: 1px solid transparent;
+            border-radius: 4px;
+            font-size: 0.78rem;
+            font-family: 'Roboto', sans-serif;
+            color: var(--text-dark);
+            background: transparent;
+            transition: all var(--transition);
+        }
+
+        .req-grid-input:hover {
+            border-color: var(--input-border);
+            background: white;
+        }
+
+        .req-grid-input:focus {
+            border-color: var(--bsic-gold);
+            background: white;
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(229,182,93,0.1);
+        }
+
+        .req-grid-var {
+            font-family: 'Roboto Mono', 'Courier New', monospace;
+            font-size: 0.72rem;
+            color: var(--text-light);
+        }
+
+        .req-grid-select {
+            width: 100%;
+            height: 30px;
+            padding: 0 22px 0 8px;
+            border: 1px solid transparent;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-family: 'Roboto', sans-serif;
+            color: var(--bsic-blue);
+            background: transparent;
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23002B49%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+            background-repeat: no-repeat;
+            background-position: right 6px center;
+            background-size: 7px auto;
+            cursor: pointer;
+            transition: all var(--transition);
+        }
+
+        .req-grid-select:hover {
+            border-color: var(--input-border);
+            background-color: white;
+        }
+
+        .req-grid-select:focus {
+            border-color: var(--bsic-gold);
+            background-color: white;
+            outline: none;
+        }
+
+        .req-grid-chk {
+            text-align: center;
+        }
+
+        .req-grid-chk input[type="checkbox"] {
+            width: 15px;
+            height: 15px;
+            accent-color: var(--bsic-gold);
+            cursor: pointer;
+        }
+
+        .req-reorder {
+            background: none;
+            border: none;
+            cursor: grab;
+            color: #C0C7CF;
+            font-size: 0.9rem;
+            padding: 4px;
+            border-radius: 3px;
+            transition: color var(--transition);
+        }
+
+        .req-reorder:hover {
+            color: var(--bsic-blue);
+        }
+
+        /* ========================================
+           DARK MODE THEME (Claude Code style)
+           ======================================== */
+        body.dark-mode {
+            --bsic-blue: #0D1117;
+            --bsic-blue-light: #161B22;
+            --bg-grey: #010409;
+            --bg-white: #0D1117;
+            --text-dark: #E6EDF3;
+            --text-mid: #8B949E;
+            --text-light: #6E7681;
+            --input-border: #30363D;
+            --border-light: #21262D;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.3);
+            --shadow-md: 0 4px 12px rgba(0,0,0,0.4);
+            --shadow-lg: 0 8px 24px rgba(0,0,0,0.5);
+        }
+
+        body.dark-mode .top-header {
+            background: #010409;
+            border-bottom: 1px solid #21262D;
+            box-shadow: none;
+        }
+
+        body.dark-mode .sidebar {
+            background: #0D1117;
+            border-right-color: #21262D;
+        }
+
+        body.dark-mode .sidebar-footer {
+            background: #0D1117;
+            border-top-color: #21262D;
+        }
+
+        body.dark-mode .config-card {
+            background: #0D1117;
+            border-color: #21262D;
+        }
+
+        body.dark-mode .config-card-header {
+            border-bottom-color: #21262D;
+        }
+
+        body.dark-mode .config-table thead th {
+            background: #161B22;
+            border-bottom-color: #30363D;
+            color: #8B949E;
+        }
+
+        body.dark-mode .config-table tbody tr {
+            border-bottom-color: #21262D;
+        }
+
+        body.dark-mode .config-table tbody tr:hover {
+            background: rgba(229,182,93,0.04);
+        }
+
+        body.dark-mode .table-role-name { color: #E6EDF3; }
+
+        body.dark-mode .table-badge.badge-blue { background: rgba(56,139,253,0.12); color: #58A6FF; }
+        body.dark-mode .table-badge.badge-gold { background: rgba(229,182,93,0.12); color: #E5B65D; }
+        body.dark-mode .table-badge.badge-active { background: rgba(63,185,80,0.12); color: #3FB950; }
+        body.dark-mode .table-badge.badge-inactive { background: rgba(229,182,93,0.1); color: #D29922; }
+
+        body.dark-mode .table-actions button {
+            border-color: #30363D;
+            background: #161B22;
+            color: #8B949E;
+        }
+
+        body.dark-mode .table-actions button:hover {
+            border-color: var(--bsic-gold);
+            color: #E6EDF3;
+            background: #21262D;
+        }
+
+        body.dark-mode .form-group input,
+        body.dark-mode .form-group select,
+        body.dark-mode .form-group textarea {
+            background: #161B22;
+            border-color: #30363D;
+            color: #E6EDF3;
+        }
+
+        body.dark-mode .form-group input:focus,
+        body.dark-mode .form-group select:focus,
+        body.dark-mode .form-group textarea:focus {
+            background: #0D1117;
+            border-color: var(--bsic-gold);
+        }
+
+        body.dark-mode .form-group input::placeholder {
+            color: #484F58;
+        }
+
+        body.dark-mode .toggle-row { border-bottom-color: #21262D; }
+        body.dark-mode .toggle-slider { background: #30363D; }
+
+        body.dark-mode .info-banner {
+            background: rgba(229,182,93,0.06);
+            border-left-color: var(--bsic-gold);
+        }
+        body.dark-mode .info-banner .material-icons-outlined { color: var(--bsic-gold); }
+        body.dark-mode .info-banner p { color: #8B949E; }
+
+        body.dark-mode .btn-secondary {
+            background: #161B22;
+            border-color: #30363D;
+            color: #E6EDF3;
+        }
+        body.dark-mode .btn-secondary:hover {
+            border-color: #8B949E;
+            background: #21262D;
+        }
+
+        body.dark-mode .btn-add {
+            background: rgba(229,182,93,0.08);
+            color: var(--bsic-gold);
+        }
+        body.dark-mode .btn-add:hover { background: rgba(229,182,93,0.14); }
+
+        body.dark-mode .actions-bar { border-top-color: #21262D; }
+
+        body.dark-mode .page-header h1 { color: #E6EDF3; }
+        body.dark-mode .page-header p { color: #8B949E; }
+
+        body.dark-mode h2, body.dark-mode h3,
+        body.dark-mode .config-card-header h3 { color: #E6EDF3; }
+
+        body.dark-mode .nav-item:hover { background: rgba(229,182,93,0.04); }
+        body.dark-mode .nav-item.active { background: rgba(229,182,93,0.08); }
+        body.dark-mode .nav-label { color: #C9D1D9; }
+        body.dark-mode .nav-item.active .nav-label { color: #E6EDF3; }
+        body.dark-mode .nav-desc { color: #6E7681; }
+        body.dark-mode .nav-icon { background: #161B22; border-color: #30363D; color: #6E7681; }
+        body.dark-mode .nav-item.active .nav-icon { border-color: var(--bsic-gold); color: var(--bsic-gold); }
+        body.dark-mode .nav-connector { background: #21262D; }
+
+        body.dark-mode .toggle-label { color: #E6EDF3; }
+        body.dark-mode .toggle-desc { color: #6E7681; }
+
+        body.dark-mode .card-badge { background: rgba(229,182,93,0.1); color: #E5B65D; }
+
+        body.dark-mode .pill { background: #161B22; border-color: #30363D; color: #8B949E; }
+        body.dark-mode .pill:hover { border-color: var(--bsic-gold); color: #E6EDF3; }
+        body.dark-mode .pill.selected { background: var(--bsic-gold); border-color: var(--bsic-gold); color: #0D1117; }
+
+        body.dark-mode .status-cell .table-role-name { color: #E6EDF3; }
+
+        /* Dark mode: Workflow canvas */
+        body.dark-mode .wf-canvas-wrap {
+            background-color: #0D1117;
+            background-image: radial-gradient(circle, #21262D 1px, transparent 1px);
+        }
+        body.dark-mode .wf-toolbar { background: #161B22; border-bottom-color: #21262D; }
+        body.dark-mode .wf-tool-btn { background: #0D1117; border-color: #30363D; color: #8B949E; }
+        body.dark-mode .wf-tool-btn:hover { border-color: var(--bsic-gold); color: #E6EDF3; }
+        body.dark-mode .wf-legend { background: #0D1117; border-top-color: #21262D; }
+        body.dark-mode .wf-node-task { background: #161B22; border-color: #30363D; }
+        body.dark-mode .wf-node-task:hover { border-color: var(--bsic-gold); }
+        body.dark-mode .wf-node-body .node-meta { color: #6E7681; }
+        body.dark-mode .wf-node-body .node-meta strong { color: #8B949E; }
+        body.dark-mode .wf-diamond-shape { background: #161B22; border-color: #30363D; }
+        body.dark-mode .wf-diamond-label { color: #8B949E; }
+        body.dark-mode .wf-diamond-shape .diamond-icon { color: #E6EDF3; }
+        body.dark-mode .wf-port { background: #161B22; border-color: #484F58; }
+        body.dark-mode .wf-props-panel { background: #161B22; border-top-color: #21262D; }
+        body.dark-mode .wf-props-title { color: #E6EDF3; }
+
+        body.dark-mode .wf-canvas svg path { stroke: #30363D; }
+        body.dark-mode .wf-canvas svg path.edge-active { stroke: var(--bsic-gold); }
+        body.dark-mode .wf-canvas svg .edge-arrow { fill: #30363D; }
+        body.dark-mode .wf-canvas svg .edge-label-bg { fill: #0D1117; }
+        body.dark-mode .wf-canvas svg .edge-label-text { fill: #8B949E; }
+
+        /* Dark mode: Loan Request grid */
+        body.dark-mode .req-tab { color: #6E7681; }
+        body.dark-mode .req-tab:hover { color: #E6EDF3; }
+        body.dark-mode .req-tab.active { color: #E6EDF3; border-bottom-color: var(--bsic-gold); }
+        body.dark-mode .req-section-config { background: #161B22; border-bottom-color: #21262D; }
+        body.dark-mode .req-grid thead th { background: #161B22; border-bottom-color: #30363D; color: #6E7681; }
+        body.dark-mode .req-grid tbody tr { border-bottom-color: #21262D; }
+        body.dark-mode .req-grid tbody tr:hover { background: rgba(229,182,93,0.04); }
+        body.dark-mode .req-grid-input { color: #E6EDF3; }
+        body.dark-mode .req-grid-input:hover { border-color: #30363D; background: #161B22; }
+        body.dark-mode .req-grid-input:focus { border-color: var(--bsic-gold); background: #0D1117; }
+        body.dark-mode .req-grid-var { color: #6E7681; }
+        body.dark-mode .req-grid-select { color: #58A6FF; }
+        body.dark-mode .req-grid-select:hover { border-color: #30363D; background-color: #161B22; }
+        body.dark-mode .req-grid-select:focus { border-color: var(--bsic-gold); background-color: #0D1117; }
+        body.dark-mode .req-reorder { color: #30363D; }
+        body.dark-mode .req-reorder:hover { color: #8B949E; }
+
+        body.dark-mode .field-row { border-bottom-color: #21262D; }
+        body.dark-mode .field-row-header { border-bottom-color: #30363D; color: #6E7681; }
+        body.dark-mode .field-name { color: #E6EDF3; }
+        body.dark-mode .field-type { color: #6E7681; }
+        body.dark-mode .field-section { color: #58A6FF; }
+
+        /* Dark mode toggle button */
+        .theme-toggle {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            border: 1px solid rgba(255,255,255,0.15);
+            background: rgba(255,255,255,0.06);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: #8B949E;
+            font-size: 1rem;
+            transition: all var(--transition);
+        }
+
+        .theme-toggle:hover {
+            background: rgba(255,255,255,0.12);
+            color: var(--bsic-gold);
+        }
+
     </style>
 </head>
 <body>
@@ -1389,6 +1786,9 @@
         </div>
         <div class="header-right">
             <div class="header-env">Setup Mode</div>
+            <button class="theme-toggle" onclick="toggleDarkMode()" title="Toggle dark mode">
+                <span class="material-icons-outlined" style="font-size:1.1rem;" id="themeIcon">dark_mode</span>
+            </button>
             <div class="header-avatar">AD</div>
         </div>
     </div>
@@ -2212,221 +2612,326 @@
 
 
             <!-- ==========================================
-                 TAB 5: LOAN REQUEST
+                 TAB 5: LOAN REQUEST (Wireframe Redesign)
                  ========================================== -->
             <div id="tab-request" class="tab-content">
                 <div class="page-header">
                     <h1>Loan Request Configuration</h1>
-                    <p>Define the loan products, amount ranges, terms, and scoring criteria used by the decision engine.</p>
+                    <p>Define request templates with sections and widgets. Each section contains configurable fields with type, visibility, and behavior controls.</p>
                 </div>
 
-                <!-- Loan Products -->
+                <!-- Template & Version Selector -->
                 <div class="config-card">
-                    <div class="config-card-header">
-                        <h3>Loan Products</h3>
-                        <button class="btn btn-add" onclick="return false;">
-                            <span class="btn-icon">+</span> Add Product
+                    <div class="config-card-body" style="padding: 16px 24px;">
+                        <div class="form-row" style="margin-bottom:0; align-items: end;">
+                            <div class="form-group">
+                                <label>Request Type <span class="required">*</span></label>
+                                <select id="reqTypeSelect">
+                                    <option selected>PCS_Entreprise</option>
+                                    <option>PCS_Individuel</option>
+                                    <option>Micro_Credit</option>
+                                    <option>Equipment_Finance</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Version</label>
+                                <select>
+                                    <option>v1.0 (Draft)</option>
+                                    <option selected>v2.1 (Active)</option>
+                                    <option>v3.0 (Draft)</option>
+                                </select>
+                            </div>
+                            <div class="form-group" style="flex: 0 0 auto;">
+                                <a href="#" style="font-size: 0.82rem; color: var(--bsic-gold); text-decoration: none; font-weight: 500; font-family: 'Poppins', sans-serif; line-height: 38px;">Manage Templates</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section Tabs -->
+                <div class="config-card" style="overflow: visible;">
+                    <div class="config-card-header" style="padding: 0; border-bottom: none;">
+                        <div class="req-section-tabs">
+                            <button class="req-tab active" onclick="showReqSection(this, 'sec-info')">1 Informations</button>
+                            <button class="req-tab" onclick="showReqSection(this, 'sec-credit')">2 Objet du cr&eacute;dit</button>
+                            <button class="req-tab" onclick="showReqSection(this, 'sec-docs')">3 Documents</button>
+                            <button class="req-tab" onclick="showReqSection(this, 'sec-guarantees')">4 Garanties</button>
+                        </div>
+                        <button class="btn btn-add" style="margin: 8px 16px 8px 0;" onclick="return false;">
+                            <span class="btn-icon">+</span> Add Section
                         </button>
                     </div>
-                    <div class="config-card-body" style="padding: 0;">
-                        <table class="config-table">
-                            <thead>
-                                <tr>
-                                    <th>Product Name</th>
-                                    <th>Segment</th>
-                                    <th>Min Amount</th>
-                                    <th>Max Amount</th>
-                                    <th>Max Term</th>
-                                    <th style="width:90px">Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td class="table-role-name">SME Growth Loan</td>
-                                    <td><span class="table-badge badge-blue">SME</span></td>
-                                    <td>5,000,000 XOF</td>
-                                    <td>500,000,000 XOF</td>
-                                    <td>60 months</td>
-                                    <td>
-                                        <div class="table-actions">
-                                            <button title="Edit">&#9998;</button>
-                                            <button class="delete" title="Delete">&#10005;</button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="table-role-name">Micro-Credit</td>
-                                    <td><span class="table-badge badge-gold">Micro</span></td>
-                                    <td>100,000 XOF</td>
-                                    <td>5,000,000 XOF</td>
-                                    <td>24 months</td>
-                                    <td>
-                                        <div class="table-actions">
-                                            <button title="Edit">&#9998;</button>
-                                            <button class="delete" title="Delete">&#10005;</button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="table-role-name">Individual Loan</td>
-                                    <td><span class="table-badge badge-blue">Individual</span></td>
-                                    <td>500,000 XOF</td>
-                                    <td>50,000,000 XOF</td>
-                                    <td>36 months</td>
-                                    <td>
-                                        <div class="table-actions">
-                                            <button title="Edit">&#9998;</button>
-                                            <button class="delete" title="Delete">&#10005;</button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="table-role-name">Equipment Finance</td>
-                                    <td><span class="table-badge badge-blue">SME</span></td>
-                                    <td>2,000,000 XOF</td>
-                                    <td>200,000,000 XOF</td>
-                                    <td>48 months</td>
-                                    <td>
-                                        <div class="table-actions">
-                                            <button title="Edit">&#9998;</button>
-                                            <button class="delete" title="Delete">&#10005;</button>
-                                        </div>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
 
-                <!-- Acceptance Criteria -->
-                <div class="config-card">
-                    <div class="config-card-header">
-                        <h3>Minimum Acceptance Criteria</h3>
-                        <span class="card-badge">Decision Engine</span>
-                    </div>
-                    <div class="config-card-body">
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label>Minimum Years in Business <span class="required">*</span></label>
-                                <input type="number" value="2">
-                            </div>
-                            <div class="form-group">
-                                <label>Minimum Annual Revenue (XOF) <span class="required">*</span></label>
-                                <input type="text" value="10,000,000">
-                            </div>
+                    <!-- Section Config Bar -->
+                    <div class="req-section-config">
+                        <div class="form-group" style="flex: 1; min-width: 160px;">
+                            <label>Section Name</label>
+                            <input type="text" value="Informations" id="secNameInput">
                         </div>
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label>Max Debt-to-Income Ratio (%)</label>
-                                <input type="number" value="40">
-                            </div>
-                            <div class="form-group">
-                                <label>Minimum Credit Score</label>
-                                <input type="number" value="350">
-                                <span class="form-hint">Based on local credit bureau data</span>
-                            </div>
+                        <div class="form-group" style="flex: 1; min-width: 160px;">
+                            <label>Variable</label>
+                            <input type="text" value="informations" placeholder="auto-generated from name">
                         </div>
-                        <div class="form-row single">
-                            <div class="form-group">
-                                <label>Excluded Sectors</label>
-                                <input type="text" placeholder="e.g. Gambling, Weapons, Mining (comma-separated)">
+                        <div class="form-group" style="flex: 0 0 auto;">
+                            <label>&nbsp;</label>
+                            <div style="display:flex; gap: 12px; align-items: center; height: 38px;">
+                                <label style="display:flex; align-items:center; gap:4px; font-size:0.75rem; margin:0; cursor:pointer;">
+                                    <input type="checkbox" checked style="width:14px;height:14px;accent-color:var(--bsic-gold);"> Visible
+                                </label>
+                                <label style="display:flex; align-items:center; gap:4px; font-size:0.75rem; margin:0; cursor:pointer;">
+                                    <input type="checkbox" checked style="width:14px;height:14px;accent-color:var(--bsic-gold);"> Clonable
+                                </label>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <!-- Risk Scoring Themes -->
-                <div class="config-card">
-                    <div class="config-card-header">
-                        <h3>Risk Scoring Themes</h3>
-                        <span class="card-badge">Risk Models</span>
-                    </div>
-                    <div class="config-card-body">
-                        <p style="font-size: 0.85rem; color: var(--text-mid); margin-bottom: 14px;">Select the scoring dimensions used to evaluate probability of default.</p>
-                        <div class="pill-group">
-                            <span class="pill selected">Financial Ratios</span>
-                            <span class="pill selected">Cash Flow Analysis</span>
-                            <span class="pill selected">Industry Risk</span>
-                            <span class="pill selected">Management Quality</span>
-                            <span class="pill">Collateral Coverage</span>
-                            <span class="pill selected">Repayment History</span>
-                            <span class="pill">Market Conditions</span>
-                            <span class="pill">Geographic Risk</span>
-                            <span class="pill selected">Business Maturity</span>
+                    <!-- Data Grid: Section 1 - Informations -->
+                    <div class="req-section-content" id="sec-info">
+                        <div class="req-grid-wrap">
+                            <table class="req-grid">
+                                <thead>
+                                    <tr>
+                                        <th style="width:30px">#</th>
+                                        <th style="min-width:150px">Title</th>
+                                        <th style="min-width:130px">Variable</th>
+                                        <th style="min-width:140px">Type</th>
+                                        <th style="min-width:140px">Condition</th>
+                                        <th style="min-width:100px">Tooltip</th>
+                                        <th style="width:50px">Visible</th>
+                                        <th style="width:55px">FullPage</th>
+                                        <th style="width:55px">Clonable</th>
+                                        <th style="width:50px">Disable</th>
+                                        <th style="width:55px">AutoSave</th>
+                                        <th style="width:50px">Reorder</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="req-grid-num">1</td>
+                                        <td><input type="text" class="req-grid-input" value="Client Status"></td>
+                                        <td><input type="text" class="req-grid-input req-grid-var" value="client_status"></td>
+                                        <td><select class="req-grid-select"><option selected>List Array</option><option>Text</option><option>Text Area</option><option>Number</option><option>Date</option><option>Upload</option><option>AI Workflow</option><option>Dropdown</option><option>Checkbox</option><option>Currency</option></select></td>
+                                        <td><input type="text" class="req-grid-input" placeholder="e.g. always"></td>
+                                        <td><input type="text" class="req-grid-input" placeholder="Help text..."></td>
+                                        <td class="req-grid-chk"><input type="checkbox" checked></td>
+                                        <td class="req-grid-chk"><input type="checkbox"></td>
+                                        <td class="req-grid-chk"><input type="checkbox"></td>
+                                        <td class="req-grid-chk"><input type="checkbox"></td>
+                                        <td class="req-grid-chk"><input type="checkbox" checked></td>
+                                        <td class="req-grid-chk"><button class="req-reorder" title="Drag to reorder">&#8942;&#8942;</button></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="req-grid-num">2</td>
+                                        <td><input type="text" class="req-grid-input" value="Agency"></td>
+                                        <td><input type="text" class="req-grid-input req-grid-var" value="agency"></td>
+                                        <td><select class="req-grid-select"><option>List Array</option><option>Text</option><option>Text Area</option><option>Number</option><option>Date</option><option>Upload</option><option>AI Workflow</option><option selected>Dropdown</option><option>Checkbox</option><option>Currency</option></select></td>
+                                        <td><input type="text" class="req-grid-input" placeholder="e.g. always"></td>
+                                        <td><input type="text" class="req-grid-input" value="Select branch"></td>
+                                        <td class="req-grid-chk"><input type="checkbox" checked></td>
+                                        <td class="req-grid-chk"><input type="checkbox"></td>
+                                        <td class="req-grid-chk"><input type="checkbox"></td>
+                                        <td class="req-grid-chk"><input type="checkbox"></td>
+                                        <td class="req-grid-chk"><input type="checkbox" checked></td>
+                                        <td class="req-grid-chk"><button class="req-reorder" title="Drag to reorder">&#8942;&#8942;</button></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="req-grid-num">3</td>
+                                        <td><input type="text" class="req-grid-input" value="Borrower Name"></td>
+                                        <td><input type="text" class="req-grid-input req-grid-var" value="borrower_name"></td>
+                                        <td><select class="req-grid-select"><option>List Array</option><option selected>Text</option><option>Text Area</option><option>Number</option><option>Date</option><option>Upload</option><option>AI Workflow</option><option>Dropdown</option><option>Checkbox</option><option>Currency</option></select></td>
+                                        <td><input type="text" class="req-grid-input" value="always"></td>
+                                        <td><input type="text" class="req-grid-input" value="Full legal name"></td>
+                                        <td class="req-grid-chk"><input type="checkbox" checked></td>
+                                        <td class="req-grid-chk"><input type="checkbox"></td>
+                                        <td class="req-grid-chk"><input type="checkbox" checked></td>
+                                        <td class="req-grid-chk"><input type="checkbox"></td>
+                                        <td class="req-grid-chk"><input type="checkbox" checked></td>
+                                        <td class="req-grid-chk"><button class="req-reorder" title="Drag to reorder">&#8942;&#8942;</button></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="req-grid-num">4</td>
+                                        <td><input type="text" class="req-grid-input" value="AI Credit Memo"></td>
+                                        <td><input type="text" class="req-grid-input req-grid-var" value="ai_credit_memo"></td>
+                                        <td><select class="req-grid-select"><option>List Array</option><option>Text</option><option>Text Area</option><option>Number</option><option>Date</option><option>Upload</option><option selected>AI Workflow</option><option>Dropdown</option><option>Checkbox</option><option>Currency</option></select></td>
+                                        <td><input type="text" class="req-grid-input" value="has_financials"></td>
+                                        <td><input type="text" class="req-grid-input" value="Auto-generated"></td>
+                                        <td class="req-grid-chk"><input type="checkbox" checked></td>
+                                        <td class="req-grid-chk"><input type="checkbox" checked></td>
+                                        <td class="req-grid-chk"><input type="checkbox"></td>
+                                        <td class="req-grid-chk"><input type="checkbox" checked></td>
+                                        <td class="req-grid-chk"><input type="checkbox" checked></td>
+                                        <td class="req-grid-chk"><button class="req-reorder" title="Drag to reorder">&#8942;&#8942;</button></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="req-grid-num">5</td>
+                                        <td><input type="text" class="req-grid-input" value="Notes"></td>
+                                        <td><input type="text" class="req-grid-input req-grid-var" value="notes"></td>
+                                        <td><select class="req-grid-select"><option>List Array</option><option>Text</option><option selected>Text Area</option><option>Number</option><option>Date</option><option>Upload</option><option>AI Workflow</option><option>Dropdown</option><option>Checkbox</option><option>Currency</option></select></td>
+                                        <td><input type="text" class="req-grid-input" placeholder="e.g. always"></td>
+                                        <td><input type="text" class="req-grid-input" value="Timestamped notes"></td>
+                                        <td class="req-grid-chk"><input type="checkbox" checked></td>
+                                        <td class="req-grid-chk"><input type="checkbox"></td>
+                                        <td class="req-grid-chk"><input type="checkbox"></td>
+                                        <td class="req-grid-chk"><input type="checkbox"></td>
+                                        <td class="req-grid-chk"><input type="checkbox" checked></td>
+                                        <td class="req-grid-chk"><button class="req-reorder" title="Drag to reorder">&#8942;&#8942;</button></td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
+                        <div style="padding: 10px 16px; border-top: 1px solid var(--border-light);">
+                            <button class="btn btn-add" onclick="return false;"><span class="btn-icon">+</span> Add Field</button>
+                        </div>
+                    </div>
 
-                        <div class="form-row" style="margin-top: 20px;">
-                            <div class="form-group">
-                                <label>Default Risk Model</label>
-                                <select>
-                                    <option selected>Probability of Default (PD) - SME</option>
-                                    <option>Probability of Default (PD) - Individual</option>
-                                    <option>Probability of Default (PD) - Micro</option>
-                                    <option>Custom Model</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label>Scoring Scale</label>
-                                <select>
-                                    <option>1 - 100</option>
-                                    <option selected>1 - 1000</option>
-                                    <option>A - F Grade</option>
-                                </select>
-                            </div>
+                    <!-- Section 2: Objet du credit (hidden) -->
+                    <div class="req-section-content" id="sec-credit" style="display:none;">
+                        <div class="req-grid-wrap">
+                            <table class="req-grid">
+                                <thead>
+                                    <tr>
+                                        <th style="width:30px">#</th>
+                                        <th style="min-width:150px">Title</th>
+                                        <th style="min-width:130px">Variable</th>
+                                        <th style="min-width:140px">Type</th>
+                                        <th style="min-width:140px">Condition</th>
+                                        <th style="min-width:100px">Tooltip</th>
+                                        <th style="width:50px">Visible</th>
+                                        <th style="width:55px">FullPage</th>
+                                        <th style="width:55px">Clonable</th>
+                                        <th style="width:50px">Disable</th>
+                                        <th style="width:55px">AutoSave</th>
+                                        <th style="width:50px">Reorder</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="req-grid-num">1</td>
+                                        <td><input type="text" class="req-grid-input" value="Loan Purpose"></td>
+                                        <td><input type="text" class="req-grid-input req-grid-var" value="loan_purpose"></td>
+                                        <td><select class="req-grid-select"><option selected>Dropdown</option><option>Text</option><option>Text Area</option></select></td>
+                                        <td><input type="text" class="req-grid-input" value="always"></td>
+                                        <td><input type="text" class="req-grid-input" value="Purpose of loan"></td>
+                                        <td class="req-grid-chk"><input type="checkbox" checked></td>
+                                        <td class="req-grid-chk"><input type="checkbox"></td>
+                                        <td class="req-grid-chk"><input type="checkbox"></td>
+                                        <td class="req-grid-chk"><input type="checkbox"></td>
+                                        <td class="req-grid-chk"><input type="checkbox" checked></td>
+                                        <td class="req-grid-chk"><button class="req-reorder">&#8942;&#8942;</button></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="req-grid-num">2</td>
+                                        <td><input type="text" class="req-grid-input" value="Requested Amount"></td>
+                                        <td><input type="text" class="req-grid-input req-grid-var" value="requested_amount"></td>
+                                        <td><select class="req-grid-select"><option>Dropdown</option><option>Text</option><option>Number</option><option selected>Currency</option></select></td>
+                                        <td><input type="text" class="req-grid-input" value="always"></td>
+                                        <td><input type="text" class="req-grid-input" value="Amount in XOF"></td>
+                                        <td class="req-grid-chk"><input type="checkbox" checked></td>
+                                        <td class="req-grid-chk"><input type="checkbox"></td>
+                                        <td class="req-grid-chk"><input type="checkbox"></td>
+                                        <td class="req-grid-chk"><input type="checkbox"></td>
+                                        <td class="req-grid-chk"><input type="checkbox" checked></td>
+                                        <td class="req-grid-chk"><button class="req-reorder">&#8942;&#8942;</button></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="req-grid-num">3</td>
+                                        <td><input type="text" class="req-grid-input" value="Loan Term (months)"></td>
+                                        <td><input type="text" class="req-grid-input req-grid-var" value="loan_term"></td>
+                                        <td><select class="req-grid-select"><option>Dropdown</option><option>Text</option><option selected>Number</option><option>Currency</option></select></td>
+                                        <td><input type="text" class="req-grid-input" value="always"></td>
+                                        <td><input type="text" class="req-grid-input" value="Duration"></td>
+                                        <td class="req-grid-chk"><input type="checkbox" checked></td>
+                                        <td class="req-grid-chk"><input type="checkbox"></td>
+                                        <td class="req-grid-chk"><input type="checkbox"></td>
+                                        <td class="req-grid-chk"><input type="checkbox"></td>
+                                        <td class="req-grid-chk"><input type="checkbox" checked></td>
+                                        <td class="req-grid-chk"><button class="req-reorder">&#8942;&#8942;</button></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div style="padding: 10px 16px; border-top: 1px solid var(--border-light);">
+                            <button class="btn btn-add" onclick="return false;"><span class="btn-icon">+</span> Add Field</button>
                         </div>
                     </div>
-                </div>
 
-                <!-- Integration -->
-                <div class="config-card">
-                    <div class="config-card-header">
-                        <h3>Integration &amp; Deployment</h3>
-                        <span class="card-badge">Plug &amp; Play</span>
+                    <!-- Section 3: Documents (hidden) -->
+                    <div class="req-section-content" id="sec-docs" style="display:none;">
+                        <div class="req-grid-wrap">
+                            <table class="req-grid">
+                                <thead>
+                                    <tr>
+                                        <th style="width:30px">#</th>
+                                        <th style="min-width:150px">Title</th>
+                                        <th style="min-width:130px">Variable</th>
+                                        <th style="min-width:140px">Type</th>
+                                        <th style="min-width:140px">Condition</th>
+                                        <th style="min-width:100px">Tooltip</th>
+                                        <th style="width:50px">Visible</th>
+                                        <th style="width:55px">FullPage</th>
+                                        <th style="width:55px">Clonable</th>
+                                        <th style="width:50px">Disable</th>
+                                        <th style="width:55px">AutoSave</th>
+                                        <th style="width:50px">Reorder</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="req-grid-num">1</td>
+                                        <td><input type="text" class="req-grid-input" value="Financial Statements"></td>
+                                        <td><input type="text" class="req-grid-input req-grid-var" value="financial_statements"></td>
+                                        <td><select class="req-grid-select"><option>Text</option><option selected>Upload</option><option>AI Workflow</option></select></td>
+                                        <td><input type="text" class="req-grid-input" value="always"></td>
+                                        <td><input type="text" class="req-grid-input" value="Last 3 years"></td>
+                                        <td class="req-grid-chk"><input type="checkbox" checked></td>
+                                        <td class="req-grid-chk"><input type="checkbox" checked></td>
+                                        <td class="req-grid-chk"><input type="checkbox" checked></td>
+                                        <td class="req-grid-chk"><input type="checkbox"></td>
+                                        <td class="req-grid-chk"><input type="checkbox" checked></td>
+                                        <td class="req-grid-chk"><button class="req-reorder">&#8942;&#8942;</button></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="req-grid-num">2</td>
+                                        <td><input type="text" class="req-grid-input" value="AI Doc Analyzer"></td>
+                                        <td><input type="text" class="req-grid-input req-grid-var" value="ai_doc_analyzer"></td>
+                                        <td><select class="req-grid-select"><option>Text</option><option>Upload</option><option selected>AI Workflow</option></select></td>
+                                        <td><input type="text" class="req-grid-input" value="has_upload"></td>
+                                        <td><input type="text" class="req-grid-input" value="Auto-extract data"></td>
+                                        <td class="req-grid-chk"><input type="checkbox" checked></td>
+                                        <td class="req-grid-chk"><input type="checkbox" checked></td>
+                                        <td class="req-grid-chk"><input type="checkbox"></td>
+                                        <td class="req-grid-chk"><input type="checkbox" checked></td>
+                                        <td class="req-grid-chk"><input type="checkbox" checked></td>
+                                        <td class="req-grid-chk"><button class="req-reorder">&#8942;&#8942;</button></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="req-grid-num">3</td>
+                                        <td><input type="text" class="req-grid-input" value="General Documents"></td>
+                                        <td><input type="text" class="req-grid-input req-grid-var" value="general_docs"></td>
+                                        <td><select class="req-grid-select"><option>Text</option><option selected>Upload</option><option>AI Workflow</option></select></td>
+                                        <td><input type="text" class="req-grid-input" placeholder="e.g. always"></td>
+                                        <td><input type="text" class="req-grid-input" value="ID, permits, etc."></td>
+                                        <td class="req-grid-chk"><input type="checkbox" checked></td>
+                                        <td class="req-grid-chk"><input type="checkbox"></td>
+                                        <td class="req-grid-chk"><input type="checkbox" checked></td>
+                                        <td class="req-grid-chk"><input type="checkbox"></td>
+                                        <td class="req-grid-chk"><input type="checkbox" checked></td>
+                                        <td class="req-grid-chk"><button class="req-reorder">&#8942;&#8942;</button></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div style="padding: 10px 16px; border-top: 1px solid var(--border-light);">
+                            <button class="btn btn-add" onclick="return false;"><span class="btn-icon">+</span> Add Field</button>
+                        </div>
                     </div>
-                    <div class="config-card-body">
-                        <div class="toggle-row">
-                            <div class="toggle-info">
-                                <div class="toggle-label">Connect to Core Banking System</div>
-                                <div class="toggle-desc">API integration with existing legacy system</div>
-                            </div>
-                            <label class="toggle-switch">
-                                <input type="checkbox" checked>
-                                <span class="toggle-slider"></span>
-                            </label>
-                        </div>
-                        <div class="toggle-row">
-                            <div class="toggle-info">
-                                <div class="toggle-label">Enable Mobile Self-Serve</div>
-                                <div class="toggle-desc">Allow clients to submit applications via mobile interface</div>
-                            </div>
-                            <label class="toggle-switch">
-                                <input type="checkbox" checked>
-                                <span class="toggle-slider"></span>
-                            </label>
-                        </div>
-                        <div class="toggle-row">
-                            <div class="toggle-info">
-                                <div class="toggle-label">Private Cloud Deployment</div>
-                                <div class="toggle-desc">SOC 2 compliant - models run locally, no public LLM exposure</div>
-                            </div>
-                            <label class="toggle-switch">
-                                <input type="checkbox" checked>
-                                <span class="toggle-slider"></span>
-                            </label>
-                        </div>
-                        <div class="form-row" style="margin-top: 16px;">
-                            <div class="form-group">
-                                <label>API Endpoint URL</label>
-                                <input type="text" placeholder="https://core.bsic.bj/api/v2">
-                            </div>
-                            <div class="form-group">
-                                <label>Environment</label>
-                                <select>
-                                    <option>Sandbox (Testing)</option>
-                                    <option selected>Staging</option>
-                                    <option>Production</option>
-                                </select>
-                            </div>
+
+                    <!-- Section 4: Garanties (hidden) -->
+                    <div class="req-section-content" id="sec-guarantees" style="display:none;">
+                        <div class="empty-state">
+                            <span class="material-icons-outlined">shield</span>
+                            <p>No fields configured for this section yet.</p>
+                            <button class="btn btn-add" onclick="return false;"><span class="btn-icon">+</span> Add Field</button>
                         </div>
                     </div>
                 </div>
@@ -2785,6 +3290,40 @@
 
         // Initial draw
         requestAnimationFrame(drawEdges);
+
+        /* ==========================================
+           LOAN REQUEST: Section tab switching
+           ========================================== */
+        function showReqSection(btn, sectionId) {
+            document.querySelectorAll('.req-tab').forEach(function(t) { t.classList.remove('active'); });
+            btn.classList.add('active');
+            document.querySelectorAll('.req-section-content').forEach(function(s) { s.style.display = 'none'; });
+            var sec = document.getElementById(sectionId);
+            if (sec) sec.style.display = 'block';
+        }
+
+        /* ==========================================
+           DARK MODE TOGGLE
+           ========================================== */
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+            var icon = document.getElementById('themeIcon');
+            if (document.body.classList.contains('dark-mode')) {
+                icon.textContent = 'light_mode';
+                localStorage.setItem('bb-theme', 'dark');
+            } else {
+                icon.textContent = 'dark_mode';
+                localStorage.setItem('bb-theme', 'light');
+            }
+            // Redraw workflow edges for dark mode colors
+            requestAnimationFrame(drawEdges);
+        }
+
+        // Restore saved theme
+        if (localStorage.getItem('bb-theme') === 'dark') {
+            document.body.classList.add('dark-mode');
+            document.getElementById('themeIcon').textContent = 'light_mode';
+        }
     </script>
 
 </body>
