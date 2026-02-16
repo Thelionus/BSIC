@@ -969,6 +969,411 @@
             line-height: 1.5;
         }
 
+        /* ========================================
+           WORKFLOW GRAPH CANVAS
+           ======================================== */
+        .wf-toolbar {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 16px;
+            background: #FAFBFC;
+            border-bottom: 1px solid var(--border-light);
+            flex-wrap: wrap;
+        }
+
+        .wf-toolbar-label {
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-light);
+            margin-right: 4px;
+        }
+
+        .wf-tool-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 6px 12px;
+            border: 1px solid var(--input-border);
+            border-radius: var(--radius-sm);
+            background: white;
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: var(--text-mid);
+            cursor: pointer;
+            transition: all var(--transition);
+        }
+
+        .wf-tool-btn:hover {
+            border-color: var(--bsic-gold);
+            color: var(--bsic-blue);
+            background: rgba(229,182,93,0.05);
+        }
+
+        .wf-tool-btn .icon {
+            font-size: 0.9rem;
+            line-height: 1;
+        }
+
+        .wf-tool-sep {
+            width: 1px;
+            height: 22px;
+            background: var(--border-light);
+            margin: 0 4px;
+        }
+
+        .wf-canvas-wrap {
+            position: relative;
+            width: 100%;
+            height: 520px;
+            overflow: auto;
+            background:
+                radial-gradient(circle, #dde1e6 1px, transparent 1px);
+            background-size: 20px 20px;
+            background-color: #F7F9FB;
+            cursor: default;
+        }
+
+        .wf-canvas {
+            position: relative;
+            width: 1200px;
+            height: 500px;
+        }
+
+        .wf-canvas svg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .wf-canvas svg path {
+            fill: none;
+            stroke: #B0B8C1;
+            stroke-width: 2;
+            pointer-events: none;
+        }
+
+        .wf-canvas svg path.edge-active {
+            stroke: var(--bsic-gold);
+            stroke-width: 2.5;
+        }
+
+        .wf-canvas svg .edge-arrow {
+            fill: #B0B8C1;
+        }
+
+        .wf-canvas svg .edge-arrow.arrow-active {
+            fill: var(--bsic-gold);
+        }
+
+        .wf-canvas svg .edge-label-bg {
+            fill: #F7F9FB;
+        }
+
+        .wf-canvas svg .edge-label-text {
+            font-family: 'Poppins', sans-serif;
+            font-size: 10px;
+            font-weight: 600;
+            fill: var(--text-light);
+        }
+
+        /* NODE BASE */
+        .wf-node {
+            position: absolute;
+            z-index: 10;
+            cursor: grab;
+            user-select: none;
+            transition: box-shadow 0.15s;
+        }
+
+        .wf-node:hover {
+            z-index: 20;
+        }
+
+        .wf-node.dragging {
+            cursor: grabbing;
+            z-index: 30;
+        }
+
+        /* TASK NODE */
+        .wf-node-task {
+            width: 170px;
+            background: white;
+            border: 2px solid var(--border-light);
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-sm);
+            overflow: hidden;
+        }
+
+        .wf-node-task:hover {
+            border-color: var(--bsic-gold);
+            box-shadow: var(--shadow-md);
+        }
+
+        .wf-node-task.selected {
+            border-color: var(--bsic-gold);
+            box-shadow: 0 0 0 3px rgba(229,182,93,0.2), var(--shadow-md);
+        }
+
+        .wf-node-head {
+            padding: 8px 12px 6px;
+            background: var(--bsic-blue);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .wf-node-head .node-type-icon {
+            font-size: 0.85rem;
+            color: var(--bsic-gold);
+        }
+
+        .wf-node-head .node-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.72rem;
+            font-weight: 600;
+            color: white;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .wf-node-body {
+            padding: 8px 12px 10px;
+        }
+
+        .wf-node-body .node-meta {
+            font-size: 0.68rem;
+            color: var(--text-light);
+            line-height: 1.5;
+        }
+
+        .wf-node-body .node-meta strong {
+            color: var(--text-mid);
+        }
+
+        .wf-node-body .node-badge {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 0.62rem;
+            font-weight: 600;
+            font-family: 'Poppins', sans-serif;
+            margin-top: 4px;
+        }
+
+        .badge-auto { background: #E8F8EF; color: #27AE60; }
+        .badge-manual { background: #FDF0E6; color: #E67E22; }
+        .badge-hybrid { background: #EBF0F7; color: #2980B9; }
+
+        /* SPLIT / JOIN DIAMOND NODE */
+        .wf-node-diamond {
+            width: 52px;
+            height: 52px;
+        }
+
+        .wf-diamond-shape {
+            width: 48px;
+            height: 48px;
+            background: white;
+            border: 2px solid var(--border-light);
+            transform: rotate(45deg);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--shadow-sm);
+            transition: all var(--transition);
+            position: relative;
+        }
+
+        .wf-diamond-shape:hover,
+        .wf-node-diamond.selected .wf-diamond-shape {
+            border-color: var(--bsic-gold);
+            box-shadow: 0 0 0 3px rgba(229,182,93,0.2), var(--shadow-md);
+        }
+
+        .wf-diamond-shape .diamond-icon {
+            transform: rotate(-45deg);
+            font-size: 0.9rem;
+            color: var(--bsic-blue);
+            font-weight: 700;
+        }
+
+        .wf-diamond-label {
+            position: absolute;
+            top: 56px;
+            left: 50%;
+            transform: translateX(-50%);
+            white-space: nowrap;
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.65rem;
+            font-weight: 600;
+            color: var(--text-mid);
+            text-align: center;
+        }
+
+        /* START / END CIRCLE NODES */
+        .wf-node-circle {
+            width: 44px;
+            height: 44px;
+        }
+
+        .wf-circle-shape {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--shadow-sm);
+            transition: all var(--transition);
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.65rem;
+            font-weight: 700;
+            color: white;
+        }
+
+        .wf-circle-start {
+            background: #27AE60;
+            border: 2px solid #219A52;
+        }
+
+        .wf-circle-end {
+            background: #E74C3C;
+            border: 2px solid #C0392B;
+        }
+
+        .wf-circle-label {
+            position: absolute;
+            top: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+            white-space: nowrap;
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.65rem;
+            font-weight: 600;
+            color: var(--text-mid);
+        }
+
+        /* CONNECTION PORTS */
+        .wf-port {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: white;
+            border: 2px solid #B0B8C1;
+            z-index: 15;
+            cursor: crosshair;
+            transition: all 0.15s;
+        }
+
+        .wf-port:hover {
+            background: var(--bsic-gold);
+            border-color: var(--bsic-gold);
+            transform: scale(1.3);
+        }
+
+        .wf-port-out { right: -5px; top: 50%; margin-top: -5px; }
+        .wf-port-in  { left: -5px;  top: 50%; margin-top: -5px; }
+        .wf-port-out-b { bottom: -5px; left: 50%; margin-left: -5px; }
+        .wf-port-in-t  { top: -5px;    left: 50%; margin-left: -5px; }
+
+        /* PROPERTIES PANEL */
+        .wf-props-panel {
+            border-top: 1px solid var(--border-light);
+            padding: 18px 24px;
+            background: #FAFBFC;
+            display: none;
+        }
+
+        .wf-props-panel.visible {
+            display: block;
+        }
+
+        .wf-props-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--bsic-blue);
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .wf-props-close {
+            width: 24px;
+            height: 24px;
+            border: none;
+            background: none;
+            cursor: pointer;
+            color: var(--text-light);
+            font-size: 1rem;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .wf-props-close:hover {
+            background: var(--border-light);
+            color: var(--text-dark);
+        }
+
+        /* LEGEND */
+        .wf-legend {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 10px 16px;
+            border-top: 1px solid var(--border-light);
+            background: white;
+            flex-wrap: wrap;
+        }
+
+        .wf-legend-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.7rem;
+            color: var(--text-light);
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .wf-legend-swatch {
+            width: 20px;
+            height: 14px;
+            border-radius: 3px;
+            border: 1.5px solid;
+            flex-shrink: 0;
+        }
+
+        .wf-legend-diamond {
+            width: 12px;
+            height: 12px;
+            border: 1.5px solid var(--text-light);
+            border-radius: 2px;
+            transform: rotate(45deg);
+            flex-shrink: 0;
+        }
+
+        .wf-legend-circle {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
     </style>
 </head>
 <body>
@@ -1212,137 +1617,267 @@
 
 
             <!-- ==========================================
-                 TAB 2: WORKFLOW
+                 TAB 2: WORKFLOW (Network Graph)
                  ========================================== -->
             <div id="tab-workflow" class="tab-content active">
                 <div class="page-header">
                     <h1>Workflow Configuration</h1>
-                    <p>Define the step-by-step decisioning process from application intake to final payout. Drag steps to reorder them.</p>
+                    <p>Design the decisioning network with parallel paths, conditional splits, and merge points. Drag nodes to reposition. Click a node to edit its properties.</p>
                 </div>
 
                 <div class="info-banner">
                     <span class="material-icons-outlined">info</span>
-                    <p>The workflow engine uses <strong>Cognitive Engineering</strong> to embed senior credit officer expertise into each step. Each step can run automatically or be flagged for human review via the Safety Net.</p>
+                    <p>The workflow is a <strong>directed graph</strong>, not a simple list. Use <strong>Split</strong> nodes for conditional branching and <strong>parallel execution</strong>, and <strong>Join</strong> nodes to merge paths back together. The Cognitive Engine runs each branch independently.</p>
                 </div>
 
-                <!-- Workflow Steps -->
-                <div class="config-card">
+                <!-- Graph Canvas -->
+                <div class="config-card" style="overflow: hidden;">
                     <div class="config-card-header">
-                        <h3>Decisioning Steps</h3>
-                        <button class="btn btn-add" onclick="return false;">
-                            <span class="btn-icon">+</span> Add Step
-                        </button>
+                        <h3>Workflow Network</h3>
+                        <span class="card-badge">Drag &amp; Connect</span>
                     </div>
-                    <div class="config-card-body">
-                        <div class="workflow-steps">
 
-                            <div class="workflow-step">
-                                <div class="workflow-step-drag">&#8942;&#8942;</div>
-                                <div class="workflow-step-number">1</div>
-                                <div class="workflow-step-content">
-                                    <div class="workflow-step-name">Application Intake</div>
-                                    <div class="workflow-step-meta">
-                                        <span>Assigned: <strong>Credit Analyst</strong></span>
-                                        <span>SLA: <strong>Instant</strong></span>
-                                        <span>Mode: <strong>Automatic</strong></span>
-                                    </div>
-                                </div>
-                                <div class="workflow-step-actions">
-                                    <button title="Edit">&#9998;</button>
-                                    <button title="Delete">&#10005;</button>
-                                </div>
+                    <!-- Toolbar -->
+                    <div class="wf-toolbar">
+                        <span class="wf-toolbar-label">Add:</span>
+                        <button class="wf-tool-btn" onclick="addNode('task')"><span class="icon">&#9645;</span> Task</button>
+                        <button class="wf-tool-btn" onclick="addNode('split')"><span class="icon">&#9671;</span> Split</button>
+                        <button class="wf-tool-btn" onclick="addNode('join')"><span class="icon">&#9670;</span> Join</button>
+                        <div class="wf-tool-sep"></div>
+                        <button class="wf-tool-btn" onclick="autoLayout()"><span class="icon">&#8644;</span> Auto Layout</button>
+                        <button class="wf-tool-btn" onclick="fitCanvas()"><span class="icon">&#8690;</span> Fit View</button>
+                    </div>
+
+                    <!-- Canvas -->
+                    <div class="wf-canvas-wrap" id="canvasWrap">
+                        <div class="wf-canvas" id="wfCanvas">
+                            <svg id="wfSvg"></svg>
+
+                            <!-- === START NODE === -->
+                            <div class="wf-node wf-node-circle" id="node-start" style="left:30px; top:210px;" data-node-id="start">
+                                <div class="wf-circle-shape wf-circle-start">S</div>
+                                <div class="wf-circle-label">Start</div>
+                                <div class="wf-port wf-port-out"></div>
                             </div>
 
-                            <div class="workflow-step">
-                                <div class="workflow-step-drag">&#8942;&#8942;</div>
-                                <div class="workflow-step-number">2</div>
-                                <div class="workflow-step-content">
-                                    <div class="workflow-step-name">Smart Validation</div>
-                                    <div class="workflow-step-meta">
-                                        <span>Assigned: <strong>System</strong></span>
-                                        <span>SLA: <strong>Instant</strong></span>
-                                        <span>Mode: <strong>Automatic</strong></span>
-                                    </div>
+                            <!-- === TASK: Application Intake === -->
+                            <div class="wf-node wf-node-task" id="node-intake" style="left:120px; top:188px;" data-node-id="intake">
+                                <div class="wf-port wf-port-in"></div>
+                                <div class="wf-node-head">
+                                    <span class="node-type-icon">&#9645;</span>
+                                    <span class="node-title">Application Intake</span>
                                 </div>
-                                <div class="workflow-step-actions">
-                                    <button title="Edit">&#9998;</button>
-                                    <button title="Delete">&#10005;</button>
+                                <div class="wf-node-body">
+                                    <div class="node-meta">Role: <strong>Credit Analyst</strong><br>SLA: <strong>Instant</strong></div>
+                                    <span class="node-badge badge-auto">Automatic</span>
                                 </div>
+                                <div class="wf-port wf-port-out"></div>
                             </div>
 
-                            <div class="workflow-step">
-                                <div class="workflow-step-drag">&#8942;&#8942;</div>
-                                <div class="workflow-step-number">3</div>
-                                <div class="workflow-step-content">
-                                    <div class="workflow-step-name">Document Analysis</div>
-                                    <div class="workflow-step-meta">
-                                        <span>Assigned: <strong>System + Credit Analyst</strong></span>
-                                        <span>SLA: <strong>2 min</strong></span>
-                                        <span>Mode: <strong>Hybrid</strong></span>
-                                    </div>
+                            <!-- === TASK: Smart Validation === -->
+                            <div class="wf-node wf-node-task" id="node-valid" style="left:330px; top:188px;" data-node-id="valid">
+                                <div class="wf-port wf-port-in"></div>
+                                <div class="wf-node-head">
+                                    <span class="node-type-icon">&#9645;</span>
+                                    <span class="node-title">Smart Validation</span>
                                 </div>
-                                <div class="workflow-step-actions">
-                                    <button title="Edit">&#9998;</button>
-                                    <button title="Delete">&#10005;</button>
+                                <div class="wf-node-body">
+                                    <div class="node-meta">Role: <strong>System</strong><br>SLA: <strong>Instant</strong></div>
+                                    <span class="node-badge badge-auto">Automatic</span>
                                 </div>
+                                <div class="wf-port wf-port-out"></div>
                             </div>
 
-                            <div class="workflow-step">
-                                <div class="workflow-step-drag">&#8942;&#8942;</div>
-                                <div class="workflow-step-number">4</div>
-                                <div class="workflow-step-content">
-                                    <div class="workflow-step-name">Risk Assessment &amp; Scoring</div>
-                                    <div class="workflow-step-meta">
-                                        <span>Assigned: <strong>Risk Officer</strong></span>
-                                        <span>SLA: <strong>1 min</strong></span>
-                                        <span>Mode: <strong>Automatic</strong></span>
-                                    </div>
+                            <!-- === SPLIT: Parallel Fork === -->
+                            <div class="wf-node wf-node-diamond" id="node-fork" style="left:542px; top:202px;" data-node-id="fork">
+                                <div class="wf-diamond-shape">
+                                    <span class="diamond-icon">&#8916;</span>
                                 </div>
-                                <div class="workflow-step-actions">
-                                    <button title="Edit">&#9998;</button>
-                                    <button title="Delete">&#10005;</button>
-                                </div>
+                                <div class="wf-diamond-label">Parallel Fork</div>
+                                <div class="wf-port wf-port-in" style="left:-5px; top:22px;"></div>
+                                <div class="wf-port wf-port-out" style="right:-5px; top:22px;"></div>
+                                <div class="wf-port wf-port-out-b" style="bottom:-5px; left:22px;"></div>
                             </div>
 
-                            <div class="workflow-step">
-                                <div class="workflow-step-drag">&#8942;&#8942;</div>
-                                <div class="workflow-step-number">5</div>
-                                <div class="workflow-step-content">
-                                    <div class="workflow-step-name">Committee Decision</div>
-                                    <div class="workflow-step-meta">
-                                        <span>Assigned: <strong>Credit Committee</strong></span>
-                                        <span>SLA: <strong>5 min</strong></span>
-                                        <span>Mode: <strong>Manual</strong></span>
-                                    </div>
+                            <!-- === TASK: Document Analysis (top branch) === -->
+                            <div class="wf-node wf-node-task" id="node-docs" style="left:640px; top:80px;" data-node-id="docs">
+                                <div class="wf-port wf-port-in"></div>
+                                <div class="wf-node-head">
+                                    <span class="node-type-icon">&#9645;</span>
+                                    <span class="node-title">Document Analysis</span>
                                 </div>
-                                <div class="workflow-step-actions">
-                                    <button title="Edit">&#9998;</button>
-                                    <button title="Delete">&#10005;</button>
+                                <div class="wf-node-body">
+                                    <div class="node-meta">Role: <strong>System + Analyst</strong><br>SLA: <strong>2 min</strong></div>
+                                    <span class="node-badge badge-hybrid">Hybrid</span>
                                 </div>
+                                <div class="wf-port wf-port-out"></div>
                             </div>
 
-                            <div class="workflow-step">
-                                <div class="workflow-step-drag">&#8942;&#8942;</div>
-                                <div class="workflow-step-number">6</div>
-                                <div class="workflow-step-content">
-                                    <div class="workflow-step-name">Offer &amp; Disbursement</div>
-                                    <div class="workflow-step-meta">
-                                        <span>Assigned: <strong>Branch Manager</strong></span>
-                                        <span>SLA: <strong>24h</strong></span>
-                                        <span>Mode: <strong>Hybrid</strong></span>
-                                    </div>
+                            <!-- === TASK: Risk Assessment (bottom branch) === -->
+                            <div class="wf-node wf-node-task" id="node-risk" style="left:640px; top:300px;" data-node-id="risk">
+                                <div class="wf-port wf-port-in"></div>
+                                <div class="wf-node-head">
+                                    <span class="node-type-icon">&#9645;</span>
+                                    <span class="node-title">Risk Assessment</span>
                                 </div>
-                                <div class="workflow-step-actions">
-                                    <button title="Edit">&#9998;</button>
-                                    <button title="Delete">&#10005;</button>
+                                <div class="wf-node-body">
+                                    <div class="node-meta">Role: <strong>Risk Officer</strong><br>SLA: <strong>1 min</strong></div>
+                                    <span class="node-badge badge-auto">Automatic</span>
                                 </div>
+                                <div class="wf-port wf-port-out"></div>
+                            </div>
+
+                            <!-- === JOIN: Merge === -->
+                            <div class="wf-node wf-node-diamond" id="node-merge" style="left:858px; top:202px;" data-node-id="merge">
+                                <div class="wf-diamond-shape">
+                                    <span class="diamond-icon">&#8911;</span>
+                                </div>
+                                <div class="wf-diamond-label">Merge</div>
+                                <div class="wf-port wf-port-in" style="left:-5px; top:22px;"></div>
+                                <div class="wf-port wf-port-out" style="right:-5px; top:22px;"></div>
+                            </div>
+
+                            <!-- === TASK: Committee Decision === -->
+                            <div class="wf-node wf-node-task" id="node-committee" style="left:950px; top:188px;" data-node-id="committee">
+                                <div class="wf-port wf-port-in"></div>
+                                <div class="wf-node-head">
+                                    <span class="node-type-icon">&#9645;</span>
+                                    <span class="node-title">Committee Decision</span>
+                                </div>
+                                <div class="wf-node-body">
+                                    <div class="node-meta">Role: <strong>Credit Committee</strong><br>SLA: <strong>5 min</strong></div>
+                                    <span class="node-badge badge-manual">Manual</span>
+                                </div>
+                                <div class="wf-port wf-port-out"></div>
+                            </div>
+
+                            <!-- === SPLIT: Approval Decision === -->
+                            <div class="wf-node wf-node-diamond" id="node-decision" style="left:1160px; top:202px;" data-node-id="decision">
+                                <div class="wf-diamond-shape">
+                                    <span class="diamond-icon">?</span>
+                                </div>
+                                <div class="wf-diamond-label">Decision</div>
+                                <div class="wf-port wf-port-in" style="left:-5px; top:22px;"></div>
+                                <div class="wf-port wf-port-out" style="right:-5px; top:5px;"></div>
+                                <div class="wf-port wf-port-out-b" style="bottom:-5px; left:22px;"></div>
+                            </div>
+
+                            <!-- === TASK: Disbursement (approved path) === -->
+                            <div class="wf-node wf-node-task" id="node-disburse" style="left:1260px; top:80px;" data-node-id="disburse">
+                                <div class="wf-port wf-port-in"></div>
+                                <div class="wf-node-head" style="background: #27AE60;">
+                                    <span class="node-type-icon">&#10003;</span>
+                                    <span class="node-title">Offer &amp; Disbursement</span>
+                                </div>
+                                <div class="wf-node-body">
+                                    <div class="node-meta">Role: <strong>Branch Manager</strong><br>SLA: <strong>24h</strong></div>
+                                    <span class="node-badge badge-hybrid">Hybrid</span>
+                                </div>
+                                <div class="wf-port wf-port-out"></div>
+                            </div>
+
+                            <!-- === TASK: Rejection Notification (rejected path) === -->
+                            <div class="wf-node wf-node-task" id="node-reject" style="left:1260px; top:300px;" data-node-id="reject">
+                                <div class="wf-port wf-port-in"></div>
+                                <div class="wf-node-head" style="background: #E74C3C;">
+                                    <span class="node-type-icon">&#10005;</span>
+                                    <span class="node-title">Rejection Notice</span>
+                                </div>
+                                <div class="wf-node-body">
+                                    <div class="node-meta">Role: <strong>System</strong><br>SLA: <strong>Instant</strong></div>
+                                    <span class="node-badge badge-auto">Automatic</span>
+                                </div>
+                                <div class="wf-port wf-port-out"></div>
+                            </div>
+
+                            <!-- === END NODE (approved) === -->
+                            <div class="wf-node wf-node-circle" id="node-end1" style="left:1472px; top:98px;" data-node-id="end1">
+                                <div class="wf-circle-shape wf-circle-end">E</div>
+                                <div class="wf-circle-label">End</div>
+                                <div class="wf-port wf-port-in"></div>
+                            </div>
+
+                            <!-- === END NODE (rejected) === -->
+                            <div class="wf-node wf-node-circle" id="node-end2" style="left:1472px; top:318px;" data-node-id="end2">
+                                <div class="wf-circle-shape wf-circle-end">E</div>
+                                <div class="wf-circle-label">End</div>
+                                <div class="wf-port wf-port-in"></div>
                             </div>
 
                         </div>
                     </div>
+
+                    <!-- Legend -->
+                    <div class="wf-legend">
+                        <div class="wf-legend-item">
+                            <div class="wf-legend-swatch" style="background:white; border-color: var(--border-light);"></div>
+                            Task Node
+                        </div>
+                        <div class="wf-legend-item">
+                            <div class="wf-legend-diamond"></div>
+                            Split / Join
+                        </div>
+                        <div class="wf-legend-item">
+                            <div class="wf-legend-circle" style="background:#27AE60;"></div>
+                            Start
+                        </div>
+                        <div class="wf-legend-item">
+                            <div class="wf-legend-circle" style="background:#E74C3C;"></div>
+                            End
+                        </div>
+                        <div class="wf-legend-item" style="margin-left: auto; color: var(--text-light); font-size: 0.68rem;">
+                            &#8594; Parallel &nbsp;&nbsp; ? Conditional
+                        </div>
+                    </div>
+
+                    <!-- Properties Panel -->
+                    <div class="wf-props-panel" id="propsPanel">
+                        <div class="wf-props-title">
+                            <span id="propsPanelTitle">Node Properties</span>
+                            <button class="wf-props-close" onclick="closeProps()">&#10005;</button>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Node Name <span class="required">*</span></label>
+                                <input type="text" id="propName" placeholder="Step name">
+                            </div>
+                            <div class="form-group">
+                                <label>Assigned Role</label>
+                                <select id="propRole">
+                                    <option>System</option>
+                                    <option>Credit Analyst</option>
+                                    <option>Risk Officer</option>
+                                    <option>Branch Manager</option>
+                                    <option>Credit Committee</option>
+                                    <option>Board Committee</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Execution Mode</label>
+                                <select id="propMode">
+                                    <option>Automatic</option>
+                                    <option>Manual</option>
+                                    <option>Hybrid</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>SLA</label>
+                                <input type="text" id="propSla" placeholder="e.g. 5 min, 24h, Instant">
+                            </div>
+                        </div>
+                        <div class="form-row single">
+                            <div class="form-group">
+                                <label>Condition (for Split nodes)</label>
+                                <input type="text" id="propCondition" placeholder="e.g. loan_amount > 50M, is_complete == true">
+                                <span class="form-hint">Leave empty for parallel (all paths execute). Enter expression for conditional routing.</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
-                <!-- Workflow Settings -->
+                <!-- Automation Settings (kept as-is) -->
                 <div class="config-card">
                     <div class="config-card-header">
                         <h3>Automation Settings</h3>
@@ -2028,51 +2563,344 @@
          JAVASCRIPT: Tab Navigation
          ============================================ -->
     <script>
+        /* ==========================================
+           TAB NAVIGATION (unchanged)
+           ========================================== */
         function showTab(tabId) {
-            // Hide all tabs
             document.querySelectorAll('.tab-content').forEach(function(tab) {
                 tab.classList.remove('active');
             });
-
-            // Show selected tab
             var target = document.getElementById('tab-' + tabId);
-            if (target) {
-                target.classList.add('active');
-            }
+            if (target) target.classList.add('active');
 
-            // Update sidebar navigation
             var tabs = ['roles', 'workflow', 'statuses', 'client', 'request'];
             var currentIndex = tabs.indexOf(tabId);
-
             document.querySelectorAll('.nav-item').forEach(function(item, index) {
                 item.classList.remove('active', 'completed');
-                if (index < currentIndex) {
-                    item.classList.add('completed');
-                } else if (index === currentIndex) {
-                    item.classList.add('active');
-                }
+                if (index < currentIndex) item.classList.add('completed');
+                else if (index === currentIndex) item.classList.add('active');
             });
-
-            // Update nav icons
             document.querySelectorAll('.nav-item').forEach(function(item, index) {
                 var icon = item.querySelector('.nav-icon');
-                if (index < currentIndex) {
-                    icon.innerHTML = '&#10003;';
-                } else {
-                    icon.innerHTML = (index + 1).toString();
-                }
+                icon.innerHTML = index < currentIndex ? '&#10003;' : (index + 1).toString();
             });
-
-            // Scroll to top
             window.scrollTo(0, 0);
+            if (tabId === 'workflow') requestAnimationFrame(drawEdges);
         }
 
         // Pill selection toggle
         document.querySelectorAll('.pill').forEach(function(pill) {
-            pill.addEventListener('click', function() {
-                this.classList.toggle('selected');
+            pill.addEventListener('click', function() { this.classList.toggle('selected'); });
+        });
+
+        /* ==========================================
+           WORKFLOW GRAPH ENGINE
+           ========================================== */
+
+        // --- Edge definitions: [fromNodeId, fromPortSel, toNodeId, toPortSel, label?] ---
+        var edges = [
+            ['start',    '.wf-port-out',   'intake',    '.wf-port-in',   ''],
+            ['intake',   '.wf-port-out',   'valid',     '.wf-port-in',   ''],
+            ['valid',    '.wf-port-out',   'fork',      '.wf-port-in',   ''],
+            ['fork',     '.wf-port-out',   'docs',      '.wf-port-in',   'parallel'],
+            ['fork',     '.wf-port-out-b', 'risk',      '.wf-port-in',   'parallel'],
+            ['docs',     '.wf-port-out',   'merge',     '.wf-port-in',   ''],
+            ['risk',     '.wf-port-out',   'merge',     '.wf-port-in',   ''],
+            ['merge',    '.wf-port-out',   'committee', '.wf-port-in',   ''],
+            ['committee','.wf-port-out',   'decision',  '.wf-port-in',   ''],
+            ['decision', '.wf-port-out',   'disburse',  '.wf-port-in',   'Approved'],
+            ['decision', '.wf-port-out-b', 'reject',    '.wf-port-in',   'Rejected'],
+            ['disburse', '.wf-port-out',   'end1',      '.wf-port-in',   ''],
+            ['reject',   '.wf-port-out',   'end2',      '.wf-port-in',   '']
+        ];
+
+        var svgEl = document.getElementById('wfSvg');
+        var canvas = document.getElementById('wfCanvas');
+
+        function getPortCenter(nodeId, portSel) {
+            var node = document.getElementById('node-' + nodeId);
+            if (!node) return { x: 0, y: 0 };
+            var port = node.querySelector(portSel);
+            if (!port) return { x: 0, y: 0 };
+            var canvasRect = canvas.getBoundingClientRect();
+            var portRect = port.getBoundingClientRect();
+            return {
+                x: portRect.left + portRect.width / 2 - canvasRect.left,
+                y: portRect.top + portRect.height / 2 - canvasRect.top
+            };
+        }
+
+        function drawEdges() {
+            var ns = 'http://www.w3.org/2000/svg';
+            svgEl.innerHTML = '';
+            // Defs for arrowheads
+            var defs = document.createElementNS(ns, 'defs');
+            var marker = document.createElementNS(ns, 'marker');
+            marker.setAttribute('id', 'arrowhead');
+            marker.setAttribute('markerWidth', '8');
+            marker.setAttribute('markerHeight', '6');
+            marker.setAttribute('refX', '8');
+            marker.setAttribute('refY', '3');
+            marker.setAttribute('orient', 'auto');
+            var poly = document.createElementNS(ns, 'polygon');
+            poly.setAttribute('points', '0 0, 8 3, 0 6');
+            poly.setAttribute('class', 'edge-arrow');
+            marker.appendChild(poly);
+            defs.appendChild(marker);
+
+            var markerGold = document.createElementNS(ns, 'marker');
+            markerGold.setAttribute('id', 'arrowhead-gold');
+            markerGold.setAttribute('markerWidth', '8');
+            markerGold.setAttribute('markerHeight', '6');
+            markerGold.setAttribute('refX', '8');
+            markerGold.setAttribute('refY', '3');
+            markerGold.setAttribute('orient', 'auto');
+            var polyGold = document.createElementNS(ns, 'polygon');
+            polyGold.setAttribute('points', '0 0, 8 3, 0 6');
+            polyGold.setAttribute('class', 'edge-arrow arrow-active');
+            markerGold.appendChild(polyGold);
+            defs.appendChild(markerGold);
+
+            svgEl.appendChild(defs);
+
+            edges.forEach(function(e) {
+                var from = getPortCenter(e[0], e[1]);
+                var to   = getPortCenter(e[2], e[3]);
+                var label = e[4] || '';
+                var isConditional = (label === 'Approved' || label === 'Rejected');
+                var isParallel = (label === 'parallel');
+
+                var dx = to.x - from.x;
+                var dy = to.y - from.y;
+                var cx1, cy1, cx2, cy2;
+
+                // Smart bezier: mostly horizontal with vertical offset
+                if (Math.abs(dy) > 60) {
+                    cx1 = from.x + dx * 0.3;
+                    cy1 = from.y;
+                    cx2 = to.x - dx * 0.3;
+                    cy2 = to.y;
+                } else {
+                    cx1 = from.x + dx * 0.5;
+                    cy1 = from.y;
+                    cx2 = to.x - dx * 0.5;
+                    cy2 = to.y;
+                }
+
+                var path = document.createElementNS(ns, 'path');
+                var d = 'M ' + from.x + ' ' + from.y +
+                        ' C ' + cx1 + ' ' + cy1 + ', ' + cx2 + ' ' + cy2 + ', ' + to.x + ' ' + to.y;
+                path.setAttribute('d', d);
+                if (isConditional) path.classList.add('edge-active');
+                path.setAttribute('marker-end', isConditional ? 'url(#arrowhead-gold)' : 'url(#arrowhead)');
+                svgEl.appendChild(path);
+
+                // Edge label
+                if (label && label !== 'parallel') {
+                    var mx = (from.x + to.x) / 2;
+                    var my = (from.y + to.y) / 2;
+                    var bg = document.createElementNS(ns, 'rect');
+                    var textLen = label.length * 6 + 12;
+                    bg.setAttribute('x', mx - textLen / 2);
+                    bg.setAttribute('y', my - 8);
+                    bg.setAttribute('width', textLen);
+                    bg.setAttribute('height', 16);
+                    bg.setAttribute('rx', '8');
+                    bg.setAttribute('class', 'edge-label-bg');
+                    svgEl.appendChild(bg);
+
+                    var text = document.createElementNS(ns, 'text');
+                    text.setAttribute('x', mx);
+                    text.setAttribute('y', my + 4);
+                    text.setAttribute('text-anchor', 'middle');
+                    text.setAttribute('class', 'edge-label-text');
+                    text.textContent = label;
+                    svgEl.appendChild(text);
+                }
+
+                // Parallel indicator (double line effect via dashed stroke)
+                if (isParallel) {
+                    var path2 = document.createElementNS(ns, 'path');
+                    path2.setAttribute('d', d);
+                    path2.setAttribute('stroke', '#B0B8C1');
+                    path2.setAttribute('stroke-width', '1');
+                    path2.setAttribute('stroke-dasharray', '4 3');
+                    path2.setAttribute('fill', 'none');
+                    path2.setAttribute('marker-end', 'url(#arrowhead)');
+                    svgEl.appendChild(path2);
+                }
+            });
+        }
+
+        /* --- NODE DRAGGING --- */
+        var dragNode = null;
+        var dragOffsetX = 0;
+        var dragOffsetY = 0;
+
+        document.querySelectorAll('.wf-node').forEach(function(node) {
+            node.addEventListener('mousedown', function(e) {
+                if (e.target.classList.contains('wf-port')) return; // don't drag from ports
+                e.preventDefault();
+                dragNode = node;
+                dragNode.classList.add('dragging');
+                var rect = node.getBoundingClientRect();
+                var canvasRect = canvas.getBoundingClientRect();
+                dragOffsetX = e.clientX - rect.left;
+                dragOffsetY = e.clientY - rect.top;
+            });
+
+            // Click to select & show props
+            node.addEventListener('click', function(e) {
+                if (e.target.classList.contains('wf-port')) return;
+                selectNode(node);
             });
         });
+
+        document.addEventListener('mousemove', function(e) {
+            if (!dragNode) return;
+            var canvasRect = canvas.getBoundingClientRect();
+            var wrapRect = document.getElementById('canvasWrap').getBoundingClientRect();
+            var scrollLeft = document.getElementById('canvasWrap').scrollLeft;
+            var scrollTop = document.getElementById('canvasWrap').scrollTop;
+            var x = e.clientX - wrapRect.left + scrollLeft - dragOffsetX;
+            var y = e.clientY - wrapRect.top + scrollTop - dragOffsetY;
+            x = Math.max(0, x);
+            y = Math.max(0, y);
+            dragNode.style.left = x + 'px';
+            dragNode.style.top = y + 'px';
+            drawEdges();
+        });
+
+        document.addEventListener('mouseup', function() {
+            if (dragNode) {
+                dragNode.classList.remove('dragging');
+                dragNode = null;
+            }
+        });
+
+        /* --- NODE SELECTION & PROPERTIES --- */
+        var selectedNode = null;
+
+        function selectNode(node) {
+            document.querySelectorAll('.wf-node').forEach(function(n) {
+                n.querySelector('.wf-node-task, .wf-diamond-shape')
+                && n.classList.remove('selected');
+            });
+            // Remove selected from all
+            document.querySelectorAll('.wf-node-task.selected, .wf-node-diamond.selected').forEach(function(n) {
+                n.classList.remove('selected');
+            });
+            node.classList.add('selected');
+            selectedNode = node;
+
+            var title = node.querySelector('.node-title');
+            var panel = document.getElementById('propsPanel');
+            if (title) {
+                document.getElementById('propName').value = title.textContent;
+                document.getElementById('propsPanelTitle').textContent = 'Edit: ' + title.textContent;
+            } else {
+                var lbl = node.querySelector('.wf-diamond-label, .wf-circle-label');
+                document.getElementById('propName').value = lbl ? lbl.textContent : '';
+                document.getElementById('propsPanelTitle').textContent = 'Edit: ' + (lbl ? lbl.textContent : 'Node');
+            }
+            panel.classList.add('visible');
+        }
+
+        function closeProps() {
+            document.getElementById('propsPanel').classList.remove('visible');
+            document.querySelectorAll('.wf-node-task.selected, .wf-node-diamond.selected').forEach(function(n) {
+                n.classList.remove('selected');
+            });
+            selectedNode = null;
+        }
+
+        /* --- ADD NODE (toolbar) --- */
+        var nodeCounter = 100;
+        function addNode(type) {
+            nodeCounter++;
+            var id = type + nodeCounter;
+            var node = document.createElement('div');
+            node.id = 'node-' + id;
+            node.setAttribute('data-node-id', id);
+
+            // Position in center of visible area
+            var wrap = document.getElementById('canvasWrap');
+            var x = wrap.scrollLeft + wrap.clientWidth / 2 - 85;
+            var y = wrap.scrollTop + wrap.clientHeight / 2 - 40;
+
+            if (type === 'task') {
+                node.className = 'wf-node wf-node-task';
+                node.style.cssText = 'left:' + x + 'px; top:' + y + 'px;';
+                node.innerHTML =
+                    '<div class="wf-port wf-port-in"></div>' +
+                    '<div class="wf-node-head"><span class="node-type-icon">&#9645;</span><span class="node-title">New Task</span></div>' +
+                    '<div class="wf-node-body"><div class="node-meta">Role: <strong>Unassigned</strong><br>SLA: <strong>-</strong></div>' +
+                    '<span class="node-badge badge-auto">Automatic</span></div>' +
+                    '<div class="wf-port wf-port-out"></div>';
+            } else if (type === 'split') {
+                node.className = 'wf-node wf-node-diamond';
+                node.style.cssText = 'left:' + x + 'px; top:' + y + 'px;';
+                node.innerHTML =
+                    '<div class="wf-diamond-shape"><span class="diamond-icon">&#8916;</span></div>' +
+                    '<div class="wf-diamond-label">New Split</div>' +
+                    '<div class="wf-port wf-port-in" style="left:-5px; top:22px;"></div>' +
+                    '<div class="wf-port wf-port-out" style="right:-5px; top:22px;"></div>' +
+                    '<div class="wf-port wf-port-out-b" style="bottom:-5px; left:22px;"></div>';
+            } else if (type === 'join') {
+                node.className = 'wf-node wf-node-diamond';
+                node.style.cssText = 'left:' + x + 'px; top:' + y + 'px;';
+                node.innerHTML =
+                    '<div class="wf-diamond-shape"><span class="diamond-icon">&#8911;</span></div>' +
+                    '<div class="wf-diamond-label">New Join</div>' +
+                    '<div class="wf-port wf-port-in" style="left:-5px; top:22px;"></div>' +
+                    '<div class="wf-port wf-port-out" style="right:-5px; top:22px;"></div>';
+            }
+
+            canvas.appendChild(node);
+
+            // Re-attach drag listeners
+            node.addEventListener('mousedown', function(e) {
+                if (e.target.classList.contains('wf-port')) return;
+                e.preventDefault();
+                dragNode = node;
+                dragNode.classList.add('dragging');
+                var rect = node.getBoundingClientRect();
+                dragOffsetX = e.clientX - rect.left;
+                dragOffsetY = e.clientY - rect.top;
+            });
+            node.addEventListener('click', function(e) {
+                if (e.target.classList.contains('wf-port')) return;
+                selectNode(node);
+            });
+        }
+
+        function autoLayout() {
+            // Simple auto-layout: reset to default positions
+            var positions = {
+                'start': [30, 210], 'intake': [120, 188], 'valid': [330, 188],
+                'fork': [542, 202], 'docs': [640, 80], 'risk': [640, 300],
+                'merge': [858, 202], 'committee': [950, 188], 'decision': [1160, 202],
+                'disburse': [1260, 80], 'reject': [1260, 300],
+                'end1': [1472, 98], 'end2': [1472, 318]
+            };
+            Object.keys(positions).forEach(function(id) {
+                var node = document.getElementById('node-' + id);
+                if (node) {
+                    node.style.left = positions[id][0] + 'px';
+                    node.style.top = positions[id][1] + 'px';
+                }
+            });
+            drawEdges();
+        }
+
+        function fitCanvas() {
+            var wrap = document.getElementById('canvasWrap');
+            wrap.scrollLeft = 0;
+            wrap.scrollTop = 0;
+        }
+
+        // Initial draw
+        requestAnimationFrame(drawEdges);
     </script>
 
 </body>
