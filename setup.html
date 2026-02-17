@@ -1552,6 +1552,143 @@
         }
 
         /* ========================================
+           ROLES: My role link
+           ======================================== */
+        .role-my-role {
+            font-size: 0.7rem;
+            color: var(--bsic-gold);
+            text-decoration: none;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 500;
+            margin-left: 8px;
+        }
+
+        .role-my-role:hover { text-decoration: underline; }
+
+        /* ========================================
+           STATUSES: Step-based layout
+           ======================================== */
+        .status-step {
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .status-step:last-of-type {
+            border-bottom: none;
+        }
+
+        .status-step-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 20px;
+            background: rgba(0,43,73,0.03);
+            border-bottom: 1px solid var(--border-light);
+            flex-wrap: wrap;
+        }
+
+        body.dark-mode .status-step-header {
+            background: rgba(229,182,93,0.03);
+            border-bottom-color: #21262D;
+        }
+
+        .status-step-title {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-shrink: 0;
+        }
+
+        .status-step-num {
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: white;
+            background: var(--bsic-gold);
+            padding: 2px 10px;
+            border-radius: 10px;
+            white-space: nowrap;
+        }
+
+        body.dark-mode .status-step-num {
+            background: var(--bsic-gold);
+            color: #0D1117;
+        }
+
+        .status-step-name {
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.88rem;
+            font-weight: 600;
+            border: 1px solid transparent;
+            border-radius: 4px;
+            padding: 4px 10px;
+            background: transparent;
+            color: var(--text-dark);
+            width: 180px;
+            transition: all var(--transition);
+        }
+
+        .status-step-name:hover { border-color: var(--input-border); }
+        .status-step-name:focus { border-color: var(--bsic-gold); outline: none; background: var(--bg-white); }
+
+        body.dark-mode .status-step-name { color: #E6EDF3; }
+        body.dark-mode .status-step-name:hover { border-color: #30363D; }
+        body.dark-mode .status-step-name:focus { border-color: var(--bsic-gold); background: #0D1117; }
+
+        .status-step-flags {
+            display: flex;
+            gap: 10px;
+            flex: 1;
+            flex-wrap: wrap;
+        }
+
+        .step-flag {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.68rem;
+            font-weight: 500;
+            color: var(--text-light);
+            cursor: pointer;
+            white-space: nowrap;
+            margin-bottom: 0;
+        }
+
+        .step-flag input[type="checkbox"] {
+            width: 13px;
+            height: 13px;
+            accent-color: var(--bsic-gold);
+        }
+
+        .status-step-grid {
+            overflow-x: auto;
+        }
+
+        .status-step-add {
+            padding: 8px 16px;
+        }
+
+        /* Color picker swatch */
+        .color-pick {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .color-swatch {
+            width: 14px;
+            height: 14px;
+            border-radius: 3px;
+            flex-shrink: 0;
+            border: 1px solid rgba(0,0,0,0.1);
+        }
+
+        body.dark-mode .color-swatch { border-color: rgba(255,255,255,0.1); }
+
+        body.dark-mode .status-step { border-bottom-color: #21262D; }
+        body.dark-mode .step-flag { color: #6E7681; }
+
+        /* ========================================
            DARK MODE THEME (Claude Code style)
            ======================================== */
         body.dark-mode {
@@ -1773,7 +1910,7 @@
 
     </style>
 </head>
-<body>
+<body class="dark-mode">
 
     <!-- ============================================
          TOP HEADER
@@ -1878,9 +2015,12 @@
                 <div class="config-card">
                     <div class="config-card-header">
                         <h3>Defined Roles</h3>
-                        <button class="btn btn-add" onclick="return false;">
-                            <span class="btn-icon">+</span> Add Role
-                        </button>
+                        <div style="display:flex; align-items:center; gap:10px;">
+                            <a href="#" style="font-size:0.78rem; color:var(--bsic-gold); text-decoration:none; font-family:'Poppins',sans-serif; font-weight:500;">View Filter</a>
+                            <button class="btn btn-add" onclick="return false;">
+                                <span class="btn-icon">+</span> Add Role
+                            </button>
+                        </div>
                     </div>
                     <div class="config-card-body" style="padding: 0;">
                         <table class="config-table">
@@ -1889,117 +2029,72 @@
                                     <th>Role Name</th>
                                     <th>Level</th>
                                     <th>Permission</th>
-                                    <th style="width:90px">Actions</th>
+                                    <th style="width:120px">Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td class="table-role-name">Credit Analyst</td>
+                                    <td><span class="table-role-name">Credit Analyst</span> <a href="#" class="role-my-role">My role</a></td>
                                     <td><span class="table-badge badge-blue">Operator</span></td>
                                     <td>View, Edit, Submit</td>
                                     <td>
                                         <div class="table-actions">
                                             <button title="Edit">&#9998;</button>
+                                            <button title="Duplicate">&#10697;</button>
                                             <button class="delete" title="Delete">&#10005;</button>
                                         </div>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td class="table-role-name">Branch Manager</td>
+                                    <td><span class="table-role-name">Branch Manager</span></td>
                                     <td><span class="table-badge badge-blue">Approver</span></td>
                                     <td>View, Approve, Reject</td>
                                     <td>
                                         <div class="table-actions">
                                             <button title="Edit">&#9998;</button>
+                                            <button title="Duplicate">&#10697;</button>
                                             <button class="delete" title="Delete">&#10005;</button>
                                         </div>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td class="table-role-name">Credit Committee</td>
+                                    <td><span class="table-role-name">Credit Committee</span></td>
                                     <td><span class="table-badge badge-gold">Committee</span></td>
                                     <td>View, Approve, Reject, Override</td>
                                     <td>
                                         <div class="table-actions">
                                             <button title="Edit">&#9998;</button>
+                                            <button title="Duplicate">&#10697;</button>
                                             <button class="delete" title="Delete">&#10005;</button>
                                         </div>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td class="table-role-name">Risk Officer</td>
+                                    <td><span class="table-role-name">Risk Officer</span></td>
                                     <td><span class="table-badge badge-blue">Reviewer</span></td>
                                     <td>View, Score, Flag</td>
                                     <td>
                                         <div class="table-actions">
                                             <button title="Edit">&#9998;</button>
+                                            <button title="Duplicate">&#10697;</button>
                                             <button class="delete" title="Delete">&#10005;</button>
                                         </div>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td class="table-role-name">Board Committee</td>
+                                    <td><span class="table-role-name">Board Committee</span></td>
                                     <td><span class="table-badge badge-gold">Committee</span></td>
                                     <td>Full Access</td>
                                     <td>
                                         <div class="table-actions">
                                             <button title="Edit">&#9998;</button>
+                                            <button title="Duplicate">&#10697;</button>
                                             <button class="delete" title="Delete">&#10005;</button>
                                         </div>
                                     </td>
                                 </tr>
                             </tbody>
                         </table>
-                    </div>
-                </div>
-
-                <!-- Role Configuration -->
-                <div class="config-card">
-                    <div class="config-card-header">
-                        <h3>Role Permissions</h3>
-                        <span class="card-badge">Per Role</span>
-                    </div>
-                    <div class="config-card-body">
-                        <div class="toggle-row">
-                            <div class="toggle-info">
-                                <div class="toggle-label">Can view all applications</div>
-                                <div class="toggle-desc">Access to the full pipeline, not just assigned applications</div>
-                            </div>
-                            <label class="toggle-switch">
-                                <input type="checkbox" checked>
-                                <span class="toggle-slider"></span>
-                            </label>
-                        </div>
-                        <div class="toggle-row">
-                            <div class="toggle-info">
-                                <div class="toggle-label">Can approve / reject</div>
-                                <div class="toggle-desc">Ability to make final decisions on loan applications</div>
-                            </div>
-                            <label class="toggle-switch">
-                                <input type="checkbox">
-                                <span class="toggle-slider"></span>
-                            </label>
-                        </div>
-                        <div class="toggle-row">
-                            <div class="toggle-info">
-                                <div class="toggle-label">Can override risk score</div>
-                                <div class="toggle-desc">Manually adjust the automated risk assessment</div>
-                            </div>
-                            <label class="toggle-switch">
-                                <input type="checkbox">
-                                <span class="toggle-slider"></span>
-                            </label>
-                        </div>
-                        <div class="toggle-row">
-                            <div class="toggle-info">
-                                <div class="toggle-label">Can configure system</div>
-                                <div class="toggle-desc">Access to this setup/configuration panel</div>
-                            </div>
-                            <label class="toggle-switch">
-                                <input type="checkbox">
-                                <span class="toggle-slider"></span>
-                            </label>
-                        </div>
                     </div>
                 </div>
 
@@ -2325,84 +2420,324 @@
 
 
             <!-- ==========================================
-                 TAB 3: STATUSES
+                 TAB 3: STATUSES (Step-based)
                  ========================================== -->
             <div id="tab-statuses" class="tab-content">
                 <div class="page-header">
                     <h1>Application Statuses</h1>
-                    <p>Configure the lifecycle statuses that a loan application can have. Each status maps to a workflow stage.</p>
+                    <p>Define workflow steps and their sub-statuses. Status changes are triggered by transmit actions or decision widgets. Each step groups related statuses together.</p>
+                </div>
+
+                <div class="info-banner">
+                    <span class="material-icons-outlined">info</span>
+                    <p>A status change happens either when a user <strong>transmits</strong> (forwards the application) or makes a <strong>decision</strong> in the approval widget. Check <em>InOrderStatus</em> to enforce sequential progression. Any change triggers a new version of the workflow.</p>
                 </div>
 
                 <div class="config-card">
                     <div class="config-card-header">
                         <h3>Status Definitions</h3>
-                        <button class="btn btn-add" onclick="return false;">
-                            <span class="btn-icon">+</span> Add Status
-                        </button>
+                        <span class="card-badge">Version 2</span>
                     </div>
-                    <div class="config-card-body" style="padding: 0;">
-                        <table class="config-table">
-                            <thead>
-                                <tr>
-                                    <th>Status</th>
-                                    <th>Workflow Stage</th>
-                                    <th style="width:90px">Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td><div class="status-cell"><span class="status-dot" style="background:#3498DB;"></span><span class="table-role-name">Submitted</span></div></td>
-                                    <td>Application Intake</td>
-                                    <td><div class="table-actions"><button title="Edit">&#9998;</button><button class="delete" title="Delete">&#10005;</button></div></td>
-                                </tr>
-                                <tr>
-                                    <td><div class="status-cell"><span class="status-dot" style="background:#F39C12;"></span><span class="table-role-name">Validation Pending</span></div></td>
-                                    <td>Smart Validation</td>
-                                    <td><div class="table-actions"><button title="Edit">&#9998;</button><button class="delete" title="Delete">&#10005;</button></div></td>
-                                </tr>
-                                <tr>
-                                    <td><div class="status-cell"><span class="status-dot" style="background:#E74C3C;"></span><span class="table-role-name">Incomplete</span></div></td>
-                                    <td>Smart Validation</td>
-                                    <td><div class="table-actions"><button title="Edit">&#9998;</button><button class="delete" title="Delete">&#10005;</button></div></td>
-                                </tr>
-                                <tr>
-                                    <td><div class="status-cell"><span class="status-dot" style="background:#9B59B6;"></span><span class="table-role-name">Under Analysis</span></div></td>
-                                    <td>Document Analysis</td>
-                                    <td><div class="table-actions"><button title="Edit">&#9998;</button><button class="delete" title="Delete">&#10005;</button></div></td>
-                                </tr>
-                                <tr>
-                                    <td><div class="status-cell"><span class="status-dot" style="background:#E67E22;"></span><span class="table-role-name">Risk Flagged</span></div></td>
-                                    <td>Risk Assessment</td>
-                                    <td><div class="table-actions"><button title="Edit">&#9998;</button><button class="delete" title="Delete">&#10005;</button></div></td>
-                                </tr>
-                                <tr>
-                                    <td><div class="status-cell"><span class="status-dot" style="background:#1ABC9C;"></span><span class="table-role-name">Committee Review</span></div></td>
-                                    <td>Committee Decision</td>
-                                    <td><div class="table-actions"><button title="Edit">&#9998;</button><button class="delete" title="Delete">&#10005;</button></div></td>
-                                </tr>
-                                <tr>
-                                    <td><div class="status-cell"><span class="status-dot" style="background:#27AE60;"></span><span class="table-role-name">Approved</span></div></td>
-                                    <td>Committee Decision</td>
-                                    <td><div class="table-actions"><button title="Edit">&#9998;</button><button class="delete" title="Delete">&#10005;</button></div></td>
-                                </tr>
-                                <tr>
-                                    <td><div class="status-cell"><span class="status-dot" style="background:#E74C3C;"></span><span class="table-role-name">Rejected</span></div></td>
-                                    <td>Committee Decision</td>
-                                    <td><div class="table-actions"><button title="Edit">&#9998;</button><button class="delete" title="Delete">&#10005;</button></div></td>
-                                </tr>
-                                <tr>
-                                    <td><div class="status-cell"><span class="status-dot" style="background:#2ECC71;"></span><span class="table-role-name">Disbursed</span></div></td>
-                                    <td>Offer &amp; Disbursement</td>
-                                    <td><div class="table-actions"><button title="Edit">&#9998;</button><button class="delete" title="Delete">&#10005;</button></div></td>
-                                </tr>
-                            </tbody>
-                        </table>
+                    <div class="config-card-body" style="padding:0;">
+
+                        <!-- STEP 1: Preparation -->
+                        <div class="status-step">
+                            <div class="status-step-header">
+                                <div class="status-step-title">
+                                    <span class="status-step-num">Step 1</span>
+                                    <input type="text" class="status-step-name" value="Preparation">
+                                </div>
+                                <div class="status-step-flags">
+                                    <label class="step-flag"><input type="checkbox" checked> InOrderStatus</label>
+                                    <label class="step-flag"><input type="checkbox"> isDecision</label>
+                                    <label class="step-flag"><input type="checkbox"> isCashing</label>
+                                    <label class="step-flag"><input type="checkbox"> isArchive</label>
+                                    <label class="step-flag"><input type="checkbox" checked> createIcon</label>
+                                </div>
+                                <div class="table-actions">
+                                    <button title="Delete step" class="delete">&#10005;</button>
+                                </div>
+                            </div>
+                            <div class="status-step-grid">
+                                <table class="req-grid">
+                                    <thead><tr>
+                                        <th style="width:30px">#</th>
+                                        <th>Name</th>
+                                        <th style="width:60px">Value</th>
+                                        <th>Icon</th>
+                                        <th style="width:80px">Color</th>
+                                        <th>Status Changer</th>
+                                        <th style="width:70px">Decision</th>
+                                        <th>Default Next</th>
+                                        <th style="width:60px">Active</th>
+                                    </tr></thead>
+                                    <tbody>
+                                        <tr>
+                                            <td class="req-grid-num">0</td>
+                                            <td><input type="text" class="req-grid-input" value="New Request"></td>
+                                            <td><input type="number" class="req-grid-input" value="0" style="width:50px;text-align:center"></td>
+                                            <td><input type="text" class="req-grid-input" value="watch_later" style="font-family:monospace;font-size:0.72rem"></td>
+                                            <td><div class="color-pick"><span class="color-swatch" style="background:#3498DB"></span><select class="req-grid-select" style="width:auto"><option selected>blue</option><option>green</option><option>orange</option><option>red</option><option>purple</option><option>grey</option></select></div></td>
+                                            <td><select class="req-grid-select"><option selected>Transmit</option><option>Decision</option></select></td>
+                                            <td class="req-grid-chk"><input type="checkbox"></td>
+                                            <td><select class="req-grid-select"><option>-</option><option selected>Waiting Documents</option></select></td>
+                                            <td class="req-grid-chk"><input type="checkbox" checked></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="req-grid-num">1</td>
+                                            <td><input type="text" class="req-grid-input" value="Waiting Documents"></td>
+                                            <td><input type="number" class="req-grid-input" value="1" style="width:50px;text-align:center"></td>
+                                            <td><input type="text" class="req-grid-input" value="description" style="font-family:monospace;font-size:0.72rem"></td>
+                                            <td><div class="color-pick"><span class="color-swatch" style="background:#3498DB"></span><select class="req-grid-select" style="width:auto"><option selected>blue</option><option>green</option><option>orange</option><option>red</option><option>purple</option><option>grey</option></select></div></td>
+                                            <td><select class="req-grid-select"><option selected>Transmit</option><option>Decision</option></select></td>
+                                            <td class="req-grid-chk"><input type="checkbox"></td>
+                                            <td><select class="req-grid-select"><option>-</option><option selected>No Recommendation</option></select></td>
+                                            <td class="req-grid-chk"><input type="checkbox" checked></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <div class="status-step-add"><button class="btn btn-add" onclick="return false"><span class="btn-icon">+</span> Add Status</button></div>
+                            </div>
+                        </div>
+
+                        <!-- STEP 2: Recommendation -->
+                        <div class="status-step">
+                            <div class="status-step-header">
+                                <div class="status-step-title">
+                                    <span class="status-step-num">Step 2</span>
+                                    <input type="text" class="status-step-name" value="Recommendation">
+                                </div>
+                                <div class="status-step-flags">
+                                    <label class="step-flag"><input type="checkbox" checked> InOrderStatus</label>
+                                    <label class="step-flag"><input type="checkbox" checked> isDecision</label>
+                                    <label class="step-flag"><input type="checkbox"> isCashing</label>
+                                    <label class="step-flag"><input type="checkbox"> isArchive</label>
+                                    <label class="step-flag"><input type="checkbox"> createIcon</label>
+                                </div>
+                                <div class="table-actions">
+                                    <button title="Delete step" class="delete">&#10005;</button>
+                                </div>
+                            </div>
+                            <div class="status-step-grid">
+                                <table class="req-grid">
+                                    <thead><tr>
+                                        <th style="width:30px">#</th>
+                                        <th>Name</th>
+                                        <th style="width:60px">Value</th>
+                                        <th>Icon</th>
+                                        <th style="width:80px">Color</th>
+                                        <th>Status Changer</th>
+                                        <th style="width:70px">Decision</th>
+                                        <th>Default Next</th>
+                                        <th style="width:60px">Active</th>
+                                    </tr></thead>
+                                    <tbody>
+                                        <tr>
+                                            <td class="req-grid-num">0</td>
+                                            <td><input type="text" class="req-grid-input" value="No Recommendation"></td>
+                                            <td><input type="number" class="req-grid-input" value="0" style="width:50px;text-align:center"></td>
+                                            <td><input type="text" class="req-grid-input" value="cancel" style="font-family:monospace;font-size:0.72rem"></td>
+                                            <td><div class="color-pick"><span class="color-swatch" style="background:#E74C3C"></span><select class="req-grid-select" style="width:auto"><option>blue</option><option>green</option><option>orange</option><option selected>red</option><option>purple</option><option>grey</option></select></div></td>
+                                            <td><select class="req-grid-select"><option>Transmit</option><option selected>Decision</option></select></td>
+                                            <td class="req-grid-chk"><input type="checkbox"></td>
+                                            <td><select class="req-grid-select"><option selected>-</option></select></td>
+                                            <td class="req-grid-chk"><input type="checkbox" checked></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="req-grid-num">1</td>
+                                            <td><input type="text" class="req-grid-input" value="Recommended"></td>
+                                            <td><input type="number" class="req-grid-input" value="1" style="width:50px;text-align:center"></td>
+                                            <td><input type="text" class="req-grid-input" value="warning" style="font-family:monospace;font-size:0.72rem"></td>
+                                            <td><div class="color-pick"><span class="color-swatch" style="background:#F39C12"></span><select class="req-grid-select" style="width:auto"><option>blue</option><option>green</option><option selected>orange</option><option>red</option><option>purple</option><option>grey</option></select></div></td>
+                                            <td><select class="req-grid-select"><option>Transmit</option><option selected>Decision</option></select></td>
+                                            <td class="req-grid-chk"><input type="checkbox" checked></td>
+                                            <td><select class="req-grid-select"><option>-</option><option selected>No Decision</option></select></td>
+                                            <td class="req-grid-chk"><input type="checkbox" checked></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="req-grid-num">2</td>
+                                            <td><input type="text" class="req-grid-input" value="Rejected"></td>
+                                            <td><input type="number" class="req-grid-input" value="2" style="width:50px;text-align:center"></td>
+                                            <td><input type="text" class="req-grid-input" value="cancel" style="font-family:monospace;font-size:0.72rem"></td>
+                                            <td><div class="color-pick"><span class="color-swatch" style="background:#E74C3C"></span><select class="req-grid-select" style="width:auto"><option>blue</option><option>green</option><option>orange</option><option selected>red</option><option>purple</option><option>grey</option></select></div></td>
+                                            <td><select class="req-grid-select"><option>Transmit</option><option selected>Decision</option></select></td>
+                                            <td class="req-grid-chk"><input type="checkbox" checked></td>
+                                            <td><select class="req-grid-select"><option selected>-</option></select></td>
+                                            <td class="req-grid-chk"><input type="checkbox" checked></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <div class="status-step-add"><button class="btn btn-add" onclick="return false"><span class="btn-icon">+</span> Add Status</button></div>
+                            </div>
+                        </div>
+
+                        <!-- STEP 3: Decision -->
+                        <div class="status-step">
+                            <div class="status-step-header">
+                                <div class="status-step-title">
+                                    <span class="status-step-num">Step 3</span>
+                                    <input type="text" class="status-step-name" value="Decision">
+                                </div>
+                                <div class="status-step-flags">
+                                    <label class="step-flag"><input type="checkbox" checked> InOrderStatus</label>
+                                    <label class="step-flag"><input type="checkbox" checked> isDecision</label>
+                                    <label class="step-flag"><input type="checkbox"> isCashing</label>
+                                    <label class="step-flag"><input type="checkbox"> isArchive</label>
+                                    <label class="step-flag"><input type="checkbox"> createIcon</label>
+                                </div>
+                                <div class="table-actions">
+                                    <button title="Delete step" class="delete">&#10005;</button>
+                                </div>
+                            </div>
+                            <div class="status-step-grid">
+                                <table class="req-grid">
+                                    <thead><tr>
+                                        <th style="width:30px">#</th>
+                                        <th>Name</th>
+                                        <th style="width:60px">Value</th>
+                                        <th>Icon</th>
+                                        <th style="width:80px">Color</th>
+                                        <th>Status Changer</th>
+                                        <th style="width:70px">Decision</th>
+                                        <th>Default Next</th>
+                                        <th style="width:60px">Active</th>
+                                    </tr></thead>
+                                    <tbody>
+                                        <tr>
+                                            <td class="req-grid-num">0</td>
+                                            <td><input type="text" class="req-grid-input" value="No Decision"></td>
+                                            <td><input type="number" class="req-grid-input" value="0" style="width:50px;text-align:center"></td>
+                                            <td><input type="text" class="req-grid-input" value="" style="font-family:monospace;font-size:0.72rem"></td>
+                                            <td><div class="color-pick"><span class="color-swatch" style="background:#8B949E"></span><select class="req-grid-select" style="width:auto"><option>blue</option><option>green</option><option>orange</option><option>red</option><option>purple</option><option selected>grey</option></select></div></td>
+                                            <td><select class="req-grid-select"><option>Transmit</option><option selected>Decision</option></select></td>
+                                            <td class="req-grid-chk"><input type="checkbox"></td>
+                                            <td><select class="req-grid-select"><option selected>-</option></select></td>
+                                            <td class="req-grid-chk"><input type="checkbox" checked></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="req-grid-num">1</td>
+                                            <td><input type="text" class="req-grid-input" value="Need Information"></td>
+                                            <td><input type="number" class="req-grid-input" value="1" style="width:50px;text-align:center"></td>
+                                            <td><input type="text" class="req-grid-input" value="warning" style="font-family:monospace;font-size:0.72rem"></td>
+                                            <td><div class="color-pick"><span class="color-swatch" style="background:#F39C12"></span><select class="req-grid-select" style="width:auto"><option>blue</option><option>green</option><option selected>orange</option><option>red</option><option>purple</option><option>grey</option></select></div></td>
+                                            <td><select class="req-grid-select"><option>Transmit</option><option selected>Decision</option></select></td>
+                                            <td class="req-grid-chk"><input type="checkbox" checked></td>
+                                            <td><select class="req-grid-select"><option selected>-</option></select></td>
+                                            <td class="req-grid-chk"><input type="checkbox" checked></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="req-grid-num">2</td>
+                                            <td><input type="text" class="req-grid-input" value="Approved"></td>
+                                            <td><input type="number" class="req-grid-input" value="2" style="width:50px;text-align:center"></td>
+                                            <td><input type="text" class="req-grid-input" value="check_circle" style="font-family:monospace;font-size:0.72rem"></td>
+                                            <td><div class="color-pick"><span class="color-swatch" style="background:#27AE60"></span><select class="req-grid-select" style="width:auto"><option>blue</option><option selected>green</option><option>orange</option><option>red</option><option>purple</option><option>grey</option></select></div></td>
+                                            <td><select class="req-grid-select"><option>Transmit</option><option selected>Decision</option></select></td>
+                                            <td class="req-grid-chk"><input type="checkbox" checked></td>
+                                            <td><select class="req-grid-select"><option>-</option><option selected>Final Approval</option></select></td>
+                                            <td class="req-grid-chk"><input type="checkbox" checked></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="req-grid-num">3</td>
+                                            <td><input type="text" class="req-grid-input" value="Rejected"></td>
+                                            <td><input type="number" class="req-grid-input" value="3" style="width:50px;text-align:center"></td>
+                                            <td><input type="text" class="req-grid-input" value="cancel" style="font-family:monospace;font-size:0.72rem"></td>
+                                            <td><div class="color-pick"><span class="color-swatch" style="background:#E74C3C"></span><select class="req-grid-select" style="width:auto"><option>blue</option><option>green</option><option>orange</option><option selected>red</option><option>purple</option><option>grey</option></select></div></td>
+                                            <td><select class="req-grid-select"><option>Transmit</option><option selected>Decision</option></select></td>
+                                            <td class="req-grid-chk"><input type="checkbox" checked></td>
+                                            <td><select class="req-grid-select"><option selected>-</option></select></td>
+                                            <td class="req-grid-chk"><input type="checkbox" checked></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <div class="status-step-add"><button class="btn btn-add" onclick="return false"><span class="btn-icon">+</span> Add Status</button></div>
+                            </div>
+                        </div>
+
+                        <!-- STEP 4: Final Decision -->
+                        <div class="status-step">
+                            <div class="status-step-header">
+                                <div class="status-step-title">
+                                    <span class="status-step-num">Step 4</span>
+                                    <input type="text" class="status-step-name" value="Final Decision">
+                                </div>
+                                <div class="status-step-flags">
+                                    <label class="step-flag"><input type="checkbox" checked> InOrderStatus</label>
+                                    <label class="step-flag"><input type="checkbox" checked> isDecision</label>
+                                    <label class="step-flag"><input type="checkbox" checked> isCashing</label>
+                                    <label class="step-flag"><input type="checkbox"> isArchive</label>
+                                    <label class="step-flag"><input type="checkbox"> createIcon</label>
+                                </div>
+                                <div class="table-actions">
+                                    <button title="Delete step" class="delete">&#10005;</button>
+                                </div>
+                            </div>
+                            <div class="status-step-grid">
+                                <table class="req-grid">
+                                    <thead><tr>
+                                        <th style="width:30px">#</th>
+                                        <th>Name</th>
+                                        <th style="width:60px">Value</th>
+                                        <th>Icon</th>
+                                        <th style="width:80px">Color</th>
+                                        <th>Status Changer</th>
+                                        <th style="width:70px">Decision</th>
+                                        <th>Default Next</th>
+                                        <th style="width:60px">Active</th>
+                                    </tr></thead>
+                                    <tbody>
+                                        <tr>
+                                            <td class="req-grid-num">0</td>
+                                            <td><input type="text" class="req-grid-input" value="No Decision"></td>
+                                            <td><input type="number" class="req-grid-input" value="0" style="width:50px;text-align:center"></td>
+                                            <td><input type="text" class="req-grid-input" value="" style="font-family:monospace;font-size:0.72rem"></td>
+                                            <td><div class="color-pick"><span class="color-swatch" style="background:#8B949E"></span><select class="req-grid-select" style="width:auto"><option>blue</option><option>green</option><option>orange</option><option>red</option><option>purple</option><option selected>grey</option></select></div></td>
+                                            <td><select class="req-grid-select"><option>Transmit</option><option selected>Decision</option></select></td>
+                                            <td class="req-grid-chk"><input type="checkbox"></td>
+                                            <td><select class="req-grid-select"><option selected>-</option></select></td>
+                                            <td class="req-grid-chk"><input type="checkbox" checked></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="req-grid-num">1</td>
+                                            <td><input type="text" class="req-grid-input" value="Need Information"></td>
+                                            <td><input type="number" class="req-grid-input" value="1" style="width:50px;text-align:center"></td>
+                                            <td><input type="text" class="req-grid-input" value="warning" style="font-family:monospace;font-size:0.72rem"></td>
+                                            <td><div class="color-pick"><span class="color-swatch" style="background:#F39C12"></span><select class="req-grid-select" style="width:auto"><option>blue</option><option>green</option><option selected>orange</option><option>red</option><option>purple</option><option>grey</option></select></div></td>
+                                            <td><select class="req-grid-select"><option>Transmit</option><option selected>Decision</option></select></td>
+                                            <td class="req-grid-chk"><input type="checkbox" checked></td>
+                                            <td><select class="req-grid-select"><option selected>-</option></select></td>
+                                            <td class="req-grid-chk"><input type="checkbox" checked></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="req-grid-num">2</td>
+                                            <td><input type="text" class="req-grid-input" value="Final Approval"></td>
+                                            <td><input type="number" class="req-grid-input" value="2" style="width:50px;text-align:center"></td>
+                                            <td><input type="text" class="req-grid-input" value="check_circle" style="font-family:monospace;font-size:0.72rem"></td>
+                                            <td><div class="color-pick"><span class="color-swatch" style="background:#27AE60"></span><select class="req-grid-select" style="width:auto"><option>blue</option><option selected>green</option><option>orange</option><option>red</option><option>purple</option><option>grey</option></select></div></td>
+                                            <td><select class="req-grid-select"><option>Transmit</option><option selected>Decision</option></select></td>
+                                            <td class="req-grid-chk"><input type="checkbox" checked></td>
+                                            <td><select class="req-grid-select"><option selected>-</option></select></td>
+                                            <td class="req-grid-chk"><input type="checkbox" checked></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <div class="status-step-add"><button class="btn btn-add" onclick="return false"><span class="btn-icon">+</span> Add Status</button></div>
+                            </div>
+                        </div>
+
+                        <!-- Add Step button -->
+                        <div style="padding: 16px 20px; border-top: 1px solid var(--border-light);">
+                            <button class="btn btn-add" onclick="return false"><span class="btn-icon">+</span> Add Loan Step</button>
+                        </div>
+
                     </div>
                 </div>
 
                 <div class="actions-bar">
                     <button class="btn btn-secondary" onclick="showTab('workflow')">Back</button>
-                    <button class="btn btn-primary" onclick="showTab('client')">Save &amp; Continue</button>
+                    <div style="display:flex;gap:10px;">
+                        <button class="btn btn-secondary">Save Draft</button>
+                        <button class="btn btn-primary" onclick="showTab('client')">Save &amp; Continue</button>
+                    </div>
                 </div>
             </div>
 
@@ -3319,9 +3654,11 @@
             requestAnimationFrame(drawEdges);
         }
 
-        // Restore saved theme
-        if (localStorage.getItem('bb-theme') === 'dark') {
-            document.body.classList.add('dark-mode');
+        // Restore saved theme (dark is default)
+        if (localStorage.getItem('bb-theme') === 'light') {
+            document.body.classList.remove('dark-mode');
+            document.getElementById('themeIcon').textContent = 'dark_mode';
+        } else {
             document.getElementById('themeIcon').textContent = 'light_mode';
         }
     </script>
