@@ -10,7 +10,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
     <!-- Material Icons -->
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined|Material+Icons" rel="stylesheet">
 
     <style>
         /* ========================================
@@ -281,7 +281,7 @@
             flex: 1;
             margin-left: var(--sidebar-width);
             padding: 32px 40px;
-            max-width: 900px;
+            max-width: 1100px;
         }
 
         /* Page Header */
@@ -850,7 +850,8 @@
             justify-content: center;
         }
 
-        .checkbox-centered input[type="checkbox"] {
+        .checkbox-centered input[type="checkbox"],
+        .config-table input[type="checkbox"] {
             width: 16px;
             height: 16px;
             accent-color: var(--bsic-gold);
@@ -1555,54 +1556,61 @@
            STANDARD ROW CONTROLS (drag + 3-dot menu)
            ======================================== */
         .row-drag {
-            width: 28px;
+            width: 40px;
             text-align: center;
             vertical-align: middle;
-        }
-
-        .row-drag-handle {
+            color: #C0C7CF;
             cursor: grab;
-            color: var(--text-light);
-            font-size: 0.85rem;
-            padding: 2px;
-            user-select: none;
-            opacity: 0.5;
-            transition: opacity var(--transition);
         }
 
-        .row-drag-handle:hover,
-        tr:hover .row-drag-handle,
-        .field-row:hover .row-drag-handle {
-            opacity: 1;
+        .row-drag .material-icons-outlined {
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: color var(--transition);
+        }
+
+        tr:hover .row-drag,
+        .field-row:hover .row-drag {
+            color: var(--bsic-blue);
         }
 
         .row-menu {
-            width: 28px;
+            width: 40px;
             text-align: center;
             vertical-align: middle;
+            padding-right: 8px;
         }
 
         .row-menu-btn {
             background: none;
             border: none;
             cursor: pointer;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
             color: var(--text-light);
-            font-size: 1.1rem;
-            padding: 4px 6px;
-            border-radius: var(--radius-sm);
             transition: all var(--transition);
-            line-height: 1;
             opacity: 0;
         }
 
+        .row-menu-btn .material-icons {
+            font-size: 1.2rem;
+        }
+
         tr:hover .row-menu-btn,
-        .field-row:hover .row-menu-btn {
+        .field-row:hover .row-menu-btn,
+        .status-step-header .row-menu-btn {
             opacity: 1;
         }
 
         .row-menu-btn:hover {
+            background-color: rgba(0,0,0,0.05);
             color: var(--text-dark);
-            background: rgba(229,182,93,0.1);
         }
 
         /* ========================================
@@ -1937,14 +1945,11 @@
         body.dark-mode .req-grid-select:focus { border-color: var(--bsic-gold); background-color: #1E1E1C; }
         body.dark-mode .req-reorder { color: #3D3D3A; }
         body.dark-mode .req-reorder:hover { color: #A8A8A0; }
-        body.dark-mode .row-drag-handle { color: #5A5A56; }
-        body.dark-mode .row-drag-handle:hover,
-        body.dark-mode tr:hover .row-drag-handle,
-        body.dark-mode .field-row:hover .row-drag-handle { color: #A8A8A0; }
-        body.dark-mode .row-menu-btn { color: #5A5A56; }
-        body.dark-mode tr:hover .row-menu-btn,
-        body.dark-mode .field-row:hover .row-menu-btn { opacity: 1; }
-        body.dark-mode .row-menu-btn:hover { color: #F0F0EC; background: rgba(229,182,93,0.1); }
+        body.dark-mode .row-drag { color: #3D3D3A; }
+        body.dark-mode tr:hover .row-drag,
+        body.dark-mode .field-row:hover .row-drag { color: #858580; }
+        body.dark-mode .row-menu-btn { color: #858580; }
+        body.dark-mode .row-menu-btn:hover { background: rgba(255,255,255,0.1); color: #F0F0EC; }
 
         body.dark-mode .field-row { border-bottom-color: #30302E; }
         body.dark-mode .field-row-header { border-bottom-color: #3D3D3A; color: #858580; }
@@ -2095,7 +2100,7 @@
                         <div style="display:flex; align-items:center; gap:10px;">
                             <a href="#" style="font-size:0.78rem; color:var(--bsic-gold); text-decoration:none; font-family:'Poppins',sans-serif; font-weight:500;">View Filter</a>
                             <button class="btn btn-add" onclick="return false;">
-                                <span class="btn-icon">+</span> Add Role
+                                <span class="material-icons-outlined" style="font-size:16px;">add</span> Add Role
                             </button>
                         </div>
                     </div>
@@ -2103,48 +2108,48 @@
                         <table class="config-table">
                             <thead>
                                 <tr>
-                                    <th style="width:28px"></th>
+                                    <th style="width:40px"></th>
                                     <th>Role Name</th>
                                     <th>Level</th>
                                     <th>Permission</th>
-                                    <th style="width:28px"></th>
+                                    <th style="width:40px"></th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td class="row-drag"><span class="row-drag-handle">&#8942;&#8942;</span></td>
+                                    <td class="row-drag" title="Drag to reorder"><span class="material-icons-outlined">drag_indicator</span></td>
                                     <td><span class="table-role-name">Credit Analyst</span> <a href="#" class="role-my-role">My role</a></td>
                                     <td><span class="table-badge badge-blue">Operator</span></td>
                                     <td>View, Edit, Submit</td>
-                                    <td class="row-menu"><button class="row-menu-btn" title="Actions">&#8942;</button></td>
+                                    <td class="row-menu"><button class="row-menu-btn" title="More options"><span class="material-icons">more_vert</span></button></td>
                                 </tr>
                                 <tr>
-                                    <td class="row-drag"><span class="row-drag-handle">&#8942;&#8942;</span></td>
+                                    <td class="row-drag" title="Drag to reorder"><span class="material-icons-outlined">drag_indicator</span></td>
                                     <td><span class="table-role-name">Branch Manager</span></td>
                                     <td><span class="table-badge badge-blue">Approver</span></td>
                                     <td>View, Approve, Reject</td>
-                                    <td class="row-menu"><button class="row-menu-btn" title="Actions">&#8942;</button></td>
+                                    <td class="row-menu"><button class="row-menu-btn" title="More options"><span class="material-icons">more_vert</span></button></td>
                                 </tr>
                                 <tr>
-                                    <td class="row-drag"><span class="row-drag-handle">&#8942;&#8942;</span></td>
+                                    <td class="row-drag" title="Drag to reorder"><span class="material-icons-outlined">drag_indicator</span></td>
                                     <td><span class="table-role-name">Credit Committee</span></td>
                                     <td><span class="table-badge badge-gold">Committee</span></td>
                                     <td>View, Approve, Reject, Override</td>
-                                    <td class="row-menu"><button class="row-menu-btn" title="Actions">&#8942;</button></td>
+                                    <td class="row-menu"><button class="row-menu-btn" title="More options"><span class="material-icons">more_vert</span></button></td>
                                 </tr>
                                 <tr>
-                                    <td class="row-drag"><span class="row-drag-handle">&#8942;&#8942;</span></td>
+                                    <td class="row-drag" title="Drag to reorder"><span class="material-icons-outlined">drag_indicator</span></td>
                                     <td><span class="table-role-name">Risk Officer</span></td>
                                     <td><span class="table-badge badge-blue">Reviewer</span></td>
                                     <td>View, Score, Flag</td>
-                                    <td class="row-menu"><button class="row-menu-btn" title="Actions">&#8942;</button></td>
+                                    <td class="row-menu"><button class="row-menu-btn" title="More options"><span class="material-icons">more_vert</span></button></td>
                                 </tr>
                                 <tr>
-                                    <td class="row-drag"><span class="row-drag-handle">&#8942;&#8942;</span></td>
+                                    <td class="row-drag" title="Drag to reorder"><span class="material-icons-outlined">drag_indicator</span></td>
                                     <td><span class="table-role-name">Board Committee</span></td>
                                     <td><span class="table-badge badge-gold">Committee</span></td>
                                     <td>Full Access</td>
-                                    <td class="row-menu"><button class="row-menu-btn" title="Actions">&#8942;</button></td>
+                                    <td class="row-menu"><button class="row-menu-btn" title="More options"><span class="material-icons">more_vert</span></button></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -2507,12 +2512,12 @@
                                     <label class="step-flag"><input type="checkbox"> isArchive</label>
                                     <label class="step-flag"><input type="checkbox" checked> createIcon</label>
                                 </div>
-                                <button class="row-menu-btn" title="Step actions" style="opacity:1; margin-left:auto;">&#8942;</button>
+                                <button class="row-menu-btn" title="Step actions" style="margin-left:auto;"><span class="material-icons">more_vert</span></button>
                             </div>
                             <div class="status-step-grid">
                                 <table class="req-grid">
                                     <thead><tr>
-                                        <th style="width:28px"></th>
+                                        <th style="width:40px"></th>
                                         <th>Name</th>
                                         <th style="width:60px">Value</th>
                                         <th>Icon</th>
@@ -2520,11 +2525,11 @@
                                         <th>Status Changer</th>
                                         <th style="width:70px">Decision</th>
                                         <th>Default Next</th>
-                                        <th style="width:28px"></th>
+                                        <th style="width:40px"></th>
                                     </tr></thead>
                                     <tbody>
                                         <tr>
-                                            <td class="row-drag"><span class="row-drag-handle">&#8942;&#8942;</span></td>
+                                            <td class="row-drag" title="Drag to reorder"><span class="material-icons-outlined">drag_indicator</span></td>
                                             <td><input type="text" class="req-grid-input" value="New Request"></td>
                                             <td><input type="number" class="req-grid-input" value="0" style="width:50px;text-align:center"></td>
                                             <td><input type="text" class="req-grid-input" value="watch_later" style="font-family:monospace;font-size:0.72rem"></td>
@@ -2532,10 +2537,10 @@
                                             <td><select class="req-grid-select"><option selected>Transmit</option><option>Decision</option></select></td>
                                             <td class="req-grid-chk"><input type="checkbox"></td>
                                             <td><select class="req-grid-select"><option>-</option><option selected>Waiting Documents</option></select></td>
-                                            <td class="row-menu"><button class="row-menu-btn" title="Actions">&#8942;</button></td>
+                                            <td class="row-menu"><button class="row-menu-btn" title="More options"><span class="material-icons">more_vert</span></button></td>
                                         </tr>
                                         <tr>
-                                            <td class="row-drag"><span class="row-drag-handle">&#8942;&#8942;</span></td>
+                                            <td class="row-drag" title="Drag to reorder"><span class="material-icons-outlined">drag_indicator</span></td>
                                             <td><input type="text" class="req-grid-input" value="Waiting Documents"></td>
                                             <td><input type="number" class="req-grid-input" value="1" style="width:50px;text-align:center"></td>
                                             <td><input type="text" class="req-grid-input" value="description" style="font-family:monospace;font-size:0.72rem"></td>
@@ -2543,11 +2548,11 @@
                                             <td><select class="req-grid-select"><option selected>Transmit</option><option>Decision</option></select></td>
                                             <td class="req-grid-chk"><input type="checkbox"></td>
                                             <td><select class="req-grid-select"><option>-</option><option selected>No Recommendation</option></select></td>
-                                            <td class="row-menu"><button class="row-menu-btn" title="Actions">&#8942;</button></td>
+                                            <td class="row-menu"><button class="row-menu-btn" title="More options"><span class="material-icons">more_vert</span></button></td>
                                         </tr>
                                     </tbody>
                                 </table>
-                                <div class="status-step-add"><button class="btn btn-add" onclick="return false"><span class="btn-icon">+</span> Add Status</button></div>
+                                <div class="status-step-add"><button class="btn btn-add" onclick="return false"><span class="material-icons-outlined" style="font-size:16px;">add</span> Add Status</button></div>
                             </div>
                         </div>
 
@@ -2565,12 +2570,12 @@
                                     <label class="step-flag"><input type="checkbox"> isArchive</label>
                                     <label class="step-flag"><input type="checkbox"> createIcon</label>
                                 </div>
-                                <button class="row-menu-btn" title="Step actions" style="opacity:1; margin-left:auto;">&#8942;</button>
+                                <button class="row-menu-btn" title="Step actions" style="margin-left:auto;"><span class="material-icons">more_vert</span></button>
                             </div>
                             <div class="status-step-grid">
                                 <table class="req-grid">
                                     <thead><tr>
-                                        <th style="width:28px"></th>
+                                        <th style="width:40px"></th>
                                         <th>Name</th>
                                         <th style="width:60px">Value</th>
                                         <th>Icon</th>
@@ -2578,11 +2583,11 @@
                                         <th>Status Changer</th>
                                         <th style="width:70px">Decision</th>
                                         <th>Default Next</th>
-                                        <th style="width:28px"></th>
+                                        <th style="width:40px"></th>
                                     </tr></thead>
                                     <tbody>
                                         <tr>
-                                            <td class="row-drag"><span class="row-drag-handle">&#8942;&#8942;</span></td>
+                                            <td class="row-drag" title="Drag to reorder"><span class="material-icons-outlined">drag_indicator</span></td>
                                             <td><input type="text" class="req-grid-input" value="No Recommendation"></td>
                                             <td><input type="number" class="req-grid-input" value="0" style="width:50px;text-align:center"></td>
                                             <td><input type="text" class="req-grid-input" value="cancel" style="font-family:monospace;font-size:0.72rem"></td>
@@ -2590,10 +2595,10 @@
                                             <td><select class="req-grid-select"><option>Transmit</option><option selected>Decision</option></select></td>
                                             <td class="req-grid-chk"><input type="checkbox"></td>
                                             <td><select class="req-grid-select"><option selected>-</option></select></td>
-                                            <td class="row-menu"><button class="row-menu-btn" title="Actions">&#8942;</button></td>
+                                            <td class="row-menu"><button class="row-menu-btn" title="More options"><span class="material-icons">more_vert</span></button></td>
                                         </tr>
                                         <tr>
-                                            <td class="row-drag"><span class="row-drag-handle">&#8942;&#8942;</span></td>
+                                            <td class="row-drag" title="Drag to reorder"><span class="material-icons-outlined">drag_indicator</span></td>
                                             <td><input type="text" class="req-grid-input" value="Recommended"></td>
                                             <td><input type="number" class="req-grid-input" value="1" style="width:50px;text-align:center"></td>
                                             <td><input type="text" class="req-grid-input" value="warning" style="font-family:monospace;font-size:0.72rem"></td>
@@ -2601,10 +2606,10 @@
                                             <td><select class="req-grid-select"><option>Transmit</option><option selected>Decision</option></select></td>
                                             <td class="req-grid-chk"><input type="checkbox" checked></td>
                                             <td><select class="req-grid-select"><option>-</option><option selected>No Decision</option></select></td>
-                                            <td class="row-menu"><button class="row-menu-btn" title="Actions">&#8942;</button></td>
+                                            <td class="row-menu"><button class="row-menu-btn" title="More options"><span class="material-icons">more_vert</span></button></td>
                                         </tr>
                                         <tr>
-                                            <td class="row-drag"><span class="row-drag-handle">&#8942;&#8942;</span></td>
+                                            <td class="row-drag" title="Drag to reorder"><span class="material-icons-outlined">drag_indicator</span></td>
                                             <td><input type="text" class="req-grid-input" value="Rejected"></td>
                                             <td><input type="number" class="req-grid-input" value="2" style="width:50px;text-align:center"></td>
                                             <td><input type="text" class="req-grid-input" value="cancel" style="font-family:monospace;font-size:0.72rem"></td>
@@ -2612,11 +2617,11 @@
                                             <td><select class="req-grid-select"><option>Transmit</option><option selected>Decision</option></select></td>
                                             <td class="req-grid-chk"><input type="checkbox" checked></td>
                                             <td><select class="req-grid-select"><option selected>-</option></select></td>
-                                            <td class="row-menu"><button class="row-menu-btn" title="Actions">&#8942;</button></td>
+                                            <td class="row-menu"><button class="row-menu-btn" title="More options"><span class="material-icons">more_vert</span></button></td>
                                         </tr>
                                     </tbody>
                                 </table>
-                                <div class="status-step-add"><button class="btn btn-add" onclick="return false"><span class="btn-icon">+</span> Add Status</button></div>
+                                <div class="status-step-add"><button class="btn btn-add" onclick="return false"><span class="material-icons-outlined" style="font-size:16px;">add</span> Add Status</button></div>
                             </div>
                         </div>
 
@@ -2634,12 +2639,12 @@
                                     <label class="step-flag"><input type="checkbox"> isArchive</label>
                                     <label class="step-flag"><input type="checkbox"> createIcon</label>
                                 </div>
-                                <button class="row-menu-btn" title="Step actions" style="opacity:1; margin-left:auto;">&#8942;</button>
+                                <button class="row-menu-btn" title="Step actions" style="margin-left:auto;"><span class="material-icons">more_vert</span></button>
                             </div>
                             <div class="status-step-grid">
                                 <table class="req-grid">
                                     <thead><tr>
-                                        <th style="width:28px"></th>
+                                        <th style="width:40px"></th>
                                         <th>Name</th>
                                         <th style="width:60px">Value</th>
                                         <th>Icon</th>
@@ -2647,11 +2652,11 @@
                                         <th>Status Changer</th>
                                         <th style="width:70px">Decision</th>
                                         <th>Default Next</th>
-                                        <th style="width:28px"></th>
+                                        <th style="width:40px"></th>
                                     </tr></thead>
                                     <tbody>
                                         <tr>
-                                            <td class="row-drag"><span class="row-drag-handle">&#8942;&#8942;</span></td>
+                                            <td class="row-drag" title="Drag to reorder"><span class="material-icons-outlined">drag_indicator</span></td>
                                             <td><input type="text" class="req-grid-input" value="No Decision"></td>
                                             <td><input type="number" class="req-grid-input" value="0" style="width:50px;text-align:center"></td>
                                             <td><input type="text" class="req-grid-input" value="" style="font-family:monospace;font-size:0.72rem"></td>
@@ -2659,10 +2664,10 @@
                                             <td><select class="req-grid-select"><option>Transmit</option><option selected>Decision</option></select></td>
                                             <td class="req-grid-chk"><input type="checkbox"></td>
                                             <td><select class="req-grid-select"><option selected>-</option></select></td>
-                                            <td class="row-menu"><button class="row-menu-btn" title="Actions">&#8942;</button></td>
+                                            <td class="row-menu"><button class="row-menu-btn" title="More options"><span class="material-icons">more_vert</span></button></td>
                                         </tr>
                                         <tr>
-                                            <td class="row-drag"><span class="row-drag-handle">&#8942;&#8942;</span></td>
+                                            <td class="row-drag" title="Drag to reorder"><span class="material-icons-outlined">drag_indicator</span></td>
                                             <td><input type="text" class="req-grid-input" value="Need Information"></td>
                                             <td><input type="number" class="req-grid-input" value="1" style="width:50px;text-align:center"></td>
                                             <td><input type="text" class="req-grid-input" value="warning" style="font-family:monospace;font-size:0.72rem"></td>
@@ -2670,10 +2675,10 @@
                                             <td><select class="req-grid-select"><option>Transmit</option><option selected>Decision</option></select></td>
                                             <td class="req-grid-chk"><input type="checkbox" checked></td>
                                             <td><select class="req-grid-select"><option selected>-</option></select></td>
-                                            <td class="row-menu"><button class="row-menu-btn" title="Actions">&#8942;</button></td>
+                                            <td class="row-menu"><button class="row-menu-btn" title="More options"><span class="material-icons">more_vert</span></button></td>
                                         </tr>
                                         <tr>
-                                            <td class="row-drag"><span class="row-drag-handle">&#8942;&#8942;</span></td>
+                                            <td class="row-drag" title="Drag to reorder"><span class="material-icons-outlined">drag_indicator</span></td>
                                             <td><input type="text" class="req-grid-input" value="Approved"></td>
                                             <td><input type="number" class="req-grid-input" value="2" style="width:50px;text-align:center"></td>
                                             <td><input type="text" class="req-grid-input" value="check_circle" style="font-family:monospace;font-size:0.72rem"></td>
@@ -2681,10 +2686,10 @@
                                             <td><select class="req-grid-select"><option>Transmit</option><option selected>Decision</option></select></td>
                                             <td class="req-grid-chk"><input type="checkbox" checked></td>
                                             <td><select class="req-grid-select"><option>-</option><option selected>Final Approval</option></select></td>
-                                            <td class="row-menu"><button class="row-menu-btn" title="Actions">&#8942;</button></td>
+                                            <td class="row-menu"><button class="row-menu-btn" title="More options"><span class="material-icons">more_vert</span></button></td>
                                         </tr>
                                         <tr>
-                                            <td class="row-drag"><span class="row-drag-handle">&#8942;&#8942;</span></td>
+                                            <td class="row-drag" title="Drag to reorder"><span class="material-icons-outlined">drag_indicator</span></td>
                                             <td><input type="text" class="req-grid-input" value="Rejected"></td>
                                             <td><input type="number" class="req-grid-input" value="3" style="width:50px;text-align:center"></td>
                                             <td><input type="text" class="req-grid-input" value="cancel" style="font-family:monospace;font-size:0.72rem"></td>
@@ -2692,11 +2697,11 @@
                                             <td><select class="req-grid-select"><option>Transmit</option><option selected>Decision</option></select></td>
                                             <td class="req-grid-chk"><input type="checkbox" checked></td>
                                             <td><select class="req-grid-select"><option selected>-</option></select></td>
-                                            <td class="row-menu"><button class="row-menu-btn" title="Actions">&#8942;</button></td>
+                                            <td class="row-menu"><button class="row-menu-btn" title="More options"><span class="material-icons">more_vert</span></button></td>
                                         </tr>
                                     </tbody>
                                 </table>
-                                <div class="status-step-add"><button class="btn btn-add" onclick="return false"><span class="btn-icon">+</span> Add Status</button></div>
+                                <div class="status-step-add"><button class="btn btn-add" onclick="return false"><span class="material-icons-outlined" style="font-size:16px;">add</span> Add Status</button></div>
                             </div>
                         </div>
 
@@ -2714,12 +2719,12 @@
                                     <label class="step-flag"><input type="checkbox"> isArchive</label>
                                     <label class="step-flag"><input type="checkbox"> createIcon</label>
                                 </div>
-                                <button class="row-menu-btn" title="Step actions" style="opacity:1; margin-left:auto;">&#8942;</button>
+                                <button class="row-menu-btn" title="Step actions" style="margin-left:auto;"><span class="material-icons">more_vert</span></button>
                             </div>
                             <div class="status-step-grid">
                                 <table class="req-grid">
                                     <thead><tr>
-                                        <th style="width:28px"></th>
+                                        <th style="width:40px"></th>
                                         <th>Name</th>
                                         <th style="width:60px">Value</th>
                                         <th>Icon</th>
@@ -2727,11 +2732,11 @@
                                         <th>Status Changer</th>
                                         <th style="width:70px">Decision</th>
                                         <th>Default Next</th>
-                                        <th style="width:28px"></th>
+                                        <th style="width:40px"></th>
                                     </tr></thead>
                                     <tbody>
                                         <tr>
-                                            <td class="row-drag"><span class="row-drag-handle">&#8942;&#8942;</span></td>
+                                            <td class="row-drag" title="Drag to reorder"><span class="material-icons-outlined">drag_indicator</span></td>
                                             <td><input type="text" class="req-grid-input" value="No Decision"></td>
                                             <td><input type="number" class="req-grid-input" value="0" style="width:50px;text-align:center"></td>
                                             <td><input type="text" class="req-grid-input" value="" style="font-family:monospace;font-size:0.72rem"></td>
@@ -2739,10 +2744,10 @@
                                             <td><select class="req-grid-select"><option>Transmit</option><option selected>Decision</option></select></td>
                                             <td class="req-grid-chk"><input type="checkbox"></td>
                                             <td><select class="req-grid-select"><option selected>-</option></select></td>
-                                            <td class="row-menu"><button class="row-menu-btn" title="Actions">&#8942;</button></td>
+                                            <td class="row-menu"><button class="row-menu-btn" title="More options"><span class="material-icons">more_vert</span></button></td>
                                         </tr>
                                         <tr>
-                                            <td class="row-drag"><span class="row-drag-handle">&#8942;&#8942;</span></td>
+                                            <td class="row-drag" title="Drag to reorder"><span class="material-icons-outlined">drag_indicator</span></td>
                                             <td><input type="text" class="req-grid-input" value="Need Information"></td>
                                             <td><input type="number" class="req-grid-input" value="1" style="width:50px;text-align:center"></td>
                                             <td><input type="text" class="req-grid-input" value="warning" style="font-family:monospace;font-size:0.72rem"></td>
@@ -2750,10 +2755,10 @@
                                             <td><select class="req-grid-select"><option>Transmit</option><option selected>Decision</option></select></td>
                                             <td class="req-grid-chk"><input type="checkbox" checked></td>
                                             <td><select class="req-grid-select"><option selected>-</option></select></td>
-                                            <td class="row-menu"><button class="row-menu-btn" title="Actions">&#8942;</button></td>
+                                            <td class="row-menu"><button class="row-menu-btn" title="More options"><span class="material-icons">more_vert</span></button></td>
                                         </tr>
                                         <tr>
-                                            <td class="row-drag"><span class="row-drag-handle">&#8942;&#8942;</span></td>
+                                            <td class="row-drag" title="Drag to reorder"><span class="material-icons-outlined">drag_indicator</span></td>
                                             <td><input type="text" class="req-grid-input" value="Final Approval"></td>
                                             <td><input type="number" class="req-grid-input" value="2" style="width:50px;text-align:center"></td>
                                             <td><input type="text" class="req-grid-input" value="check_circle" style="font-family:monospace;font-size:0.72rem"></td>
@@ -2761,17 +2766,17 @@
                                             <td><select class="req-grid-select"><option>Transmit</option><option selected>Decision</option></select></td>
                                             <td class="req-grid-chk"><input type="checkbox" checked></td>
                                             <td><select class="req-grid-select"><option selected>-</option></select></td>
-                                            <td class="row-menu"><button class="row-menu-btn" title="Actions">&#8942;</button></td>
+                                            <td class="row-menu"><button class="row-menu-btn" title="More options"><span class="material-icons">more_vert</span></button></td>
                                         </tr>
                                     </tbody>
                                 </table>
-                                <div class="status-step-add"><button class="btn btn-add" onclick="return false"><span class="btn-icon">+</span> Add Status</button></div>
+                                <div class="status-step-add"><button class="btn btn-add" onclick="return false"><span class="material-icons-outlined" style="font-size:16px;">add</span> Add Status</button></div>
                             </div>
                         </div>
 
                         <!-- Add Step button -->
                         <div style="padding: 16px 20px; border-top: 1px solid var(--border-light);">
-                            <button class="btn btn-add" onclick="return false"><span class="btn-icon">+</span> Add Loan Step</button>
+                            <button class="btn btn-add" onclick="return false"><span class="material-icons-outlined" style="font-size:16px;">add</span> Add Loan Step</button>
                         </div>
 
                     </div>
@@ -2806,82 +2811,80 @@
                     <div class="config-card-header">
                         <h3>Personal Information</h3>
                         <button class="btn btn-add" onclick="return false;">
-                            <span class="btn-icon">+</span> Add Field
+                            <span class="material-icons-outlined" style="font-size:16px;">add</span> Add Field
                         </button>
                     </div>
-                    <div class="config-card-body">
-                        <div class="field-row field-row-header">
-                            <div></div>
-                            <div>Field Name</div>
-                            <div>Type</div>
-                            <div>Section</div>
-                            <div style="text-align:center">Required</div>
-                            <div style="text-align:center">Visible</div>
-                            <div></div>
-                        </div>
-                        <div class="field-row">
-                            <div class="row-drag"><span class="row-drag-handle">&#8942;&#8942;</span></div>
-                            <div class="field-name">First Name</div>
-                            <div class="field-type">Text</div>
-                            <div class="field-section">Identity</div>
-                            <div class="checkbox-centered"><input type="checkbox" checked></div>
-                            <div class="checkbox-centered"><input type="checkbox" checked></div>
-                            <div class="row-menu"><button class="row-menu-btn" title="Actions">&#8942;</button></div>
-                        </div>
-                        <div class="field-row">
-                            <div class="row-drag"><span class="row-drag-handle">&#8942;&#8942;</span></div>
-                            <div class="field-name">Last Name</div>
-                            <div class="field-type">Text</div>
-                            <div class="field-section">Identity</div>
-                            <div class="checkbox-centered"><input type="checkbox" checked></div>
-                            <div class="checkbox-centered"><input type="checkbox" checked></div>
-                            <div class="row-menu"><button class="row-menu-btn" title="Actions">&#8942;</button></div>
-                        </div>
-                        <div class="field-row">
-                            <div class="row-drag"><span class="row-drag-handle">&#8942;&#8942;</span></div>
-                            <div class="field-name">Date of Birth</div>
-                            <div class="field-type">Date</div>
-                            <div class="field-section">Identity</div>
-                            <div class="checkbox-centered"><input type="checkbox" checked></div>
-                            <div class="checkbox-centered"><input type="checkbox" checked></div>
-                            <div class="row-menu"><button class="row-menu-btn" title="Actions">&#8942;</button></div>
-                        </div>
-                        <div class="field-row">
-                            <div class="row-drag"><span class="row-drag-handle">&#8942;&#8942;</span></div>
-                            <div class="field-name">National ID / Passport</div>
-                            <div class="field-type">Text + Upload</div>
-                            <div class="field-section">Identity</div>
-                            <div class="checkbox-centered"><input type="checkbox" checked></div>
-                            <div class="checkbox-centered"><input type="checkbox" checked></div>
-                            <div class="row-menu"><button class="row-menu-btn" title="Actions">&#8942;</button></div>
-                        </div>
-                        <div class="field-row">
-                            <div class="row-drag"><span class="row-drag-handle">&#8942;&#8942;</span></div>
-                            <div class="field-name">Email Address</div>
-                            <div class="field-type">Email</div>
-                            <div class="field-section">Contact</div>
-                            <div class="checkbox-centered"><input type="checkbox" checked></div>
-                            <div class="checkbox-centered"><input type="checkbox" checked></div>
-                            <div class="row-menu"><button class="row-menu-btn" title="Actions">&#8942;</button></div>
-                        </div>
-                        <div class="field-row">
-                            <div class="row-drag"><span class="row-drag-handle">&#8942;&#8942;</span></div>
-                            <div class="field-name">Phone Number</div>
-                            <div class="field-type">Phone</div>
-                            <div class="field-section">Contact</div>
-                            <div class="checkbox-centered"><input type="checkbox" checked></div>
-                            <div class="checkbox-centered"><input type="checkbox" checked></div>
-                            <div class="row-menu"><button class="row-menu-btn" title="Actions">&#8942;</button></div>
-                        </div>
-                        <div class="field-row">
-                            <div class="row-drag"><span class="row-drag-handle">&#8942;&#8942;</span></div>
-                            <div class="field-name">Physical Address</div>
-                            <div class="field-type">Address</div>
-                            <div class="field-section">Contact</div>
-                            <div class="checkbox-centered"><input type="checkbox" checked></div>
-                            <div class="checkbox-centered"><input type="checkbox" checked></div>
-                            <div class="row-menu"><button class="row-menu-btn" title="Actions">&#8942;</button></div>
-                        </div>
+                    <div class="config-card-body" style="padding:0">
+                        <table class="config-table">
+                            <thead>
+                                <tr>
+                                    <th style="width:40px"></th>
+                                    <th>Field Name</th>
+                                    <th>Type</th>
+                                    <th>Section</th>
+                                    <th style="text-align:center">Required</th>
+                                    <th style="width:40px"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="row-drag" title="Drag to reorder"><span class="material-icons-outlined">drag_indicator</span></td>
+                                    <td><span class="table-role-name">First Name</span></td>
+                                    <td>Text</td>
+                                    <td><span class="table-badge badge-blue">Identity</span></td>
+                                    <td style="text-align:center"><input type="checkbox" checked></td>
+                                    <td class="row-menu"><button class="row-menu-btn" title="More options"><span class="material-icons">more_vert</span></button></td>
+                                </tr>
+                                <tr>
+                                    <td class="row-drag" title="Drag to reorder"><span class="material-icons-outlined">drag_indicator</span></td>
+                                    <td><span class="table-role-name">Last Name</span></td>
+                                    <td>Text</td>
+                                    <td><span class="table-badge badge-blue">Identity</span></td>
+                                    <td style="text-align:center"><input type="checkbox" checked></td>
+                                    <td class="row-menu"><button class="row-menu-btn" title="More options"><span class="material-icons">more_vert</span></button></td>
+                                </tr>
+                                <tr>
+                                    <td class="row-drag" title="Drag to reorder"><span class="material-icons-outlined">drag_indicator</span></td>
+                                    <td><span class="table-role-name">Date of Birth</span></td>
+                                    <td>Date</td>
+                                    <td><span class="table-badge badge-blue">Identity</span></td>
+                                    <td style="text-align:center"><input type="checkbox" checked></td>
+                                    <td class="row-menu"><button class="row-menu-btn" title="More options"><span class="material-icons">more_vert</span></button></td>
+                                </tr>
+                                <tr>
+                                    <td class="row-drag" title="Drag to reorder"><span class="material-icons-outlined">drag_indicator</span></td>
+                                    <td><span class="table-role-name">National ID / Passport</span></td>
+                                    <td>Text + Upload</td>
+                                    <td><span class="table-badge badge-blue">Identity</span></td>
+                                    <td style="text-align:center"><input type="checkbox" checked></td>
+                                    <td class="row-menu"><button class="row-menu-btn" title="More options"><span class="material-icons">more_vert</span></button></td>
+                                </tr>
+                                <tr>
+                                    <td class="row-drag" title="Drag to reorder"><span class="material-icons-outlined">drag_indicator</span></td>
+                                    <td><span class="table-role-name">Email Address</span></td>
+                                    <td>Email</td>
+                                    <td><span class="table-badge badge-blue">Contact</span></td>
+                                    <td style="text-align:center"><input type="checkbox" checked></td>
+                                    <td class="row-menu"><button class="row-menu-btn" title="More options"><span class="material-icons">more_vert</span></button></td>
+                                </tr>
+                                <tr>
+                                    <td class="row-drag" title="Drag to reorder"><span class="material-icons-outlined">drag_indicator</span></td>
+                                    <td><span class="table-role-name">Phone Number</span></td>
+                                    <td>Phone</td>
+                                    <td><span class="table-badge badge-blue">Contact</span></td>
+                                    <td style="text-align:center"><input type="checkbox" checked></td>
+                                    <td class="row-menu"><button class="row-menu-btn" title="More options"><span class="material-icons">more_vert</span></button></td>
+                                </tr>
+                                <tr>
+                                    <td class="row-drag" title="Drag to reorder"><span class="material-icons-outlined">drag_indicator</span></td>
+                                    <td><span class="table-role-name">Physical Address</span></td>
+                                    <td>Address</td>
+                                    <td><span class="table-badge badge-blue">Contact</span></td>
+                                    <td style="text-align:center"><input type="checkbox" checked></td>
+                                    <td class="row-menu"><button class="row-menu-btn" title="More options"><span class="material-icons">more_vert</span></button></td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
 
@@ -2890,82 +2893,80 @@
                     <div class="config-card-header">
                         <h3>Business Information</h3>
                         <button class="btn btn-add" onclick="return false;">
-                            <span class="btn-icon">+</span> Add Field
+                            <span class="material-icons-outlined" style="font-size:16px;">add</span> Add Field
                         </button>
                     </div>
-                    <div class="config-card-body">
-                        <div class="field-row field-row-header">
-                            <div></div>
-                            <div>Field Name</div>
-                            <div>Type</div>
-                            <div>Section</div>
-                            <div style="text-align:center">Required</div>
-                            <div style="text-align:center">Visible</div>
-                            <div></div>
-                        </div>
-                        <div class="field-row">
-                            <div class="row-drag"><span class="row-drag-handle">&#8942;&#8942;</span></div>
-                            <div class="field-name">Business Name</div>
-                            <div class="field-type">Text</div>
-                            <div class="field-section">Company</div>
-                            <div class="checkbox-centered"><input type="checkbox" checked></div>
-                            <div class="checkbox-centered"><input type="checkbox" checked></div>
-                            <div class="row-menu"><button class="row-menu-btn" title="Actions">&#8942;</button></div>
-                        </div>
-                        <div class="field-row">
-                            <div class="row-drag"><span class="row-drag-handle">&#8942;&#8942;</span></div>
-                            <div class="field-name">Registration Number (RCCM)</div>
-                            <div class="field-type">Text</div>
-                            <div class="field-section">Company</div>
-                            <div class="checkbox-centered"><input type="checkbox" checked></div>
-                            <div class="checkbox-centered"><input type="checkbox" checked></div>
-                            <div class="row-menu"><button class="row-menu-btn" title="Actions">&#8942;</button></div>
-                        </div>
-                        <div class="field-row">
-                            <div class="row-drag"><span class="row-drag-handle">&#8942;&#8942;</span></div>
-                            <div class="field-name">Tax ID (IFU)</div>
-                            <div class="field-type">Text</div>
-                            <div class="field-section">Company</div>
-                            <div class="checkbox-centered"><input type="checkbox" checked></div>
-                            <div class="checkbox-centered"><input type="checkbox" checked></div>
-                            <div class="row-menu"><button class="row-menu-btn" title="Actions">&#8942;</button></div>
-                        </div>
-                        <div class="field-row">
-                            <div class="row-drag"><span class="row-drag-handle">&#8942;&#8942;</span></div>
-                            <div class="field-name">Industry Sector</div>
-                            <div class="field-type">Dropdown</div>
-                            <div class="field-section">Company</div>
-                            <div class="checkbox-centered"><input type="checkbox" checked></div>
-                            <div class="checkbox-centered"><input type="checkbox" checked></div>
-                            <div class="row-menu"><button class="row-menu-btn" title="Actions">&#8942;</button></div>
-                        </div>
-                        <div class="field-row">
-                            <div class="row-drag"><span class="row-drag-handle">&#8942;&#8942;</span></div>
-                            <div class="field-name">Years in Operation</div>
-                            <div class="field-type">Number</div>
-                            <div class="field-section">Company</div>
-                            <div class="checkbox-centered"><input type="checkbox" checked></div>
-                            <div class="checkbox-centered"><input type="checkbox" checked></div>
-                            <div class="row-menu"><button class="row-menu-btn" title="Actions">&#8942;</button></div>
-                        </div>
-                        <div class="field-row">
-                            <div class="row-drag"><span class="row-drag-handle">&#8942;&#8942;</span></div>
-                            <div class="field-name">Annual Revenue</div>
-                            <div class="field-type">Currency</div>
-                            <div class="field-section">Financial</div>
-                            <div class="checkbox-centered"><input type="checkbox" checked></div>
-                            <div class="checkbox-centered"><input type="checkbox" checked></div>
-                            <div class="row-menu"><button class="row-menu-btn" title="Actions">&#8942;</button></div>
-                        </div>
-                        <div class="field-row">
-                            <div class="row-drag"><span class="row-drag-handle">&#8942;&#8942;</span></div>
-                            <div class="field-name">Number of Employees</div>
-                            <div class="field-type">Number</div>
-                            <div class="field-section">Company</div>
-                            <div class="checkbox-centered"><input type="checkbox"></div>
-                            <div class="checkbox-centered"><input type="checkbox" checked></div>
-                            <div class="row-menu"><button class="row-menu-btn" title="Actions">&#8942;</button></div>
-                        </div>
+                    <div class="config-card-body" style="padding:0">
+                        <table class="config-table">
+                            <thead>
+                                <tr>
+                                    <th style="width:40px"></th>
+                                    <th>Field Name</th>
+                                    <th>Type</th>
+                                    <th>Section</th>
+                                    <th style="text-align:center">Required</th>
+                                    <th style="width:40px"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="row-drag" title="Drag to reorder"><span class="material-icons-outlined">drag_indicator</span></td>
+                                    <td><span class="table-role-name">Business Name</span></td>
+                                    <td>Text</td>
+                                    <td><span class="table-badge badge-gold">Company</span></td>
+                                    <td style="text-align:center"><input type="checkbox" checked></td>
+                                    <td class="row-menu"><button class="row-menu-btn" title="More options"><span class="material-icons">more_vert</span></button></td>
+                                </tr>
+                                <tr>
+                                    <td class="row-drag" title="Drag to reorder"><span class="material-icons-outlined">drag_indicator</span></td>
+                                    <td><span class="table-role-name">Registration Number (RCCM)</span></td>
+                                    <td>Text</td>
+                                    <td><span class="table-badge badge-gold">Company</span></td>
+                                    <td style="text-align:center"><input type="checkbox" checked></td>
+                                    <td class="row-menu"><button class="row-menu-btn" title="More options"><span class="material-icons">more_vert</span></button></td>
+                                </tr>
+                                <tr>
+                                    <td class="row-drag" title="Drag to reorder"><span class="material-icons-outlined">drag_indicator</span></td>
+                                    <td><span class="table-role-name">Tax ID (IFU)</span></td>
+                                    <td>Text</td>
+                                    <td><span class="table-badge badge-gold">Company</span></td>
+                                    <td style="text-align:center"><input type="checkbox" checked></td>
+                                    <td class="row-menu"><button class="row-menu-btn" title="More options"><span class="material-icons">more_vert</span></button></td>
+                                </tr>
+                                <tr>
+                                    <td class="row-drag" title="Drag to reorder"><span class="material-icons-outlined">drag_indicator</span></td>
+                                    <td><span class="table-role-name">Industry Sector</span></td>
+                                    <td>Dropdown</td>
+                                    <td><span class="table-badge badge-gold">Company</span></td>
+                                    <td style="text-align:center"><input type="checkbox" checked></td>
+                                    <td class="row-menu"><button class="row-menu-btn" title="More options"><span class="material-icons">more_vert</span></button></td>
+                                </tr>
+                                <tr>
+                                    <td class="row-drag" title="Drag to reorder"><span class="material-icons-outlined">drag_indicator</span></td>
+                                    <td><span class="table-role-name">Years in Operation</span></td>
+                                    <td>Number</td>
+                                    <td><span class="table-badge badge-gold">Company</span></td>
+                                    <td style="text-align:center"><input type="checkbox" checked></td>
+                                    <td class="row-menu"><button class="row-menu-btn" title="More options"><span class="material-icons">more_vert</span></button></td>
+                                </tr>
+                                <tr>
+                                    <td class="row-drag" title="Drag to reorder"><span class="material-icons-outlined">drag_indicator</span></td>
+                                    <td><span class="table-role-name">Annual Revenue</span></td>
+                                    <td>Currency</td>
+                                    <td><span class="table-badge badge-blue">Financial</span></td>
+                                    <td style="text-align:center"><input type="checkbox" checked></td>
+                                    <td class="row-menu"><button class="row-menu-btn" title="More options"><span class="material-icons">more_vert</span></button></td>
+                                </tr>
+                                <tr>
+                                    <td class="row-drag" title="Drag to reorder"><span class="material-icons-outlined">drag_indicator</span></td>
+                                    <td><span class="table-role-name">Number of Employees</span></td>
+                                    <td>Number</td>
+                                    <td><span class="table-badge badge-gold">Company</span></td>
+                                    <td style="text-align:center"><input type="checkbox"></td>
+                                    <td class="row-menu"><button class="row-menu-btn" title="More options"><span class="material-icons">more_vert</span></button></td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
 
@@ -2974,55 +2975,56 @@
                     <div class="config-card-header">
                         <h3>Required Documents</h3>
                         <button class="btn btn-add" onclick="return false;">
-                            <span class="btn-icon">+</span> Add Document
+                            <span class="material-icons-outlined" style="font-size:16px;">add</span> Add Document
                         </button>
                     </div>
-                    <div class="config-card-body">
-                        <div class="field-row field-row-header">
-                            <div></div>
-                            <div>Document Name</div>
-                            <div>Format</div>
-                            <div>Category</div>
-                            <div style="text-align:center">Required</div>
-                            <div style="text-align:center">Visible</div>
-                            <div></div>
-                        </div>
-                        <div class="field-row">
-                            <div class="row-drag"><span class="row-drag-handle">&#8942;&#8942;</span></div>
-                            <div class="field-name">Financial Statements (3 yrs)</div>
-                            <div class="field-type">PDF / Image</div>
-                            <div class="field-section">Financial</div>
-                            <div class="checkbox-centered"><input type="checkbox" checked></div>
-                            <div class="checkbox-centered"><input type="checkbox" checked></div>
-                            <div class="row-menu"><button class="row-menu-btn" title="Actions">&#8942;</button></div>
-                        </div>
-                        <div class="field-row">
-                            <div class="row-drag"><span class="row-drag-handle">&#8942;&#8942;</span></div>
-                            <div class="field-name">Bank Statements (6 months)</div>
-                            <div class="field-type">PDF</div>
-                            <div class="field-section">Financial</div>
-                            <div class="checkbox-centered"><input type="checkbox" checked></div>
-                            <div class="checkbox-centered"><input type="checkbox" checked></div>
-                            <div class="row-menu"><button class="row-menu-btn" title="Actions">&#8942;</button></div>
-                        </div>
-                        <div class="field-row">
-                            <div class="row-drag"><span class="row-drag-handle">&#8942;&#8942;</span></div>
-                            <div class="field-name">Business Plan</div>
-                            <div class="field-type">PDF / DOC</div>
-                            <div class="field-section">Company</div>
-                            <div class="checkbox-centered"><input type="checkbox"></div>
-                            <div class="checkbox-centered"><input type="checkbox" checked></div>
-                            <div class="row-menu"><button class="row-menu-btn" title="Actions">&#8942;</button></div>
-                        </div>
-                        <div class="field-row">
-                            <div class="row-drag"><span class="row-drag-handle">&#8942;&#8942;</span></div>
-                            <div class="field-name">Collateral Documentation</div>
-                            <div class="field-type">PDF / Image</div>
-                            <div class="field-section">Security</div>
-                            <div class="checkbox-centered"><input type="checkbox"></div>
-                            <div class="checkbox-centered"><input type="checkbox" checked></div>
-                            <div class="row-menu"><button class="row-menu-btn" title="Actions">&#8942;</button></div>
-                        </div>
+                    <div class="config-card-body" style="padding:0">
+                        <table class="config-table">
+                            <thead>
+                                <tr>
+                                    <th style="width:40px"></th>
+                                    <th>Document Name</th>
+                                    <th>Format</th>
+                                    <th>Category</th>
+                                    <th style="text-align:center">Required</th>
+                                    <th style="width:40px"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="row-drag" title="Drag to reorder"><span class="material-icons-outlined">drag_indicator</span></td>
+                                    <td><span class="table-role-name">Financial Statements (3 yrs)</span></td>
+                                    <td>PDF / Image</td>
+                                    <td><span class="table-badge badge-blue">Financial</span></td>
+                                    <td style="text-align:center"><input type="checkbox" checked></td>
+                                    <td class="row-menu"><button class="row-menu-btn" title="More options"><span class="material-icons">more_vert</span></button></td>
+                                </tr>
+                                <tr>
+                                    <td class="row-drag" title="Drag to reorder"><span class="material-icons-outlined">drag_indicator</span></td>
+                                    <td><span class="table-role-name">Bank Statements (6 months)</span></td>
+                                    <td>PDF</td>
+                                    <td><span class="table-badge badge-blue">Financial</span></td>
+                                    <td style="text-align:center"><input type="checkbox" checked></td>
+                                    <td class="row-menu"><button class="row-menu-btn" title="More options"><span class="material-icons">more_vert</span></button></td>
+                                </tr>
+                                <tr>
+                                    <td class="row-drag" title="Drag to reorder"><span class="material-icons-outlined">drag_indicator</span></td>
+                                    <td><span class="table-role-name">Business Plan</span></td>
+                                    <td>PDF / DOC</td>
+                                    <td><span class="table-badge badge-gold">Company</span></td>
+                                    <td style="text-align:center"><input type="checkbox"></td>
+                                    <td class="row-menu"><button class="row-menu-btn" title="More options"><span class="material-icons">more_vert</span></button></td>
+                                </tr>
+                                <tr>
+                                    <td class="row-drag" title="Drag to reorder"><span class="material-icons-outlined">drag_indicator</span></td>
+                                    <td><span class="table-role-name">Collateral Documentation</span></td>
+                                    <td>PDF / Image</td>
+                                    <td><span class="table-badge badge-gold">Security</span></td>
+                                    <td style="text-align:center"><input type="checkbox"></td>
+                                    <td class="row-menu"><button class="row-menu-btn" title="More options"><span class="material-icons">more_vert</span></button></td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
 
@@ -3080,7 +3082,7 @@
                             <button class="req-tab" onclick="showReqSection(this, 'sec-guarantees')">4 Garanties</button>
                         </div>
                         <button class="btn btn-add" style="margin: 8px 16px 8px 0;" onclick="return false;">
-                            <span class="btn-icon">+</span> Add Section
+                            <span class="material-icons-outlined" style="font-size:16px;">add</span> Add Section
                         </button>
                     </div>
 
@@ -3113,7 +3115,7 @@
                             <table class="req-grid">
                                 <thead>
                                     <tr>
-                                        <th style="width:28px"></th>
+                                        <th style="width:40px"></th>
                                         <th style="min-width:150px">Title</th>
                                         <th style="min-width:130px">Variable</th>
                                         <th style="min-width:140px">Type</th>
@@ -3124,12 +3126,12 @@
                                         <th style="width:55px">Clonable</th>
                                         <th style="width:50px">Disable</th>
                                         <th style="width:55px">AutoSave</th>
-                                        <th style="width:28px"></th>
+                                        <th style="width:40px"></th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td class="row-drag"><span class="row-drag-handle">&#8942;&#8942;</span></td>
+                                        <td class="row-drag" title="Drag to reorder"><span class="material-icons-outlined">drag_indicator</span></td>
                                         <td><input type="text" class="req-grid-input" value="Client Status"></td>
                                         <td><input type="text" class="req-grid-input req-grid-var" value="client_status"></td>
                                         <td><select class="req-grid-select"><option selected>List Array</option><option>Text</option><option>Text Area</option><option>Number</option><option>Date</option><option>Upload</option><option>AI Workflow</option><option>Dropdown</option><option>Checkbox</option><option>Currency</option></select></td>
@@ -3140,10 +3142,10 @@
                                         <td class="req-grid-chk"><input type="checkbox"></td>
                                         <td class="req-grid-chk"><input type="checkbox"></td>
                                         <td class="req-grid-chk"><input type="checkbox" checked></td>
-                                        <td class="row-menu"><button class="row-menu-btn" title="Actions">&#8942;</button></td>
+                                        <td class="row-menu"><button class="row-menu-btn" title="More options"><span class="material-icons">more_vert</span></button></td>
                                     </tr>
                                     <tr>
-                                        <td class="row-drag"><span class="row-drag-handle">&#8942;&#8942;</span></td>
+                                        <td class="row-drag" title="Drag to reorder"><span class="material-icons-outlined">drag_indicator</span></td>
                                         <td><input type="text" class="req-grid-input" value="Agency"></td>
                                         <td><input type="text" class="req-grid-input req-grid-var" value="agency"></td>
                                         <td><select class="req-grid-select"><option>List Array</option><option>Text</option><option>Text Area</option><option>Number</option><option>Date</option><option>Upload</option><option>AI Workflow</option><option selected>Dropdown</option><option>Checkbox</option><option>Currency</option></select></td>
@@ -3154,10 +3156,10 @@
                                         <td class="req-grid-chk"><input type="checkbox"></td>
                                         <td class="req-grid-chk"><input type="checkbox"></td>
                                         <td class="req-grid-chk"><input type="checkbox" checked></td>
-                                        <td class="row-menu"><button class="row-menu-btn" title="Actions">&#8942;</button></td>
+                                        <td class="row-menu"><button class="row-menu-btn" title="More options"><span class="material-icons">more_vert</span></button></td>
                                     </tr>
                                     <tr>
-                                        <td class="row-drag"><span class="row-drag-handle">&#8942;&#8942;</span></td>
+                                        <td class="row-drag" title="Drag to reorder"><span class="material-icons-outlined">drag_indicator</span></td>
                                         <td><input type="text" class="req-grid-input" value="Borrower Name"></td>
                                         <td><input type="text" class="req-grid-input req-grid-var" value="borrower_name"></td>
                                         <td><select class="req-grid-select"><option>List Array</option><option selected>Text</option><option>Text Area</option><option>Number</option><option>Date</option><option>Upload</option><option>AI Workflow</option><option>Dropdown</option><option>Checkbox</option><option>Currency</option></select></td>
@@ -3168,10 +3170,10 @@
                                         <td class="req-grid-chk"><input type="checkbox" checked></td>
                                         <td class="req-grid-chk"><input type="checkbox"></td>
                                         <td class="req-grid-chk"><input type="checkbox" checked></td>
-                                        <td class="row-menu"><button class="row-menu-btn" title="Actions">&#8942;</button></td>
+                                        <td class="row-menu"><button class="row-menu-btn" title="More options"><span class="material-icons">more_vert</span></button></td>
                                     </tr>
                                     <tr>
-                                        <td class="row-drag"><span class="row-drag-handle">&#8942;&#8942;</span></td>
+                                        <td class="row-drag" title="Drag to reorder"><span class="material-icons-outlined">drag_indicator</span></td>
                                         <td><input type="text" class="req-grid-input" value="AI Credit Memo"></td>
                                         <td><input type="text" class="req-grid-input req-grid-var" value="ai_credit_memo"></td>
                                         <td><select class="req-grid-select"><option>List Array</option><option>Text</option><option>Text Area</option><option>Number</option><option>Date</option><option>Upload</option><option selected>AI Workflow</option><option>Dropdown</option><option>Checkbox</option><option>Currency</option></select></td>
@@ -3182,10 +3184,10 @@
                                         <td class="req-grid-chk"><input type="checkbox"></td>
                                         <td class="req-grid-chk"><input type="checkbox" checked></td>
                                         <td class="req-grid-chk"><input type="checkbox" checked></td>
-                                        <td class="row-menu"><button class="row-menu-btn" title="Actions">&#8942;</button></td>
+                                        <td class="row-menu"><button class="row-menu-btn" title="More options"><span class="material-icons">more_vert</span></button></td>
                                     </tr>
                                     <tr>
-                                        <td class="row-drag"><span class="row-drag-handle">&#8942;&#8942;</span></td>
+                                        <td class="row-drag" title="Drag to reorder"><span class="material-icons-outlined">drag_indicator</span></td>
                                         <td><input type="text" class="req-grid-input" value="Notes"></td>
                                         <td><input type="text" class="req-grid-input req-grid-var" value="notes"></td>
                                         <td><select class="req-grid-select"><option>List Array</option><option>Text</option><option selected>Text Area</option><option>Number</option><option>Date</option><option>Upload</option><option>AI Workflow</option><option>Dropdown</option><option>Checkbox</option><option>Currency</option></select></td>
@@ -3196,13 +3198,13 @@
                                         <td class="req-grid-chk"><input type="checkbox"></td>
                                         <td class="req-grid-chk"><input type="checkbox"></td>
                                         <td class="req-grid-chk"><input type="checkbox" checked></td>
-                                        <td class="row-menu"><button class="row-menu-btn" title="Actions">&#8942;</button></td>
+                                        <td class="row-menu"><button class="row-menu-btn" title="More options"><span class="material-icons">more_vert</span></button></td>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
                         <div style="padding: 10px 16px; border-top: 1px solid var(--border-light);">
-                            <button class="btn btn-add" onclick="return false;"><span class="btn-icon">+</span> Add Field</button>
+                            <button class="btn btn-add" onclick="return false;"><span class="material-icons-outlined" style="font-size:16px;">add</span> Add Field</button>
                         </div>
                     </div>
 
@@ -3212,7 +3214,7 @@
                             <table class="req-grid">
                                 <thead>
                                     <tr>
-                                        <th style="width:28px"></th>
+                                        <th style="width:40px"></th>
                                         <th style="min-width:150px">Title</th>
                                         <th style="min-width:130px">Variable</th>
                                         <th style="min-width:140px">Type</th>
@@ -3223,12 +3225,12 @@
                                         <th style="width:55px">Clonable</th>
                                         <th style="width:50px">Disable</th>
                                         <th style="width:55px">AutoSave</th>
-                                        <th style="width:28px"></th>
+                                        <th style="width:40px"></th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td class="row-drag"><span class="row-drag-handle">&#8942;&#8942;</span></td>
+                                        <td class="row-drag" title="Drag to reorder"><span class="material-icons-outlined">drag_indicator</span></td>
                                         <td><input type="text" class="req-grid-input" value="Loan Purpose"></td>
                                         <td><input type="text" class="req-grid-input req-grid-var" value="loan_purpose"></td>
                                         <td><select class="req-grid-select"><option selected>Dropdown</option><option>Text</option><option>Text Area</option></select></td>
@@ -3239,10 +3241,10 @@
                                         <td class="req-grid-chk"><input type="checkbox"></td>
                                         <td class="req-grid-chk"><input type="checkbox"></td>
                                         <td class="req-grid-chk"><input type="checkbox" checked></td>
-                                        <td class="row-menu"><button class="row-menu-btn" title="Actions">&#8942;</button></td>
+                                        <td class="row-menu"><button class="row-menu-btn" title="More options"><span class="material-icons">more_vert</span></button></td>
                                     </tr>
                                     <tr>
-                                        <td class="row-drag"><span class="row-drag-handle">&#8942;&#8942;</span></td>
+                                        <td class="row-drag" title="Drag to reorder"><span class="material-icons-outlined">drag_indicator</span></td>
                                         <td><input type="text" class="req-grid-input" value="Requested Amount"></td>
                                         <td><input type="text" class="req-grid-input req-grid-var" value="requested_amount"></td>
                                         <td><select class="req-grid-select"><option>Dropdown</option><option>Text</option><option>Number</option><option selected>Currency</option></select></td>
@@ -3253,10 +3255,10 @@
                                         <td class="req-grid-chk"><input type="checkbox"></td>
                                         <td class="req-grid-chk"><input type="checkbox"></td>
                                         <td class="req-grid-chk"><input type="checkbox" checked></td>
-                                        <td class="row-menu"><button class="row-menu-btn" title="Actions">&#8942;</button></td>
+                                        <td class="row-menu"><button class="row-menu-btn" title="More options"><span class="material-icons">more_vert</span></button></td>
                                     </tr>
                                     <tr>
-                                        <td class="row-drag"><span class="row-drag-handle">&#8942;&#8942;</span></td>
+                                        <td class="row-drag" title="Drag to reorder"><span class="material-icons-outlined">drag_indicator</span></td>
                                         <td><input type="text" class="req-grid-input" value="Loan Term (months)"></td>
                                         <td><input type="text" class="req-grid-input req-grid-var" value="loan_term"></td>
                                         <td><select class="req-grid-select"><option>Dropdown</option><option>Text</option><option selected>Number</option><option>Currency</option></select></td>
@@ -3267,13 +3269,13 @@
                                         <td class="req-grid-chk"><input type="checkbox"></td>
                                         <td class="req-grid-chk"><input type="checkbox"></td>
                                         <td class="req-grid-chk"><input type="checkbox" checked></td>
-                                        <td class="row-menu"><button class="row-menu-btn" title="Actions">&#8942;</button></td>
+                                        <td class="row-menu"><button class="row-menu-btn" title="More options"><span class="material-icons">more_vert</span></button></td>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
                         <div style="padding: 10px 16px; border-top: 1px solid var(--border-light);">
-                            <button class="btn btn-add" onclick="return false;"><span class="btn-icon">+</span> Add Field</button>
+                            <button class="btn btn-add" onclick="return false;"><span class="material-icons-outlined" style="font-size:16px;">add</span> Add Field</button>
                         </div>
                     </div>
 
@@ -3283,7 +3285,7 @@
                             <table class="req-grid">
                                 <thead>
                                     <tr>
-                                        <th style="width:28px"></th>
+                                        <th style="width:40px"></th>
                                         <th style="min-width:150px">Title</th>
                                         <th style="min-width:130px">Variable</th>
                                         <th style="min-width:140px">Type</th>
@@ -3294,12 +3296,12 @@
                                         <th style="width:55px">Clonable</th>
                                         <th style="width:50px">Disable</th>
                                         <th style="width:55px">AutoSave</th>
-                                        <th style="width:28px"></th>
+                                        <th style="width:40px"></th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td class="row-drag"><span class="row-drag-handle">&#8942;&#8942;</span></td>
+                                        <td class="row-drag" title="Drag to reorder"><span class="material-icons-outlined">drag_indicator</span></td>
                                         <td><input type="text" class="req-grid-input" value="Financial Statements"></td>
                                         <td><input type="text" class="req-grid-input req-grid-var" value="financial_statements"></td>
                                         <td><select class="req-grid-select"><option>Text</option><option selected>Upload</option><option>AI Workflow</option></select></td>
@@ -3310,10 +3312,10 @@
                                         <td class="req-grid-chk"><input type="checkbox" checked></td>
                                         <td class="req-grid-chk"><input type="checkbox"></td>
                                         <td class="req-grid-chk"><input type="checkbox" checked></td>
-                                        <td class="row-menu"><button class="row-menu-btn" title="Actions">&#8942;</button></td>
+                                        <td class="row-menu"><button class="row-menu-btn" title="More options"><span class="material-icons">more_vert</span></button></td>
                                     </tr>
                                     <tr>
-                                        <td class="row-drag"><span class="row-drag-handle">&#8942;&#8942;</span></td>
+                                        <td class="row-drag" title="Drag to reorder"><span class="material-icons-outlined">drag_indicator</span></td>
                                         <td><input type="text" class="req-grid-input" value="AI Doc Analyzer"></td>
                                         <td><input type="text" class="req-grid-input req-grid-var" value="ai_doc_analyzer"></td>
                                         <td><select class="req-grid-select"><option>Text</option><option>Upload</option><option selected>AI Workflow</option></select></td>
@@ -3324,10 +3326,10 @@
                                         <td class="req-grid-chk"><input type="checkbox"></td>
                                         <td class="req-grid-chk"><input type="checkbox" checked></td>
                                         <td class="req-grid-chk"><input type="checkbox" checked></td>
-                                        <td class="row-menu"><button class="row-menu-btn" title="Actions">&#8942;</button></td>
+                                        <td class="row-menu"><button class="row-menu-btn" title="More options"><span class="material-icons">more_vert</span></button></td>
                                     </tr>
                                     <tr>
-                                        <td class="row-drag"><span class="row-drag-handle">&#8942;&#8942;</span></td>
+                                        <td class="row-drag" title="Drag to reorder"><span class="material-icons-outlined">drag_indicator</span></td>
                                         <td><input type="text" class="req-grid-input" value="General Documents"></td>
                                         <td><input type="text" class="req-grid-input req-grid-var" value="general_docs"></td>
                                         <td><select class="req-grid-select"><option>Text</option><option selected>Upload</option><option>AI Workflow</option></select></td>
@@ -3338,13 +3340,13 @@
                                         <td class="req-grid-chk"><input type="checkbox" checked></td>
                                         <td class="req-grid-chk"><input type="checkbox"></td>
                                         <td class="req-grid-chk"><input type="checkbox" checked></td>
-                                        <td class="row-menu"><button class="row-menu-btn" title="Actions">&#8942;</button></td>
+                                        <td class="row-menu"><button class="row-menu-btn" title="More options"><span class="material-icons">more_vert</span></button></td>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
                         <div style="padding: 10px 16px; border-top: 1px solid var(--border-light);">
-                            <button class="btn btn-add" onclick="return false;"><span class="btn-icon">+</span> Add Field</button>
+                            <button class="btn btn-add" onclick="return false;"><span class="material-icons-outlined" style="font-size:16px;">add</span> Add Field</button>
                         </div>
                     </div>
 
@@ -3353,7 +3355,7 @@
                         <div class="empty-state">
                             <span class="material-icons-outlined">shield</span>
                             <p>No fields configured for this section yet.</p>
-                            <button class="btn btn-add" onclick="return false;"><span class="btn-icon">+</span> Add Field</button>
+                            <button class="btn btn-add" onclick="return false;"><span class="material-icons-outlined" style="font-size:16px;">add</span> Add Field</button>
                         </div>
                     </div>
                 </div>
