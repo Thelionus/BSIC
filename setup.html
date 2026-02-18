@@ -435,7 +435,8 @@
            ======================================== */
         .config-table {
             width: 100%;
-            border-collapse: collapse;
+            border-collapse: separate;
+            border-spacing: 0;
         }
 
         .config-table thead th {
@@ -1619,36 +1620,18 @@
         }
 
         tr.dragging {
-            opacity: 0.35;
+            opacity: 0.3;
+        }
+        tr.dragging td {
             background: rgba(197,164,91,0.08) !important;
         }
 
-        tr.drag-over {
-            position: relative;
-        }
-        tr.drag-over::before {
-            content: '';
-            position: absolute;
-            top: -1px;
-            left: 0;
-            right: 0;
-            height: 2px;
-            background: var(--bsic-gold);
-            z-index: 2;
+        tr.drag-over td {
+            box-shadow: inset 0 2px 0 0 var(--bsic-gold);
         }
 
-        tr.drag-over-below {
-            position: relative;
-        }
-        tr.drag-over-below::after {
-            content: '';
-            position: absolute;
-            bottom: -1px;
-            left: 0;
-            right: 0;
-            height: 2px;
-            background: var(--bsic-gold);
-            z-index: 2;
+        tr.drag-over-below td {
+            box-shadow: inset 0 -2px 0 0 var(--bsic-gold);
         }
 
         /* ========================================
@@ -3795,59 +3778,49 @@
         (function initDragReorder() {
             var dragSrcRow = null;
             var dragTbody = null;
-            var isDragFromHandle = false;
+
+            // Only start drag from the .row-drag handle
+            document.querySelectorAll('.row-drag').forEach(function(handle) {
+                handle.addEventListener('mousedown', function() {
+                    var row = this.closest('tr');
+                    if (row) row.setAttribute('draggable', 'true');
+                });
+            });
+
+            // Prevent drag from non-handle areas
+            document.querySelectorAll('table tbody tr').forEach(function(row) {
+                row.addEventListener('mousedown', function(e) {
+                    var target = e.target;
+                    var isHandle = false;
+                    while (target && target !== this) {
+                        if (target.classList && target.classList.contains('row-drag')) { isHandle = true; break; }
+                        target = target.parentNode;
+                    }
+                    if (!isHandle) this.setAttribute('draggable', 'false');
+                });
+            });
 
             function handleDragStart(e) {
-                // Only allow drag if it started from the .row-drag handle
-                var target = e.target;
-                var fromHandle = false;
-                while (target && target !== this) {
-                    if (target.classList && target.classList.contains('row-drag')) {
-                        fromHandle = true;
-                        break;
-                    }
-                    target = target.parentNode;
-                }
-                if (!fromHandle) {
-                    e.preventDefault();
-                    return;
-                }
-                isDragFromHandle = true;
                 dragSrcRow = this;
                 dragTbody = this.parentNode;
                 this.classList.add('dragging');
                 e.dataTransfer.effectAllowed = 'move';
                 e.dataTransfer.setData('text/plain', '');
-                // Use a transparent image so browser doesn't show default ghost
-                var ghost = this.cloneNode(true);
-                ghost.style.position = 'absolute';
-                ghost.style.top = '-9999px';
-                ghost.style.opacity = '0.85';
-                ghost.style.background = 'var(--card-bg, #fff)';
-                ghost.style.boxShadow = '0 4px 16px rgba(0,0,0,0.18)';
-                ghost.style.borderRadius = '6px';
-                ghost.style.width = this.offsetWidth + 'px';
-                document.body.appendChild(ghost);
-                e.dataTransfer.setDragImage(ghost, e.offsetX, e.offsetY);
-                // Clean up ghost after a tick
-                setTimeout(function() { document.body.removeChild(ghost); }, 0);
             }
 
             function handleDragOver(e) {
-                if (!isDragFromHandle || !dragTbody || this.parentNode !== dragTbody) return;
+                if (!dragTbody || this.parentNode !== dragTbody) return;
                 e.preventDefault();
                 e.dataTransfer.dropEffect = 'move';
 
-                var rect = this.getBoundingClientRect();
-                var midY = rect.top + rect.height / 2;
-
-                // Clear indicators on all sibling rows
-                Array.from(dragTbody.rows).forEach(function(row) {
-                    row.classList.remove('drag-over', 'drag-over-below');
+                // Clear all indicators
+                Array.from(dragTbody.rows).forEach(function(r) {
+                    r.classList.remove('drag-over', 'drag-over-below');
                 });
 
                 if (this !== dragSrcRow) {
-                    if (e.clientY < midY) {
+                    var rect = this.getBoundingClientRect();
+                    if (e.clientY < rect.top + rect.height / 2) {
                         this.classList.add('drag-over');
                     } else {
                         this.classList.add('drag-over-below');
@@ -3862,13 +3835,10 @@
             function handleDrop(e) {
                 e.stopPropagation();
                 e.preventDefault();
-                if (!isDragFromHandle || !dragSrcRow || dragSrcRow === this) return;
-                if (this.parentNode !== dragTbody) return;
+                if (!dragSrcRow || dragSrcRow === this || this.parentNode !== dragTbody) return;
 
                 var rect = this.getBoundingClientRect();
-                var midY = rect.top + rect.height / 2;
-
-                if (e.clientY < midY) {
+                if (e.clientY < rect.top + rect.height / 2) {
                     dragTbody.insertBefore(dragSrcRow, this);
                 } else {
                     dragTbody.insertBefore(dragSrcRow, this.nextSibling);
@@ -3876,22 +3846,20 @@
             }
 
             function handleDragEnd(e) {
-                if (dragTbody) {
-                    Array.from(dragTbody.rows).forEach(function(row) {
-                        row.classList.remove('dragging', 'drag-over', 'drag-over-below');
-                    });
-                }
+                // Clean up all states
+                document.querySelectorAll('tr.dragging, tr.drag-over, tr.drag-over-below').forEach(function(r) {
+                    r.classList.remove('dragging', 'drag-over', 'drag-over-below');
+                });
+                if (dragSrcRow) dragSrcRow.setAttribute('draggable', 'false');
                 dragSrcRow = null;
                 dragTbody = null;
-                isDragFromHandle = false;
             }
 
-            // Attach to all tables that have .row-drag cells
+            // Attach drag events to all rows in tables with .row-drag handles
             document.querySelectorAll('table tbody').forEach(function(tbody) {
                 if (!tbody.querySelector('.row-drag')) return;
 
                 Array.from(tbody.rows).forEach(function(row) {
-                    row.setAttribute('draggable', 'true');
                     row.addEventListener('dragstart', handleDragStart);
                     row.addEventListener('dragover', handleDragOver);
                     row.addEventListener('dragleave', handleDragLeave);
