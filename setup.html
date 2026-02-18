@@ -2042,8 +2042,17 @@
         <nav class="sidebar">
             <div class="sidebar-title">Setup Steps</div>
 
-            <div class="nav-item completed" onclick="showTab('roles')">
-                <div class="nav-icon">&#10003;</div>
+            <div class="nav-item active" onclick="showTab('org')">
+                <div class="nav-icon">0</div>
+                <div class="nav-text">
+                    <div class="nav-label">Organization</div>
+                    <div class="nav-desc">Branches, offices &amp; structure</div>
+                </div>
+                <div class="nav-connector"></div>
+            </div>
+
+            <div class="nav-item" onclick="showTab('roles')">
+                <div class="nav-icon">1</div>
                 <div class="nav-text">
                     <div class="nav-label">Roles</div>
                     <div class="nav-desc">Define user roles &amp; permissions</div>
@@ -2051,7 +2060,7 @@
                 <div class="nav-connector"></div>
             </div>
 
-            <div class="nav-item active" onclick="showTab('workflow')">
+            <div class="nav-item" onclick="showTab('workflow')">
                 <div class="nav-icon">2</div>
                 <div class="nav-text">
                     <div class="nav-label">Workflow</div>
@@ -2099,6 +2108,106 @@
              MAIN CONTENT AREA
              ============================================ -->
         <div class="main-content">
+
+            <!-- ==========================================
+                 TAB 0: ORGANIZATION
+                 ========================================== -->
+            <div id="tab-org" class="tab-content active">
+                <div class="page-header">
+                    <h1>Organization</h1>
+                    <p>Define your institution&rsquo;s branches, offices, and organizational structure. This information is referenced across roles, workflows, and reporting.</p>
+                </div>
+
+                <div class="info-banner">
+                    <span class="material-icons-outlined">info</span>
+                    <p>Set up your headquarters and branch offices first. Each branch can then be assigned users, roles, and loan-processing capacity in subsequent steps.</p>
+                </div>
+
+                <!-- Branches / Offices List -->
+                <div class="config-card">
+                    <div class="config-card-header">
+                        <h3>Branches &amp; Offices</h3>
+                        <div style="display:flex; align-items:center; gap:10px;">
+                            <button class="btn btn-add" onclick="return false;">
+                                <span class="material-icons-outlined" style="font-size:16px;">add</span> Add Branch
+                            </button>
+                        </div>
+                    </div>
+                    <div class="config-card-body" style="padding: 0;">
+                        <table class="config-table">
+                            <thead>
+                                <tr>
+                                    <th style="width:40px"></th>
+                                    <th>Name</th>
+                                    <th>Type</th>
+                                    <th>City</th>
+                                    <th>Phone</th>
+                                    <th>Email</th>
+                                    <th>Head / Responsable</th>
+                                    <th style="width:40px"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="row-drag" title="Drag to reorder"><span class="material-icons-outlined">drag_indicator</span></td>
+                                    <td><span class="table-role-name">BSIC B&eacute;nin</span></td>
+                                    <td><span class="table-badge badge-gold">Si&egrave;ge</span></td>
+                                    <td>Cotonou</td>
+                                    <td>+229 21 31 24 24</td>
+                                    <td>contact@bsic.bj</td>
+                                    <td>Directeur G&eacute;n&eacute;ral</td>
+                                    <td class="row-menu"><button class="row-menu-btn" title="More options"><span class="material-icons">more_vert</span></button></td>
+                                </tr>
+                                <tr>
+                                    <td class="row-drag" title="Drag to reorder"><span class="material-icons-outlined">drag_indicator</span></td>
+                                    <td><span class="table-role-name">Agence Cotonou Centre</span></td>
+                                    <td><span class="table-badge badge-blue">Agence</span></td>
+                                    <td>Cotonou</td>
+                                    <td>+229 21 31 50 00</td>
+                                    <td>cotonou@bsic.bj</td>
+                                    <td>Chef d&rsquo;Agence</td>
+                                    <td class="row-menu"><button class="row-menu-btn" title="More options"><span class="material-icons">more_vert</span></button></td>
+                                </tr>
+                                <tr>
+                                    <td class="row-drag" title="Drag to reorder"><span class="material-icons-outlined">drag_indicator</span></td>
+                                    <td><span class="table-role-name">Agence Porto-Novo</span></td>
+                                    <td><span class="table-badge badge-blue">Agence</span></td>
+                                    <td>Porto-Novo</td>
+                                    <td>+229 20 21 33 00</td>
+                                    <td>portonovo@bsic.bj</td>
+                                    <td>Chef d&rsquo;Agence</td>
+                                    <td class="row-menu"><button class="row-menu-btn" title="More options"><span class="material-icons">more_vert</span></button></td>
+                                </tr>
+                                <tr>
+                                    <td class="row-drag" title="Drag to reorder"><span class="material-icons-outlined">drag_indicator</span></td>
+                                    <td><span class="table-role-name">Agence Parakou</span></td>
+                                    <td><span class="table-badge badge-blue">Agence</span></td>
+                                    <td>Parakou</td>
+                                    <td>+229 23 61 10 00</td>
+                                    <td>parakou@bsic.bj</td>
+                                    <td>Chef d&rsquo;Agence</td>
+                                    <td class="row-menu"><button class="row-menu-btn" title="More options"><span class="material-icons">more_vert</span></button></td>
+                                </tr>
+                                <tr>
+                                    <td class="row-drag" title="Drag to reorder"><span class="material-icons-outlined">drag_indicator</span></td>
+                                    <td><span class="table-role-name">Agence Bohicon</span></td>
+                                    <td><span class="table-badge badge-blue">Agence</span></td>
+                                    <td>Bohicon</td>
+                                    <td>+229 22 51 04 00</td>
+                                    <td>bohicon@bsic.bj</td>
+                                    <td>Chef d&rsquo;Agence</td>
+                                    <td class="row-menu"><button class="row-menu-btn" title="More options"><span class="material-icons">more_vert</span></button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="actions-bar">
+                    <button class="btn btn-secondary" disabled>Back</button>
+                    <button class="btn btn-primary" onclick="showTab('roles')">Save &amp; Continue</button>
+                </div>
+            </div>
 
             <!-- ==========================================
                  TAB 1: ROLES
@@ -2178,7 +2287,7 @@
                 </div>
 
                 <div class="actions-bar">
-                    <button class="btn btn-secondary">Back</button>
+                    <button class="btn btn-secondary" onclick="showTab('org')">Back</button>
                     <button class="btn btn-primary" onclick="showTab('workflow')">Save &amp; Continue</button>
                 </div>
             </div>
@@ -2187,7 +2296,7 @@
             <!-- ==========================================
                  TAB 2: WORKFLOW (Network Graph)
                  ========================================== -->
-            <div id="tab-workflow" class="tab-content active">
+            <div id="tab-workflow" class="tab-content">
                 <div class="page-header">
                     <h1>Workflow Configuration</h1>
                     <p>Design the decisioning network with parallel paths, conditional splits, and merge points. Drag nodes to reposition. Click a node to edit its properties.</p>
@@ -3407,7 +3516,7 @@
             var target = document.getElementById('tab-' + tabId);
             if (target) target.classList.add('active');
 
-            var tabs = ['roles', 'workflow', 'statuses', 'client', 'request'];
+            var tabs = ['org', 'roles', 'workflow', 'statuses', 'client', 'request'];
             var currentIndex = tabs.indexOf(tabId);
             document.querySelectorAll('.nav-item').forEach(function(item, index) {
                 item.classList.remove('active', 'completed');
@@ -3416,7 +3525,7 @@
             });
             document.querySelectorAll('.nav-item').forEach(function(item, index) {
                 var icon = item.querySelector('.nav-icon');
-                icon.innerHTML = index < currentIndex ? '&#10003;' : (index + 1).toString();
+                icon.innerHTML = index < currentIndex ? '&#10003;' : index.toString();
             });
             window.scrollTo(0, 0);
             if (tabId === 'workflow') requestAnimationFrame(drawEdges);
