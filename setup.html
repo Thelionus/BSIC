@@ -1613,6 +1613,19 @@
             color: var(--text-dark);
         }
 
+        /* Drag-and-drop states */
+        tr.dragging {
+            opacity: 0.4;
+        }
+
+        tr.drag-over {
+            border-top: 2px solid var(--bsic-gold) !important;
+        }
+
+        tr.drag-over-below {
+            border-bottom: 2px solid var(--bsic-gold) !important;
+        }
+
         /* ========================================
            ROLES: My role link
            ======================================== */
@@ -3750,6 +3763,88 @@
         } else {
             document.getElementById('themeIcon').textContent = 'light_mode';
         }
+
+        /* ==========================================
+           DRAG & DROP REORDER (all tables)
+           ========================================== */
+        (function initDragReorder() {
+            var dragSrcRow = null;
+            var dragTbody = null;
+
+            function handleDragStart(e) {
+                dragSrcRow = this;
+                dragTbody = this.parentNode;
+                this.classList.add('dragging');
+                e.dataTransfer.effectAllowed = 'move';
+                e.dataTransfer.setData('text/plain', '');
+            }
+
+            function handleDragOver(e) {
+                e.preventDefault();
+                e.dataTransfer.dropEffect = 'move';
+                // Only allow reorder within same tbody
+                if (!dragTbody || this.parentNode !== dragTbody) return;
+
+                var rect = this.getBoundingClientRect();
+                var midY = rect.top + rect.height / 2;
+
+                // Clear indicators on all sibling rows
+                Array.from(dragTbody.rows).forEach(function(row) {
+                    row.classList.remove('drag-over', 'drag-over-below');
+                });
+
+                if (e.clientY < midY) {
+                    this.classList.add('drag-over');
+                } else {
+                    this.classList.add('drag-over-below');
+                }
+            }
+
+            function handleDragLeave(e) {
+                this.classList.remove('drag-over', 'drag-over-below');
+            }
+
+            function handleDrop(e) {
+                e.stopPropagation();
+                e.preventDefault();
+                if (!dragSrcRow || dragSrcRow === this) return;
+                if (this.parentNode !== dragTbody) return;
+
+                var rect = this.getBoundingClientRect();
+                var midY = rect.top + rect.height / 2;
+
+                if (e.clientY < midY) {
+                    dragTbody.insertBefore(dragSrcRow, this);
+                } else {
+                    dragTbody.insertBefore(dragSrcRow, this.nextSibling);
+                }
+            }
+
+            function handleDragEnd(e) {
+                if (dragTbody) {
+                    Array.from(dragTbody.rows).forEach(function(row) {
+                        row.classList.remove('dragging', 'drag-over', 'drag-over-below');
+                    });
+                }
+                dragSrcRow = null;
+                dragTbody = null;
+            }
+
+            // Find all tables that have .row-drag cells and enable reorder
+            document.querySelectorAll('table tbody').forEach(function(tbody) {
+                var hasDrag = tbody.querySelector('.row-drag');
+                if (!hasDrag) return;
+
+                Array.from(tbody.rows).forEach(function(row) {
+                    row.setAttribute('draggable', 'true');
+                    row.addEventListener('dragstart', handleDragStart);
+                    row.addEventListener('dragover', handleDragOver);
+                    row.addEventListener('dragleave', handleDragLeave);
+                    row.addEventListener('drop', handleDrop);
+                    row.addEventListener('dragend', handleDragEnd);
+                });
+            });
+        })();
     </script>
 
 </body>
