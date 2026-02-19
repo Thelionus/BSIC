@@ -194,6 +194,137 @@
             .card-container { width: 460px; margin-top: 20px; }
         }
 
+        /* FNMG FILES SECTION */
+        .fnmg-section {
+            margin-top: 18px;
+            border-top: 1px solid #EEF1F3;
+            padding-top: 15px;
+        }
+
+        .fnmg-section-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: #555;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .fnmg-file-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 10px;
+            border-radius: 6px;
+            background-color: #F8FAFC;
+            border: 1px solid #E8ECF0;
+            margin-bottom: 7px;
+            cursor: pointer;
+            user-select: none;
+            transition: background-color 0.15s;
+        }
+
+        .fnmg-file-item:hover {
+            background-color: #EEF4FB;
+            border-color: #C5D8EC;
+        }
+
+        .fnmg-file-icon {
+            width: 32px;
+            height: 32px;
+            background-color: var(--bsic-blue);
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: 0.55rem;
+            font-weight: 700;
+            color: var(--bsic-gold);
+            font-family: 'Poppins', sans-serif;
+            letter-spacing: 0.3px;
+        }
+
+        .fnmg-file-info {
+            flex: 1;
+            overflow: hidden;
+        }
+
+        .fnmg-file-name {
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--text-dark);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .fnmg-file-meta {
+            font-size: 0.7rem;
+            color: #999;
+            margin-top: 1px;
+        }
+
+        /* CUSTOM CONTEXT MENU */
+        #fnmg-context-menu {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            background: white;
+            border: 1px solid #DDE3EA;
+            border-radius: 8px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+            min-width: 200px;
+            overflow: hidden;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .ctx-menu-header {
+            padding: 8px 14px;
+            font-size: 0.7rem;
+            color: #999;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+            border-bottom: 1px solid #F0F0F0;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .ctx-menu-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 9px 14px;
+            font-size: 0.88rem;
+            color: #333;
+            cursor: pointer;
+            transition: background-color 0.1s;
+        }
+
+        .ctx-menu-item:hover {
+            background-color: #F4F7FF;
+            color: var(--bsic-blue);
+        }
+
+        .ctx-menu-item .ctx-icon {
+            width: 16px;
+            text-align: center;
+            font-size: 1rem;
+        }
+
+        .ctx-menu-item.primary .ctx-icon { color: var(--bsic-gold); }
+        .ctx-menu-item.danger:hover { background-color: #FFF4F4; color: #c0392b; }
+
+        .ctx-menu-separator {
+            height: 1px;
+            background-color: #F0F0F0;
+            margin: 3px 0;
+        }
+
     </style>
 </head>
 <body>
@@ -266,8 +397,117 @@
                 <button type="button" class="btn-submit">Suivant</button>
             </form>
 
+            <!-- FNMG FILES SECTION -->
+            <div class="fnmg-section">
+                <div class="fnmg-section-title">Fichiers FNMG</div>
+
+                <div class="fnmg-file-item" data-filename="Demande_Pret_Auto_BSIC.fnmg" data-created="19 fév. 2026">
+                    <div class="fnmg-file-icon">FNMG</div>
+                    <div class="fnmg-file-info">
+                        <div class="fnmg-file-name">Demande_Pret_Auto_BSIC.fnmg</div>
+                        <div class="fnmg-file-meta">Créé le 19 fév. 2026</div>
+                    </div>
+                </div>
+
+                <div class="fnmg-file-item" data-filename="Demande_Pret_Immobilier_BSIC.fnmg" data-created="18 fév. 2026">
+                    <div class="fnmg-file-icon">FNMG</div>
+                    <div class="fnmg-file-info">
+                        <div class="fnmg-file-name">Demande_Pret_Immobilier_BSIC.fnmg</div>
+                        <div class="fnmg-file-meta">Créé le 18 fév. 2026</div>
+                    </div>
+                </div>
+
+            </div>
+
         </div>
     </div>
+
+    <!-- CUSTOM CONTEXT MENU -->
+    <div id="fnmg-context-menu">
+        <div class="ctx-menu-header" id="ctx-menu-filename">fichier.fnmg</div>
+        <div class="ctx-menu-item primary" id="ctx-open-fonofone">
+            <span class="ctx-icon">▶</span>
+            Ouvrir avec Fonofone
+        </div>
+        <div class="ctx-menu-item" id="ctx-download">
+            <span class="ctx-icon">⬇</span>
+            Télécharger
+        </div>
+        <div class="ctx-menu-separator"></div>
+        <div class="ctx-menu-item" id="ctx-copy-name">
+            <span class="ctx-icon">⎘</span>
+            Copier le nom
+        </div>
+    </div>
+
+    <script>
+        const contextMenu = document.getElementById('fnmg-context-menu');
+        const ctxFilename = document.getElementById('ctx-menu-filename');
+        let activeFile = null;
+
+        // Show context menu on right-click of any FNMG file item
+        document.querySelectorAll('.fnmg-file-item').forEach(function(item) {
+            item.addEventListener('contextmenu', function(e) {
+                e.preventDefault();
+                activeFile = item.dataset.filename;
+
+                // Update menu header with file name
+                ctxFilename.textContent = activeFile;
+
+                // Position the menu near the cursor, keeping it on screen
+                var menuW = 210;
+                var menuH = 150;
+                var x = e.clientX;
+                var y = e.clientY;
+                if (x + menuW > window.innerWidth)  x = window.innerWidth - menuW - 8;
+                if (y + menuH > window.innerHeight) y = window.innerHeight - menuH - 8;
+
+                contextMenu.style.left = x + 'px';
+                contextMenu.style.top  = y + 'px';
+                contextMenu.style.display = 'block';
+            });
+        });
+
+        // Dismiss menu on any click outside
+        document.addEventListener('click', function() {
+            contextMenu.style.display = 'none';
+            activeFile = null;
+        });
+
+        // "Open with Fonofone" - launches Fonofone via its custom URL protocol
+        document.getElementById('ctx-open-fonofone').addEventListener('click', function() {
+            if (!activeFile) return;
+            // Fonofone registers "fonofone://" as its protocol handler on the OS.
+            // Clicking this link asks the browser to hand the file off to Fonofone.
+            window.location.href = 'fonofone://open?file=' + encodeURIComponent(activeFile);
+            contextMenu.style.display = 'none';
+        });
+
+        // "Download" - triggers a browser download of the file
+        document.getElementById('ctx-download').addEventListener('click', function() {
+            if (!activeFile) return;
+            var a = document.createElement('a');
+            a.href = activeFile;          // adjust to actual file URL when available
+            a.download = activeFile;
+            a.click();
+            contextMenu.style.display = 'none';
+        });
+
+        // "Copy name" - copies filename to clipboard
+        document.getElementById('ctx-copy-name').addEventListener('click', function() {
+            if (!activeFile) return;
+            navigator.clipboard.writeText(activeFile).catch(function() {
+                // Fallback for older browsers
+                var tmp = document.createElement('textarea');
+                tmp.value = activeFile;
+                document.body.appendChild(tmp);
+                tmp.select();
+                document.execCommand('copy');
+                document.body.removeChild(tmp);
+            });
+            contextMenu.style.display = 'none';
+        });
+    </script>
 
 </body>
 </html>
