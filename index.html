@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BSIC Bénin - Formulaire</title>
-    
+
     <!-- FONTS -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -21,9 +21,9 @@
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
-        body { 
-            font-family: 'Roboto', sans-serif; 
-            background-color: var(--bg-grey); 
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--bg-grey);
             color: var(--text-dark);
             min-height: 100vh;
             display: flex;
@@ -41,22 +41,20 @@
             box-shadow: 0 2px 8px rgba(0,0,0,0.05);
             margin-bottom: 20px;
         }
-        
-        .logo { 
+
+        .logo {
             font-family: 'Poppins', sans-serif;
-            font-weight: 700; 
-            color: var(--bsic-blue); 
-            font-size: 1.4rem; 
-            letter-spacing: 0.5px; 
+            font-weight: 700;
+            color: var(--bsic-blue);
+            font-size: 1.4rem;
+            letter-spacing: 0.5px;
         }
 
-        /* CARD CONTAINER - RESPONSIVE WIDTH */
+        /* CARD CONTAINER */
         .card-container {
             background-color: white;
-            /* Mobile First: Take up almost full width */
-            width: 95%; 
-            /* Desktop Constraint: Never get wider than 460px */
-            max-width: 460px; 
+            width: 95%;
+            max-width: 460px;
             border-radius: 12px;
             overflow: hidden;
             box-shadow: 0 10px 25px rgba(0,0,0,0.08);
@@ -65,7 +63,7 @@
 
         /* BANNER */
         .card-banner {
-            height: 180px; /* Slightly shorter to save vertical space */
+            height: 180px;
             width: 100%;
             background-color: var(--bsic-blue);
             position: relative;
@@ -91,81 +89,68 @@
         .progress-bar::before {
             content: ''; position: absolute; top: 10px; left: 5px; right: 5px; height: 2px; background: #EEF1F3; z-index: 0;
         }
-        
+
         .step { position: relative; z-index: 1; }
-        
+
         .step-circle {
-            width: 22px; height: 22px; 
-            background: white; 
-            border: 2px solid #E0E0E0; 
-            border-radius: 50%; 
+            width: 22px; height: 22px;
+            background: white;
+            border: 2px solid #E0E0E0;
+            border-radius: 50%;
             display: flex; align-items: center; justify-content: center;
             font-size: 0.7rem; color: #BBB; font-weight: 700;
         }
 
         .step.completed .step-circle { background: var(--bsic-gold); border-color: var(--bsic-gold); color: white; }
-        .step.active .step-circle { border-color: var(--bsic-gold); color: var(--bsic-blue); background: #FFF; box-shadow: 0 0 0 3px rgba(229, 182, 93, 0.15); }
+        .step.active   .step-circle  { border-color: var(--bsic-gold); color: var(--bsic-blue); background: #FFF; box-shadow: 0 0 0 3px rgba(229,182,93,0.15); }
 
         /* TYPOGRAPHY */
-        h2 { 
+        h2 {
             font-family: 'Poppins', sans-serif;
             font-weight: 600;
-            color: var(--bsic-blue); 
-            margin-bottom: 5px; 
-            text-align: center; 
-            font-size: 1.4rem; 
+            color: var(--bsic-blue);
+            margin-bottom: 5px;
+            text-align: center;
+            font-size: 1.4rem;
         }
-        
-        p.desc { 
-            text-align: center; 
-            color: #757575; 
-            margin-bottom: 25px; 
-            font-size: 0.9rem; 
+        p.desc {
+            text-align: center;
+            color: #757575;
+            margin-bottom: 25px;
+            font-size: 0.9rem;
         }
 
+        /* FORM ELEMENTS */
         .input-group { margin-bottom: 14px; }
-        
-        label { 
-            display: block; 
-            font-family: 'Poppins', sans-serif;
-            font-size: 0.8rem; 
-            margin-bottom: 4px;
-            font-weight: 500; 
-            color: #555; 
-        }
-        
-        /* 
-           UPDATED: SLIMMER INPUTS 
-           Target Height: 32px (Reduced from 40px)
-        */
-        input, select {
-            width: 100%; 
-            
-            /* Specific height set to 32px */
-            height: 32px; 
-            
-            /* Reduced vertical padding to 0, use line-height to center text */
-            padding: 0 10px;
-            line-height: 30px; 
 
-            border: 1px solid var(--input-border); 
-            border-radius: 6px; 
-            
-            /* Slightly smaller font to fit the 32px box comfortably */
-            font-size: 0.9rem; 
-            
+        label {
+            display: block;
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.8rem;
+            margin-bottom: 4px;
+            font-weight: 500;
+            color: #555;
+        }
+
+        input, select {
+            width: 100%;
+            height: 32px;
+            padding: 0 10px;
+            line-height: 30px;
+            border: 1px solid var(--input-border);
+            border-radius: 6px;
+            font-size: 0.9rem;
             font-family: 'Roboto', sans-serif;
             color: #333;
             background-color: #FAFAFA;
             transition: all 0.2s ease-in-out;
         }
 
-        /* Dropdown Arrow Fix */
         select {
             appearance: none;
             background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23002B49%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
             background-repeat: no-repeat;
-            background-position: right 10px center; /* Vertically centered */
+            background-position: right 10px center;
             background-size: 8px auto;
         }
 
@@ -175,32 +160,89 @@
             outline: none;
         }
 
-        /* BUTTON */
-        .btn-submit {
-            width: 100%;
-            background-color: var(--bsic-gold);
-            color: white; border: none; padding: 12px; border-radius: 6px;
+        /* BUTTONS */
+        .btn-row {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .btn-next, .btn-back {
+            flex: 1;
+            border: none;
+            padding: 12px;
+            border-radius: 6px;
             font-family: 'Poppins', sans-serif;
-            font-size: 1rem; font-weight: 600; cursor: pointer; margin-top: 15px;
-            box-shadow: 0 4px 10px rgba(229, 182, 93, 0.25);
-            transition: transform 0.2s;
-        }
-        .btn-submit:hover { background-color: #dca646; transform: translateY(-1px); }
-
-        /* RESPONSIVE MEDIA QUERY */
-        @media (min-width: 600px) {
-            /* Styles for Tablet/Desktop */
-            body { padding-top: 20px; }
-            .card-container { width: 460px; margin-top: 20px; }
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, background-color 0.2s;
         }
 
-        /* FNMG FILES SECTION */
+        .btn-next {
+            background-color: var(--bsic-gold);
+            color: white;
+            box-shadow: 0 4px 10px rgba(229,182,93,0.25);
+        }
+        .btn-next:hover { background-color: #dca646; transform: translateY(-1px); }
+
+        .btn-back {
+            background-color: #EEF1F3;
+            color: var(--bsic-blue);
+        }
+        .btn-back:hover { background-color: #e0e4e8; transform: translateY(-1px); }
+
+        /* STEP PANELS */
+        .step-panel { display: none; }
+        .step-panel.active { display: block; }
+
+        /* CHECKBOXES (Step 6) */
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 10px;
+        }
+        .checkbox-group input[type="checkbox"] {
+            width: 16px; height: 16px;
+            accent-color: var(--bsic-gold);
+            flex-shrink: 0;
+        }
+        .checkbox-group label { margin: 0; font-size: 0.85rem; cursor: pointer; }
+
+        /* UPLOAD BOXES (Step 7) */
+        .upload-group { margin-bottom: 14px; }
+
+        .upload-label {
+            display: block;
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.8rem;
+            margin-bottom: 4px;
+            font-weight: 500;
+            color: #555;
+        }
+
+        .upload-box {
+            border: 2px dashed #E0E0E0;
+            border-radius: 6px;
+            padding: 14px 10px;
+            text-align: center;
+            background-color: #FAFAFA;
+            cursor: pointer;
+            transition: border-color 0.2s;
+            display: block;
+        }
+        .upload-box:hover { border-color: var(--bsic-gold); }
+        .upload-box input[type="file"] { display: none; }
+        .upload-box-icon { font-size: 1.4rem; margin-bottom: 4px; }
+        .upload-box-text { font-size: 0.82rem; color: #AAA; }
+
+        /* FNMG FILES (Step 7) */
         .fnmg-section {
             margin-top: 18px;
             border-top: 1px solid #EEF1F3;
             padding-top: 15px;
         }
-
         .fnmg-section-title {
             font-family: 'Poppins', sans-serif;
             font-size: 0.78rem;
@@ -210,7 +252,6 @@
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
-
         .fnmg-file-item {
             display: flex;
             align-items: center;
@@ -224,49 +265,47 @@
             user-select: none;
             transition: background-color 0.15s;
         }
-
-        .fnmg-file-item:hover {
-            background-color: #EEF4FB;
-            border-color: #C5D8EC;
-        }
-
+        .fnmg-file-item:hover { background-color: #EEF4FB; border-color: #C5D8EC; }
         .fnmg-file-icon {
-            width: 32px;
-            height: 32px;
+            width: 32px; height: 32px;
             background-color: var(--bsic-blue);
             border-radius: 5px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            display: flex; align-items: center; justify-content: center;
             flex-shrink: 0;
-            font-size: 0.55rem;
-            font-weight: 700;
+            font-size: 0.55rem; font-weight: 700;
             color: var(--bsic-gold);
             font-family: 'Poppins', sans-serif;
             letter-spacing: 0.3px;
         }
-
-        .fnmg-file-info {
-            flex: 1;
-            overflow: hidden;
-        }
-
+        .fnmg-file-info { flex: 1; overflow: hidden; }
         .fnmg-file-name {
-            font-size: 0.85rem;
-            font-weight: 500;
-            color: var(--text-dark);
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
+            font-size: 0.85rem; font-weight: 500; color: var(--text-dark);
+            white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
         }
+        .fnmg-file-meta { font-size: 0.7rem; color: #999; margin-top: 1px; }
 
-        .fnmg-file-meta {
-            font-size: 0.7rem;
-            color: #999;
-            margin-top: 1px;
+        /* SUMMARY (Step 8) */
+        .summary-section-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.78rem;
+            font-weight: 700;
+            color: var(--bsic-gold);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 14px 0 6px;
         }
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #EEF1F3;
+            font-size: 0.88rem;
+        }
+        .summary-row:last-of-type { border-bottom: none; }
+        .summary-label { color: #888; font-family: 'Poppins', sans-serif; font-size: 0.78rem; }
+        .summary-value { color: var(--bsic-blue); font-weight: 500; }
 
-        /* CUSTOM CONTEXT MENU */
+        /* CONTEXT MENU */
         #fnmg-context-menu {
             display: none;
             position: fixed;
@@ -279,7 +318,6 @@
             overflow: hidden;
             font-family: 'Roboto', sans-serif;
         }
-
         .ctx-menu-header {
             padding: 8px 14px;
             font-size: 0.7rem;
@@ -293,7 +331,6 @@
             overflow: hidden;
             text-overflow: ellipsis;
         }
-
         .ctx-menu-item {
             display: flex;
             align-items: center;
@@ -304,27 +341,17 @@
             cursor: pointer;
             transition: background-color 0.1s;
         }
-
-        .ctx-menu-item:hover {
-            background-color: #F4F7FF;
-            color: var(--bsic-blue);
-        }
-
-        .ctx-menu-item .ctx-icon {
-            width: 16px;
-            text-align: center;
-            font-size: 1rem;
-        }
-
+        .ctx-menu-item:hover { background-color: #F4F7FF; color: var(--bsic-blue); }
+        .ctx-menu-item .ctx-icon { width: 16px; text-align: center; font-size: 1rem; }
         .ctx-menu-item.primary .ctx-icon { color: var(--bsic-gold); }
         .ctx-menu-item.danger:hover { background-color: #FFF4F4; color: #c0392b; }
+        .ctx-menu-separator { height: 1px; background-color: #F0F0F0; margin: 3px 0; }
 
-        .ctx-menu-separator {
-            height: 1px;
-            background-color: #F0F0F0;
-            margin: 3px 0;
+        /* RESPONSIVE */
+        @media (min-width: 600px) {
+            body { padding-top: 20px; }
+            .card-container { width: 460px; margin-top: 20px; }
         }
-
     </style>
 </head>
 <body>
@@ -334,170 +361,489 @@
     </header>
 
     <div class="card-container">
-        
+
         <div class="card-banner">
             <img src="https://i.postimg.cc/zG7JfcRS/BSIC-BANQUE-TOTEM75-V2-copie-(1).jpg" alt="BSIC Banner">
         </div>
 
         <div class="card-body">
-            
-            <div class="progress-bar">
-                <div class="step completed"><div class="step-circle">✓</div></div>
-                <div class="step active"><div class="step-circle">2</div></div>
-                <div class="step"><div class="step-circle">3</div></div>
-                <div class="step"><div class="step-circle">4</div></div>
-                <div class="step"><div class="step-circle">5</div></div>
-                <div class="step"><div class="step-circle">6</div></div>
-                <div class="step"><div class="step-circle">7</div></div>
-                <div class="step"><div class="step-circle">8</div></div>
+
+            <!-- PROGRESS BAR -->
+            <div class="progress-bar" id="progressBar">
+                <div class="step" id="s1"><div class="step-circle">1</div></div>
+                <div class="step" id="s2"><div class="step-circle">2</div></div>
+                <div class="step" id="s3"><div class="step-circle">3</div></div>
+                <div class="step" id="s4"><div class="step-circle">4</div></div>
+                <div class="step" id="s5"><div class="step-circle">5</div></div>
+                <div class="step" id="s6"><div class="step-circle">6</div></div>
+                <div class="step" id="s7"><div class="step-circle">7</div></div>
+                <div class="step" id="s8"><div class="step-circle">8</div></div>
             </div>
 
-            <h2>Informations</h2>
-            <p class="desc">Veuillez renseigner vos informations.</p>
+            <!-- ══ STEP 1 : Type de compte ══ -->
+            <div class="step-panel active" id="panel1">
+                <h2>Type de compte</h2>
+                <p class="desc">Choisissez le type de compte souhaité.</p>
+                <form>
+                    <div class="input-group">
+                        <label>Type de compte</label>
+                        <select>
+                            <option>Compte courant</option>
+                            <option>Compte épargne</option>
+                            <option>Compte professionnel</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label>Devise</label>
+                        <select>
+                            <option>Franc CFA (XOF)</option>
+                            <option>Euro (EUR)</option>
+                            <option>Dollar US (USD)</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label>Agence souhaitée</label>
+                        <select>
+                            <option>Cotonou - Siège</option>
+                            <option>Porto-Novo</option>
+                            <option>Parakou</option>
+                        </select>
+                    </div>
+                    <div class="btn-row">
+                        <button type="button" class="btn-next" onclick="goTo(2)">Suivant</button>
+                    </div>
+                </form>
+            </div>
 
-            <form>
-                
-                <div class="input-group">
-                    <label>Êtes vous clients ?</label>
-                    <select>
-                        <option>Non, nouveau client</option>
-                        <option>Oui, je suis déjà client</option>
-                    </select>
+            <!-- ══ STEP 2 : Informations personnelles ══ -->
+            <div class="step-panel" id="panel2">
+                <h2>Informations</h2>
+                <p class="desc">Veuillez renseigner vos informations.</p>
+                <form>
+                    <div class="input-group">
+                        <label>Êtes-vous client ?</label>
+                        <select>
+                            <option>Non, nouveau client</option>
+                            <option>Oui, je suis déjà client</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label>Prénom</label>
+                        <input type="text" placeholder="Ex: Jean">
+                    </div>
+                    <div class="input-group">
+                        <label>Nom de famille</label>
+                        <input type="text" placeholder="Ex: Dupont">
+                    </div>
+                    <div class="input-group">
+                        <label>Email</label>
+                        <input type="email" placeholder="nom@exemple.com">
+                    </div>
+                    <div class="input-group">
+                        <label>Mobile</label>
+                        <input type="tel" placeholder="+229 ...">
+                    </div>
+                    <div class="btn-row">
+                        <button type="button" class="btn-back" onclick="goTo(1)">Précédent</button>
+                        <button type="button" class="btn-next" onclick="goTo(3)">Suivant</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- ══ STEP 3 : Coordonnées ══ -->
+            <div class="step-panel" id="panel3">
+                <h2>Coordonnées</h2>
+                <p class="desc">Renseignez votre adresse et coordonnées.</p>
+                <form>
+                    <div class="input-group">
+                        <label>Pays de résidence</label>
+                        <select>
+                            <option>Bénin</option>
+                            <option>Togo</option>
+                            <option>Niger</option>
+                            <option>Autre</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label>Ville</label>
+                        <input type="text" placeholder="Ex: Cotonou">
+                    </div>
+                    <div class="input-group">
+                        <label>Quartier / Arrondissement</label>
+                        <input type="text" placeholder="Ex: Cadjehoun">
+                    </div>
+                    <div class="input-group">
+                        <label>Boîte postale</label>
+                        <input type="text" placeholder="Ex: BP 1234">
+                    </div>
+                    <div class="btn-row">
+                        <button type="button" class="btn-back" onclick="goTo(2)">Précédent</button>
+                        <button type="button" class="btn-next" onclick="goTo(4)">Suivant</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- ══ STEP 4 : Pièce d'identité ══ -->
+            <div class="step-panel" id="panel4">
+                <h2>Pièce d'identité</h2>
+                <p class="desc">Renseignez vos informations d'identité.</p>
+                <form>
+                    <div class="input-group">
+                        <label>Type de pièce</label>
+                        <select>
+                            <option>Carte nationale d'identité</option>
+                            <option>Passeport</option>
+                            <option>Permis de conduire</option>
+                            <option>Carte de résident</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label>Numéro de pièce</label>
+                        <input type="text" placeholder="Ex: 123456789">
+                    </div>
+                    <div class="input-group">
+                        <label>Date de naissance</label>
+                        <input type="date">
+                    </div>
+                    <div class="input-group">
+                        <label>Lieu de naissance</label>
+                        <input type="text" placeholder="Ex: Cotonou">
+                    </div>
+                    <div class="input-group">
+                        <label>Nationalité</label>
+                        <select>
+                            <option>Béninoise</option>
+                            <option>Togolaise</option>
+                            <option>Nigérienne</option>
+                            <option>Autre</option>
+                        </select>
+                    </div>
+                    <div class="btn-row">
+                        <button type="button" class="btn-back" onclick="goTo(3)">Précédent</button>
+                        <button type="button" class="btn-next" onclick="goTo(5)">Suivant</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- ══ STEP 5 : Situation professionnelle ══ -->
+            <div class="step-panel" id="panel5">
+                <h2>Situation professionnelle</h2>
+                <p class="desc">Décrivez votre activité professionnelle.</p>
+                <form>
+                    <div class="input-group">
+                        <label>Statut professionnel</label>
+                        <select>
+                            <option>Salarié(e)</option>
+                            <option>Entrepreneur / Auto-entrepreneur</option>
+                            <option>Fonctionnaire</option>
+                            <option>Retraité(e)</option>
+                            <option>Etudiant(e)</option>
+                            <option>Sans emploi</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label>Employeur / Entreprise</label>
+                        <input type="text" placeholder="Ex: Société ABC">
+                    </div>
+                    <div class="input-group">
+                        <label>Secteur d'activité</label>
+                        <select>
+                            <option>Commerce</option>
+                            <option>Agriculture</option>
+                            <option>Services</option>
+                            <option>Industrie</option>
+                            <option>Administration publique</option>
+                            <option>Autre</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label>Revenu mensuel estimé (XOF)</label>
+                        <select>
+                            <option>Moins de 100 000</option>
+                            <option>100 000 – 300 000</option>
+                            <option>300 000 – 500 000</option>
+                            <option>Plus de 500 000</option>
+                        </select>
+                    </div>
+                    <div class="btn-row">
+                        <button type="button" class="btn-back" onclick="goTo(4)">Précédent</button>
+                        <button type="button" class="btn-next" onclick="goTo(6)">Suivant</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- ══ STEP 6 : Services souhaités ══ -->
+            <div class="step-panel" id="panel6">
+                <h2>Services souhaités</h2>
+                <p class="desc">Sélectionnez les services qui vous intéressent.</p>
+                <form>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="cb1" checked>
+                        <label for="cb1">Carte bancaire (Visa / Mastercard)</label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="cb2" checked>
+                        <label for="cb2">Banque en ligne (e-banking)</label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="cb3">
+                        <label for="cb3">Mobile Banking (USSD)</label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="cb4">
+                        <label for="cb4">Chéquier</label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="cb5">
+                        <label for="cb5">Virement international</label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="cb6">
+                        <label for="cb6">Domiciliation de salaire</label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="cb7">
+                        <label for="cb7">Crédit / Prêt personnel</label>
+                    </div>
+                    <div class="btn-row">
+                        <button type="button" class="btn-back" onclick="goTo(5)">Précédent</button>
+                        <button type="button" class="btn-next" onclick="goTo(7)">Suivant</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- ══ STEP 7 : Documents ══ -->
+            <div class="step-panel" id="panel7">
+                <h2>Documents</h2>
+                <p class="desc">Téléchargez les pièces requises.</p>
+
+                <div class="upload-group">
+                    <span class="upload-label">Pièce d'identité (recto)</span>
+                    <label class="upload-box">
+                        <input type="file" accept="image/*,.pdf">
+                        <div class="upload-box-icon">📄</div>
+                        <div class="upload-box-text">Cliquez pour télécharger</div>
+                    </label>
+                </div>
+                <div class="upload-group">
+                    <span class="upload-label">Pièce d'identité (verso)</span>
+                    <label class="upload-box">
+                        <input type="file" accept="image/*,.pdf">
+                        <div class="upload-box-icon">📄</div>
+                        <div class="upload-box-text">Cliquez pour télécharger</div>
+                    </label>
+                </div>
+                <div class="upload-group">
+                    <span class="upload-label">Justificatif de domicile</span>
+                    <label class="upload-box">
+                        <input type="file" accept="image/*,.pdf">
+                        <div class="upload-box-icon">🏠</div>
+                        <div class="upload-box-text">Cliquez pour télécharger</div>
+                    </label>
+                </div>
+                <div class="upload-group">
+                    <span class="upload-label">Justificatif de revenus</span>
+                    <label class="upload-box">
+                        <input type="file" accept="image/*,.pdf">
+                        <div class="upload-box-icon">💼</div>
+                        <div class="upload-box-text">Cliquez pour télécharger</div>
+                    </label>
                 </div>
 
-                <div class="input-group">
-                    <label>Agence souhaitée</label>
-                    <select>
-                        <option>Cotonou - Siège</option>
-                        <option>Porto-Novo</option>
-                        <option>Parakou</option>
-                    </select>
-                </div>
-
-                <div class="input-group">
-                    <label>Prénom</label>
-                    <input type="text" placeholder="Ex: Jean">
-                </div>
-
-                <div class="input-group">
-                    <label>Nom de famille</label>
-                    <input type="text" placeholder="Ex: Dupont">
-                </div>
-
-                <div class="input-group">
-                    <label>Email</label>
-                    <input type="email" placeholder="nom@exemple.com">
-                </div>
-
-                <div class="input-group">
-                    <label>Mobile</label>
-                    <input type="tel" placeholder="+229 ...">
-                </div>
-
-                <button type="button" class="btn-submit">Suivant</button>
-            </form>
-
-            <!-- FNMG FILES SECTION -->
-            <div class="fnmg-section">
-                <div class="fnmg-section-title">Fichiers FNMG</div>
-
-                <div class="fnmg-file-item" data-filename="Demande_Pret_Auto_BSIC.fnmg" data-created="19 fév. 2026">
-                    <div class="fnmg-file-icon">FNMG</div>
-                    <div class="fnmg-file-info">
-                        <div class="fnmg-file-name">Demande_Pret_Auto_BSIC.fnmg</div>
-                        <div class="fnmg-file-meta">Créé le 19 fév. 2026</div>
+                <!-- FNMG FILES -->
+                <div class="fnmg-section">
+                    <div class="fnmg-section-title">Fichiers FNMG</div>
+                    <div class="fnmg-file-item" data-filename="Demande_Pret_Auto_BSIC.fnmg" data-created="19 fév. 2026">
+                        <div class="fnmg-file-icon">FNMG</div>
+                        <div class="fnmg-file-info">
+                            <div class="fnmg-file-name">Demande_Pret_Auto_BSIC.fnmg</div>
+                            <div class="fnmg-file-meta">Créé le 19 fév. 2026</div>
+                        </div>
+                    </div>
+                    <div class="fnmg-file-item" data-filename="Demande_Pret_Immobilier_BSIC.fnmg" data-created="18 fév. 2026">
+                        <div class="fnmg-file-icon">FNMG</div>
+                        <div class="fnmg-file-info">
+                            <div class="fnmg-file-name">Demande_Pret_Immobilier_BSIC.fnmg</div>
+                            <div class="fnmg-file-meta">Créé le 18 fév. 2026</div>
+                        </div>
                     </div>
                 </div>
 
-                <div class="fnmg-file-item" data-filename="Demande_Pret_Immobilier_BSIC.fnmg" data-created="18 fév. 2026">
-                    <div class="fnmg-file-icon">FNMG</div>
-                    <div class="fnmg-file-info">
-                        <div class="fnmg-file-name">Demande_Pret_Immobilier_BSIC.fnmg</div>
-                        <div class="fnmg-file-meta">Créé le 18 fév. 2026</div>
-                    </div>
+                <div class="btn-row">
+                    <button type="button" class="btn-back" onclick="goTo(6)">Précédent</button>
+                    <button type="button" class="btn-next" onclick="goTo(8)">Suivant</button>
                 </div>
-
             </div>
 
-        </div>
-    </div>
+            <!-- ══ STEP 8 : Récapitulatif ══ -->
+            <div class="step-panel" id="panel8">
+                <h2>Récapitulatif</h2>
+                <p class="desc">Vérifiez vos informations avant de soumettre.</p>
 
-    <!-- CUSTOM CONTEXT MENU -->
+                <div class="summary-section-title">Type de compte</div>
+                <div class="summary-row">
+                    <span class="summary-label">Type</span>
+                    <span class="summary-value">Compte courant</span>
+                </div>
+                <div class="summary-row">
+                    <span class="summary-label">Devise</span>
+                    <span class="summary-value">Franc CFA (XOF)</span>
+                </div>
+                <div class="summary-row">
+                    <span class="summary-label">Agence</span>
+                    <span class="summary-value">Cotonou - Siège</span>
+                </div>
+
+                <div class="summary-section-title">Informations personnelles</div>
+                <div class="summary-row">
+                    <span class="summary-label">Nom complet</span>
+                    <span class="summary-value">Jean Dupont</span>
+                </div>
+                <div class="summary-row">
+                    <span class="summary-label">Email</span>
+                    <span class="summary-value">jean@exemple.com</span>
+                </div>
+                <div class="summary-row">
+                    <span class="summary-label">Mobile</span>
+                    <span class="summary-value">+229 97 00 00 00</span>
+                </div>
+
+                <div class="summary-section-title">Coordonnées</div>
+                <div class="summary-row">
+                    <span class="summary-label">Ville</span>
+                    <span class="summary-value">Cotonou</span>
+                </div>
+                <div class="summary-row">
+                    <span class="summary-label">Quartier</span>
+                    <span class="summary-value">Cadjehoun</span>
+                </div>
+
+                <div class="summary-section-title">Pièce d'identité</div>
+                <div class="summary-row">
+                    <span class="summary-label">Type</span>
+                    <span class="summary-value">Carte nationale d'identité</span>
+                </div>
+                <div class="summary-row">
+                    <span class="summary-label">Numéro</span>
+                    <span class="summary-value">123456789</span>
+                </div>
+
+                <div class="summary-section-title">Situation professionnelle</div>
+                <div class="summary-row">
+                    <span class="summary-label">Statut</span>
+                    <span class="summary-value">Salarié(e)</span>
+                </div>
+                <div class="summary-row">
+                    <span class="summary-label">Revenu</span>
+                    <span class="summary-value">100 000 – 300 000 XOF</span>
+                </div>
+
+                <div class="btn-row" style="margin-top: 20px;">
+                    <button type="button" class="btn-back" onclick="goTo(7)">Précédent</button>
+                    <button type="button" class="btn-next" onclick="submitForm()">Soumettre</button>
+                </div>
+            </div>
+
+        </div><!-- /.card-body -->
+    </div><!-- /.card-container -->
+
+    <!-- CONTEXT MENU -->
     <div id="fnmg-context-menu">
         <div class="ctx-menu-header" id="ctx-menu-filename">fichier.fnmg</div>
         <div class="ctx-menu-item primary" id="ctx-open-fonofone">
-            <span class="ctx-icon">▶</span>
-            Ouvrir avec Fonofone
+            <span class="ctx-icon">▶</span> Ouvrir avec Fonofone
         </div>
         <div class="ctx-menu-item" id="ctx-download">
-            <span class="ctx-icon">⬇</span>
-            Télécharger
+            <span class="ctx-icon">⬇</span> Télécharger
         </div>
         <div class="ctx-menu-separator"></div>
         <div class="ctx-menu-item" id="ctx-copy-name">
-            <span class="ctx-icon">⎘</span>
-            Copier le nom
+            <span class="ctx-icon">⎘</span> Copier le nom
         </div>
     </div>
 
     <script>
-        const contextMenu = document.getElementById('fnmg-context-menu');
-        const ctxFilename = document.getElementById('ctx-menu-filename');
-        let activeFile = null;
+        /* ── STEP NAVIGATION ── */
+        const TOTAL = 8;
+        let current = 1;
 
-        // Show context menu on right-click of any FNMG file item
+        function updateBar(step) {
+            for (var i = 1; i <= TOTAL; i++) {
+                var el     = document.getElementById('s' + i);
+                var circle = el.querySelector('.step-circle');
+                el.classList.remove('active', 'completed');
+                if (i < step)        { el.classList.add('completed'); circle.textContent = '✓'; }
+                else if (i === step) { el.classList.add('active');    circle.textContent = i;   }
+                else                 {                                circle.textContent = i;   }
+            }
+        }
+
+        function goTo(step) {
+            document.getElementById('panel' + current).classList.remove('active');
+            current = step;
+            document.getElementById('panel' + current).classList.add('active');
+            updateBar(current);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function submitForm() {
+            document.querySelector('.card-body').innerHTML =
+                '<div style="text-align:center;padding:30px 0;">' +
+                    '<div style="width:60px;height:60px;background:var(--bsic-gold);border-radius:50%;' +
+                               'display:flex;align-items:center;justify-content:center;' +
+                               'font-size:1.8rem;color:white;margin:0 auto 15px;">&#10003;</div>' +
+                    '<h2>Demande envoy\u00e9e\u00a0!</h2>' +
+                    '<p class="desc" style="margin-top:8px;">Votre demande d\u2019ouverture de compte a bien \u00e9t\u00e9 re\u00e7ue.<br>' +
+                    'Notre \u00e9quipe vous contactera dans les plus brefs d\u00e9lais.</p>' +
+                '</div>';
+        }
+
+        updateBar(1);
+
+        /* ── FNMG CONTEXT MENU ── */
+        var ctxMenu     = document.getElementById('fnmg-context-menu');
+        var ctxFilename = document.getElementById('ctx-menu-filename');
+        var activeFile  = null;
+
         document.querySelectorAll('.fnmg-file-item').forEach(function(item) {
             item.addEventListener('contextmenu', function(e) {
                 e.preventDefault();
                 activeFile = item.dataset.filename;
-
-                // Update menu header with file name
                 ctxFilename.textContent = activeFile;
 
-                // Position the menu near the cursor, keeping it on screen
-                var menuW = 210;
-                var menuH = 150;
-                var x = e.clientX;
-                var y = e.clientY;
-                if (x + menuW > window.innerWidth)  x = window.innerWidth - menuW - 8;
-                if (y + menuH > window.innerHeight) y = window.innerHeight - menuH - 8;
+                var x = e.clientX, y = e.clientY;
+                if (x + 210 > window.innerWidth)  x = window.innerWidth  - 218;
+                if (y + 150 > window.innerHeight)  y = window.innerHeight - 158;
 
-                contextMenu.style.left = x + 'px';
-                contextMenu.style.top  = y + 'px';
-                contextMenu.style.display = 'block';
+                ctxMenu.style.left    = x + 'px';
+                ctxMenu.style.top     = y + 'px';
+                ctxMenu.style.display = 'block';
             });
         });
 
-        // Dismiss menu on any click outside
         document.addEventListener('click', function() {
-            contextMenu.style.display = 'none';
+            ctxMenu.style.display = 'none';
             activeFile = null;
         });
 
-        // "Open with Fonofone" - launches Fonofone via its custom URL protocol
         document.getElementById('ctx-open-fonofone').addEventListener('click', function() {
             if (!activeFile) return;
-            // Fonofone registers "fonofone://" as its protocol handler on the OS.
-            // Clicking this link asks the browser to hand the file off to Fonofone.
             window.location.href = 'fonofone://open?file=' + encodeURIComponent(activeFile);
-            contextMenu.style.display = 'none';
+            ctxMenu.style.display = 'none';
         });
 
-        // "Download" - triggers a browser download of the file
         document.getElementById('ctx-download').addEventListener('click', function() {
             if (!activeFile) return;
             var a = document.createElement('a');
-            a.href = activeFile;          // adjust to actual file URL when available
+            a.href = activeFile;
             a.download = activeFile;
             a.click();
-            contextMenu.style.display = 'none';
+            ctxMenu.style.display = 'none';
         });
 
-        // "Copy name" - copies filename to clipboard
         document.getElementById('ctx-copy-name').addEventListener('click', function() {
             if (!activeFile) return;
             navigator.clipboard.writeText(activeFile).catch(function() {
-                // Fallback for older browsers
                 var tmp = document.createElement('textarea');
                 tmp.value = activeFile;
                 document.body.appendChild(tmp);
@@ -505,7 +851,7 @@
                 document.execCommand('copy');
                 document.body.removeChild(tmp);
             });
-            contextMenu.style.display = 'none';
+            ctxMenu.style.display = 'none';
         });
     </script>
 
