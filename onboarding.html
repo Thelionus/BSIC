@@ -1,0 +1,1572 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Decidr — Decision Workflow Platform</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+
+  <style>
+    /* ─── TOKENS ─────────────────────────────────────────────── */
+    :root {
+      --navy:    #002B49;
+      --navy-l:  #003a63;
+      --gold:    #E5B65D;
+      --gold-d:  #c99a3e;
+      --bg:      #F4F7F9;
+      --white:   #ffffff;
+      --muted:   #6B7280;
+      --border:  #E5E7EB;
+      --success: #10B981;
+      --radius:  10px;
+      --shadow:  0 8px 32px rgba(0,43,73,0.10);
+    }
+
+    /* ─── RESET ──────────────────────────────────────────────── */
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family:'Roboto',sans-serif; background:var(--bg); color:#1F2937; min-height:100vh; }
+    a    { color:inherit; text-decoration:none; }
+    button { cursor:pointer; font-family:'Roboto',sans-serif; }
+
+    /* ─── UTILITY ────────────────────────────────────────────── */
+    .hidden  { display:none !important; }
+    .poppins { font-family:'Poppins',sans-serif; }
+    .gold    { color:var(--gold); }
+    .navy    { color:var(--navy); }
+
+    /* ════════════════════════════════════════════════════════════
+       VIEW SYSTEM — only one [data-view] visible at a time
+    ════════════════════════════════════════════════════════════ */
+    [data-view] { display:none; }
+    [data-view].active { display:block; }
+
+    /* ════════════════════════════════════════════════════════════
+       1. LANDING PAGE
+    ════════════════════════════════════════════════════════════ */
+    #view-landing {
+      min-height: 100vh;
+      display:    none;  /* overridden by .active → flex */
+      flex-direction: column;
+    }
+    #view-landing.active { display:flex; }
+
+    /* NAV */
+    .lp-nav {
+      display:         flex;
+      align-items:     center;
+      justify-content: space-between;
+      padding:         18px 6%;
+      background:      var(--white);
+      border-bottom:   1px solid var(--border);
+      position:        sticky;
+      top:0; z-index:100;
+    }
+    .lp-nav .brand {
+      font-family: 'Poppins',sans-serif;
+      font-weight: 700;
+      font-size:   1.35rem;
+      color:       var(--navy);
+      display:     flex;
+      align-items: center;
+      gap:         8px;
+    }
+    .brand-dot { width:10px; height:10px; background:var(--gold); border-radius:50%; display:inline-block; }
+    .lp-nav-links { display:flex; gap:32px; font-size:.9rem; color:var(--muted); font-weight:500; }
+    .lp-nav-links a:hover { color:var(--navy); }
+    .nav-cta { display:flex; gap:10px; }
+    .btn-ghost {
+      padding:      8px 20px;
+      border:       1.5px solid var(--border);
+      border-radius: var(--radius);
+      font-size:    .875rem;
+      font-weight:  500;
+      color:        var(--navy);
+      background:   transparent;
+      transition:   border-color .2s, color .2s;
+    }
+    .btn-ghost:hover { border-color:var(--navy); }
+    .btn-primary {
+      padding:       8px 22px;
+      border:        none;
+      border-radius: var(--radius);
+      font-size:     .875rem;
+      font-weight:   600;
+      color:         var(--white);
+      background:    var(--navy);
+      transition:    background .2s, transform .15s;
+    }
+    .btn-primary:hover { background:var(--navy-l); transform:translateY(-1px); }
+
+    /* HERO */
+    .lp-hero {
+      flex:1;
+      display:         flex;
+      flex-direction:  column;
+      align-items:     center;
+      justify-content: center;
+      text-align:      center;
+      padding:         80px 6% 60px;
+      background: linear-gradient(160deg, #f0f4f8 0%, #ffffff 60%, #fdf6ec 100%);
+    }
+    .hero-badge {
+      display:       inline-flex;
+      align-items:   center;
+      gap:           6px;
+      padding:       5px 14px;
+      background:    rgba(229,182,93,.15);
+      border:        1px solid rgba(229,182,93,.4);
+      border-radius: 20px;
+      font-size:     .78rem;
+      font-weight:   600;
+      color:         #92700a;
+      margin-bottom: 24px;
+      letter-spacing:.4px;
+      text-transform: uppercase;
+    }
+    .lp-hero h1 {
+      font-family: 'Poppins',sans-serif;
+      font-weight: 800;
+      font-size:   clamp(2rem, 5vw, 3.4rem);
+      line-height: 1.15;
+      color:       var(--navy);
+      max-width:   700px;
+      margin-bottom: 20px;
+    }
+    .lp-hero h1 span { color:var(--gold); }
+    .lp-hero p {
+      font-size:   1.05rem;
+      color:       var(--muted);
+      max-width:   520px;
+      line-height: 1.7;
+      margin-bottom: 36px;
+    }
+    .hero-btns { display:flex; gap:12px; flex-wrap:wrap; justify-content:center; }
+    .btn-lg {
+      padding:       14px 32px;
+      border-radius: var(--radius);
+      font-family:   'Poppins',sans-serif;
+      font-size:     1rem;
+      font-weight:   600;
+      border:        none;
+      transition:    all .2s;
+    }
+    .btn-lg.primary { background:var(--navy); color:var(--white); box-shadow: 0 6px 20px rgba(0,43,73,.25); }
+    .btn-lg.primary:hover { background:var(--navy-l); transform:translateY(-2px); }
+    .btn-lg.outline { background:transparent; color:var(--navy); border:2px solid var(--navy); }
+    .btn-lg.outline:hover { background:var(--navy); color:var(--white); }
+
+    /* FEATURE STRIP */
+    .lp-features {
+      display:        grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px,1fr));
+      gap:            24px;
+      padding:        60px 6%;
+      background:     var(--white);
+    }
+    .feat-card {
+      padding:       28px 24px;
+      border:        1px solid var(--border);
+      border-radius: 14px;
+      transition:    box-shadow .2s, transform .2s;
+    }
+    .feat-card:hover { box-shadow:var(--shadow); transform:translateY(-3px); }
+    .feat-icon {
+      width:         44px; height:44px;
+      background:    rgba(0,43,73,.07);
+      border-radius: 10px;
+      display:       flex; align-items:center; justify-content:center;
+      font-size:     1.3rem;
+      margin-bottom: 16px;
+    }
+    .feat-card h3 {
+      font-family: 'Poppins',sans-serif;
+      font-weight: 600;
+      font-size:   .95rem;
+      color:       var(--navy);
+      margin-bottom: 8px;
+    }
+    .feat-card p { font-size:.85rem; color:var(--muted); line-height:1.6; }
+
+    /* SOCIAL PROOF */
+    .lp-social {
+      padding:         48px 6%;
+      text-align:      center;
+      background:      var(--bg);
+    }
+    .lp-social p { font-size:.85rem; color:var(--muted); margin-bottom:20px; letter-spacing:.5px; text-transform:uppercase; font-weight:500; }
+    .logo-row { display:flex; gap:32px; justify-content:center; flex-wrap:wrap; }
+    .logo-pill {
+      padding:       8px 20px;
+      border:        1px solid var(--border);
+      border-radius: 30px;
+      background:    var(--white);
+      font-weight:   700;
+      font-size:     .85rem;
+      color:         #9CA3AF;
+      letter-spacing:.5px;
+    }
+
+    /* FOOTER */
+    .lp-footer {
+      padding:     20px 6%;
+      background:  var(--navy);
+      color:       rgba(255,255,255,.5);
+      font-size:   .8rem;
+      text-align:  center;
+    }
+    .lp-footer span { color:var(--gold); }
+
+    /* ════════════════════════════════════════════════════════════
+       2. AUTH PAGE (Sign In / Register)
+    ════════════════════════════════════════════════════════════ */
+    #view-auth {
+      min-height: 100vh;
+      display:    none;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #f0f4f8 0%, #fdf6ec 100%);
+      padding:    32px 16px;
+    }
+    #view-auth.active { display:flex; }
+
+    .auth-card {
+      width:         100%;
+      max-width:     420px;
+      background:    var(--white);
+      border-radius: 18px;
+      padding:       40px 36px;
+      box-shadow:    var(--shadow);
+    }
+    .auth-logo {
+      font-family:   'Poppins',sans-serif;
+      font-weight:   700;
+      font-size:     1.4rem;
+      color:         var(--navy);
+      text-align:    center;
+      margin-bottom: 8px;
+      display:       flex;
+      align-items:   center;
+      justify-content:center;
+      gap:           7px;
+    }
+    .auth-tagline {
+      text-align:    center;
+      color:         var(--muted);
+      font-size:     .875rem;
+      margin-bottom: 28px;
+    }
+
+    /* Tab switcher */
+    .auth-tabs {
+      display:       flex;
+      background:    var(--bg);
+      border-radius: 8px;
+      padding:       4px;
+      margin-bottom: 28px;
+    }
+    .auth-tab {
+      flex:          1;
+      padding:       9px;
+      text-align:    center;
+      font-size:     .875rem;
+      font-weight:   600;
+      border:        none;
+      background:    transparent;
+      border-radius: 6px;
+      color:         var(--muted);
+      transition:    all .2s;
+    }
+    .auth-tab.active {
+      background: var(--white);
+      color:      var(--navy);
+      box-shadow: 0 2px 8px rgba(0,0,0,.07);
+    }
+
+    /* Form panels */
+    .auth-panel { display:none; }
+    .auth-panel.active { display:block; }
+
+    .form-group { margin-bottom:16px; }
+    .form-group label {
+      display:       block;
+      font-family:   'Poppins',sans-serif;
+      font-size:     .8rem;
+      font-weight:   500;
+      color:         #374151;
+      margin-bottom: 5px;
+    }
+    .form-group input {
+      width:         100%;
+      height:        42px;
+      padding:       0 12px;
+      border:        1.5px solid var(--border);
+      border-radius: 8px;
+      font-size:     .9rem;
+      color:         #1F2937;
+      background:    #FAFAFA;
+      transition:    border-color .2s, box-shadow .2s;
+    }
+    .form-group input:focus {
+      outline:      none;
+      border-color: var(--gold);
+      background:   var(--white);
+      box-shadow:   0 0 0 3px rgba(229,182,93,.15);
+    }
+    .form-row { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+
+    .btn-auth {
+      width:         100%;
+      height:        44px;
+      border:        none;
+      border-radius: 8px;
+      font-family:   'Poppins',sans-serif;
+      font-size:     .95rem;
+      font-weight:   600;
+      background:    var(--navy);
+      color:         var(--white);
+      margin-top:    8px;
+      transition:    background .2s, transform .15s;
+    }
+    .btn-auth:hover { background:var(--navy-l); transform:translateY(-1px); }
+
+    .auth-divider {
+      display:    flex;
+      align-items:center;
+      gap:        10px;
+      margin:     20px 0;
+      color:      var(--muted);
+      font-size:  .8rem;
+    }
+    .auth-divider::before, .auth-divider::after {
+      content:''; flex:1; height:1px; background:var(--border);
+    }
+
+    .btn-oauth {
+      width:         100%;
+      height:        42px;
+      border:        1.5px solid var(--border);
+      border-radius: 8px;
+      background:    var(--white);
+      font-size:     .875rem;
+      font-weight:   500;
+      color:         #374151;
+      display:       flex;
+      align-items:   center;
+      justify-content:center;
+      gap:           10px;
+      transition:    border-color .2s, box-shadow .2s;
+    }
+    .btn-oauth:hover { border-color:#9CA3AF; box-shadow:0 2px 6px rgba(0,0,0,.06); }
+
+    .auth-back {
+      text-align:  center;
+      margin-top:  20px;
+      font-size:   .8rem;
+      color:       var(--muted);
+    }
+    .auth-back a { color:var(--navy); font-weight:600; }
+    .auth-back a:hover { text-decoration:underline; }
+
+    /* ════════════════════════════════════════════════════════════
+       3. ONBOARDING WIZARD
+    ════════════════════════════════════════════════════════════ */
+    #view-onboarding {
+      min-height: 100vh;
+      display:    none;
+      background: linear-gradient(135deg, #f0f4f8 0%, #fdf6ec 100%);
+      padding:    48px 16px;
+    }
+    #view-onboarding.active { display:block; }
+
+    .onb-shell {
+      max-width:  600px;
+      margin:     0 auto;
+    }
+
+    /* step header */
+    .onb-header {
+      text-align:    center;
+      margin-bottom: 32px;
+    }
+    .onb-brand {
+      font-family:  'Poppins',sans-serif;
+      font-weight:  700;
+      font-size:    1.1rem;
+      color:        var(--navy);
+      margin-bottom:32px;
+      display:      flex;
+      align-items:  center;
+      justify-content:center;
+      gap:          7px;
+    }
+
+    /* progress dots */
+    .onb-progress {
+      display:         flex;
+      align-items:     center;
+      justify-content: center;
+      gap:             0;
+      margin-bottom:   36px;
+    }
+    .onb-dot {
+      width:         32px; height:32px;
+      border-radius: 50%;
+      border:        2px solid var(--border);
+      background:    var(--white);
+      display:       flex; align-items:center; justify-content:center;
+      font-family:   'Poppins',sans-serif;
+      font-size:     .8rem;
+      font-weight:   600;
+      color:         #9CA3AF;
+      transition:    all .3s;
+      position:      relative;
+      z-index:       1;
+    }
+    .onb-dot.done   { background:var(--success); border-color:var(--success); color:var(--white); }
+    .onb-dot.active { border-color:var(--gold); color:var(--navy); box-shadow:0 0 0 4px rgba(229,182,93,.2); }
+    .onb-line {
+      flex:        1;
+      height:      2px;
+      background:  var(--border);
+      max-width:   60px;
+      transition:  background .3s;
+    }
+    .onb-line.done { background:var(--success); }
+
+    /* step card */
+    .onb-card {
+      background:    var(--white);
+      border-radius: 18px;
+      padding:       40px 36px;
+      box-shadow:    var(--shadow);
+    }
+    .onb-step { display:none; }
+    .onb-step.active { display:block; }
+
+    .step-icon-wrap {
+      width:         60px; height:60px;
+      background:    rgba(0,43,73,.07);
+      border-radius: 16px;
+      display:       flex; align-items:center; justify-content:center;
+      font-size:     1.7rem;
+      margin:        0 auto 20px;
+    }
+    .onb-step h2 {
+      font-family:   'Poppins',sans-serif;
+      font-weight:   700;
+      font-size:     1.4rem;
+      color:         var(--navy);
+      text-align:    center;
+      margin-bottom: 8px;
+    }
+    .onb-step > p {
+      text-align:    center;
+      color:         var(--muted);
+      font-size:     .9rem;
+      margin-bottom: 28px;
+      line-height:   1.6;
+    }
+
+    /* selection tiles */
+    .tile-grid {
+      display:               grid;
+      grid-template-columns: repeat(auto-fit, minmax(130px,1fr));
+      gap:                   12px;
+      margin-bottom:         28px;
+    }
+    .tile {
+      padding:       18px 12px;
+      border:        2px solid var(--border);
+      border-radius: 12px;
+      text-align:    center;
+      cursor:        pointer;
+      transition:    all .2s;
+    }
+    .tile:hover { border-color:var(--gold); background:rgba(229,182,93,.04); }
+    .tile.selected { border-color:var(--gold); background:rgba(229,182,93,.08); }
+    .tile .tile-icon { font-size:1.6rem; margin-bottom:8px; }
+    .tile .tile-label {
+      font-family:  'Poppins',sans-serif;
+      font-size:    .78rem;
+      font-weight:  600;
+      color:        var(--navy);
+    }
+    .tile .tile-sub { font-size:.72rem; color:var(--muted); margin-top:3px; }
+
+    /* member row */
+    .member-input-row {
+      display:    flex;
+      gap:        8px;
+      margin-bottom: 16px;
+    }
+    .member-input-row input { flex:1; }
+    .btn-add-member {
+      padding:       0 16px;
+      height:        42px;
+      border:        2px dashed var(--border);
+      border-radius: 8px;
+      background:    transparent;
+      font-size:     1.2rem;
+      color:         var(--muted);
+      transition:    all .2s;
+    }
+    .btn-add-member:hover { border-color:var(--gold); color:var(--gold); }
+
+    .member-tags { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:24px; min-height:36px; }
+    .member-tag {
+      display:       flex; align-items:center; gap:6px;
+      padding:       4px 10px 4px 12px;
+      background:    rgba(0,43,73,.07);
+      border-radius: 20px;
+      font-size:     .8rem;
+      font-weight:   500;
+      color:         var(--navy);
+    }
+    .member-tag button {
+      background:none; border:none; color:#9CA3AF; font-size:.85rem; line-height:1;
+      padding:0; cursor:pointer;
+    }
+    .member-tag button:hover { color:#EF4444; }
+
+    /* toggle row */
+    .toggle-row {
+      display:         flex;
+      align-items:     center;
+      justify-content: space-between;
+      padding:         14px 0;
+      border-bottom:   1px solid var(--border);
+    }
+    .toggle-row:last-of-type { border-bottom:none; }
+    .toggle-info h4 {
+      font-family: 'Poppins',sans-serif;
+      font-weight: 600;
+      font-size:   .875rem;
+      color:       var(--navy);
+      margin-bottom:2px;
+    }
+    .toggle-info p { font-size:.8rem; color:var(--muted); }
+    .toggle {
+      position: relative;
+      width:    44px; height:24px;
+      flex-shrink:0;
+    }
+    .toggle input { opacity:0; width:0; height:0; }
+    .toggle-slider {
+      position:         absolute;
+      inset:            0;
+      background:       var(--border);
+      border-radius:    12px;
+      cursor:           pointer;
+      transition:       background .2s;
+    }
+    .toggle-slider::before {
+      content:       '';
+      position:      absolute;
+      width:         18px; height:18px;
+      left:          3px; top:3px;
+      background:    var(--white);
+      border-radius: 50%;
+      transition:    transform .2s;
+      box-shadow:    0 1px 3px rgba(0,0,0,.2);
+    }
+    .toggle input:checked + .toggle-slider { background:var(--gold); }
+    .toggle input:checked + .toggle-slider::before { transform:translateX(20px); }
+
+    /* nav buttons */
+    .onb-nav {
+      display:         flex;
+      justify-content: space-between;
+      align-items:     center;
+      margin-top:      28px;
+    }
+    .btn-back-step {
+      background:  none;
+      border:      none;
+      color:       var(--muted);
+      font-size:   .875rem;
+      font-weight: 500;
+      display:     flex;
+      align-items: center;
+      gap:         4px;
+    }
+    .btn-back-step:hover { color:var(--navy); }
+    .btn-next-step {
+      padding:       12px 28px;
+      background:    var(--navy);
+      color:         var(--white);
+      border:        none;
+      border-radius: 8px;
+      font-family:   'Poppins',sans-serif;
+      font-weight:   600;
+      font-size:     .9rem;
+      transition:    background .2s, transform .15s;
+    }
+    .btn-next-step:hover { background:var(--navy-l); transform:translateY(-1px); }
+    .btn-next-step.gold-btn { background:var(--gold); }
+    .btn-next-step.gold-btn:hover { background:var(--gold-d); }
+
+    /* step 4 — ready screen */
+    .ready-screen { text-align:center; }
+    .ready-check {
+      width:         72px; height:72px;
+      background:    linear-gradient(135deg, var(--success), #059669);
+      border-radius: 50%;
+      display:       flex; align-items:center; justify-content:center;
+      font-size:     2rem;
+      margin:        0 auto 20px;
+      box-shadow:    0 8px 24px rgba(16,185,129,.3);
+    }
+    .ready-screen h2 { margin-bottom:10px; }
+    .ready-screen p  { margin-bottom:28px; }
+    .summary-pills { display:flex; flex-wrap:wrap; gap:8px; justify-content:center; margin-bottom:28px; }
+    .summary-pill {
+      padding:       5px 14px;
+      background:    rgba(0,43,73,.07);
+      border-radius: 20px;
+      font-size:     .8rem;
+      font-weight:   500;
+      color:         var(--navy);
+    }
+
+    /* ════════════════════════════════════════════════════════════
+       4. DASHBOARD / APP SHELL
+    ════════════════════════════════════════════════════════════ */
+    #view-app {
+      display: none;
+    }
+    #view-app.active {
+      display:    flex;
+      min-height: 100vh;
+    }
+
+    /* SIDEBAR */
+    .sidebar {
+      width:         240px;
+      flex-shrink:   0;
+      background:    var(--navy);
+      color:         rgba(255,255,255,.85);
+      display:       flex;
+      flex-direction:column;
+      padding:       0 0 24px;
+    }
+    .sb-brand {
+      padding:       22px 20px 20px;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+      font-family:   'Poppins',sans-serif;
+      font-weight:   700;
+      font-size:     1.1rem;
+      color:         var(--white);
+      display:       flex;
+      align-items:   center;
+      gap:           8px;
+    }
+    .sb-section-title {
+      padding:     20px 20px 6px;
+      font-size:   .68rem;
+      font-weight: 700;
+      letter-spacing:.8px;
+      text-transform:uppercase;
+      color:       rgba(255,255,255,.35);
+    }
+    .sb-item {
+      display:      flex;
+      align-items:  center;
+      gap:          10px;
+      padding:      10px 20px;
+      font-size:    .875rem;
+      font-weight:  500;
+      border-radius:8px;
+      margin:       1px 8px;
+      cursor:       pointer;
+      transition:   background .15s, color .15s;
+      color:        rgba(255,255,255,.7);
+    }
+    .sb-item:hover { background:rgba(255,255,255,.08); color:var(--white); }
+    .sb-item.active { background:rgba(229,182,93,.15); color:var(--gold); }
+    .sb-item .sb-icon { font-size:1rem; width:20px; text-align:center; }
+    .sb-badge {
+      margin-left: auto;
+      background:  var(--gold);
+      color:       var(--navy);
+      font-size:   .68rem;
+      font-weight: 700;
+      padding:     2px 7px;
+      border-radius:10px;
+    }
+    .sb-spacer { flex:1; }
+    .sb-user {
+      margin:        0 8px;
+      padding:       10px 12px;
+      border-radius: 8px;
+      background:    rgba(255,255,255,.06);
+      display:       flex;
+      align-items:   center;
+      gap:           10px;
+      cursor:        pointer;
+    }
+    .sb-avatar {
+      width:         32px; height:32px;
+      border-radius: 50%;
+      background:    var(--gold);
+      display:       flex; align-items:center; justify-content:center;
+      font-family:   'Poppins',sans-serif;
+      font-weight:   700;
+      font-size:     .75rem;
+      color:         var(--navy);
+      flex-shrink:   0;
+    }
+    .sb-user-info { overflow:hidden; }
+    .sb-user-name {
+      font-size:   .8rem;
+      font-weight: 600;
+      color:       var(--white);
+      white-space: nowrap;
+      overflow:    hidden;
+      text-overflow:ellipsis;
+    }
+    .sb-user-role { font-size:.7rem; color:rgba(255,255,255,.4); }
+
+    /* MAIN CONTENT */
+    .app-main {
+      flex:       1;
+      overflow-y: auto;
+      background: var(--bg);
+    }
+
+    /* TOP BAR */
+    .app-topbar {
+      background:    var(--white);
+      padding:       14px 28px;
+      border-bottom: 1px solid var(--border);
+      display:       flex;
+      align-items:   center;
+      justify-content:space-between;
+      position:      sticky;
+      top:           0;
+      z-index:       10;
+    }
+    .topbar-title {
+      font-family:  'Poppins',sans-serif;
+      font-weight:  700;
+      font-size:    1.1rem;
+      color:        var(--navy);
+    }
+    .topbar-actions { display:flex; gap:10px; align-items:center; }
+    .btn-topbar {
+      padding:       8px 18px;
+      border-radius: 8px;
+      font-family:   'Poppins',sans-serif;
+      font-size:     .8rem;
+      font-weight:   600;
+      border:        none;
+      cursor:        pointer;
+      transition:    all .2s;
+    }
+    .btn-topbar.outline { background:transparent; border:1.5px solid var(--border); color:var(--navy); }
+    .btn-topbar.outline:hover { border-color:var(--navy); }
+    .btn-topbar.filled { background:var(--navy); color:var(--white); }
+    .btn-topbar.filled:hover { background:var(--navy-l); }
+
+    /* CONTENT AREA */
+    .app-content { padding:28px; }
+
+    /* Stats row */
+    .stats-row {
+      display:               grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px,1fr));
+      gap:                   18px;
+      margin-bottom:         28px;
+    }
+    .stat-card {
+      background:    var(--white);
+      border-radius: 12px;
+      padding:       22px 20px;
+      border:        1px solid var(--border);
+      position:      relative;
+      overflow:      hidden;
+    }
+    .stat-card::after {
+      content:       '';
+      position:      absolute;
+      top:0; right:0;
+      width:         4px;
+      height:        100%;
+      background:    var(--navy);
+      border-radius: 0 12px 12px 0;
+    }
+    .stat-card.gold-accent::after { background:var(--gold); }
+    .stat-card.green-accent::after { background:var(--success); }
+    .stat-label {
+      font-size:     .78rem;
+      color:         var(--muted);
+      font-weight:   500;
+      margin-bottom: 6px;
+      text-transform:uppercase;
+      letter-spacing:.4px;
+    }
+    .stat-value {
+      font-family:  'Poppins',sans-serif;
+      font-weight:  700;
+      font-size:    1.9rem;
+      color:        var(--navy);
+    }
+    .stat-delta {
+      font-size:   .75rem;
+      margin-top:  4px;
+      color:       var(--success);
+      font-weight: 500;
+    }
+
+    /* Workflow table */
+    .section-header {
+      display:         flex;
+      align-items:     center;
+      justify-content: space-between;
+      margin-bottom:   16px;
+    }
+    .section-title {
+      font-family:  'Poppins',sans-serif;
+      font-weight:  700;
+      font-size:    1rem;
+      color:        var(--navy);
+    }
+
+    .wf-table-wrap {
+      background:    var(--white);
+      border:        1px solid var(--border);
+      border-radius: 14px;
+      overflow:      hidden;
+      margin-bottom: 28px;
+    }
+    table { width:100%; border-collapse:collapse; }
+    thead { background:#F9FAFB; }
+    th {
+      padding:     12px 16px;
+      text-align:  left;
+      font-family: 'Poppins',sans-serif;
+      font-size:   .75rem;
+      font-weight: 600;
+      color:       var(--muted);
+      text-transform:uppercase;
+      letter-spacing:.4px;
+      border-bottom:1px solid var(--border);
+    }
+    td {
+      padding:      14px 16px;
+      font-size:    .875rem;
+      color:        #374151;
+      border-bottom:1px solid #F3F4F6;
+      vertical-align:middle;
+    }
+    tr:last-child td { border-bottom:none; }
+    tr:hover td { background:#FAFAFA; }
+
+    .wf-name {
+      font-weight: 600;
+      color:       var(--navy);
+      font-family: 'Poppins',sans-serif;
+      font-size:   .875rem;
+    }
+    .wf-name small { display:block; font-size:.75rem; color:var(--muted); font-weight:400; font-family:'Roboto',sans-serif; }
+
+    .status-badge {
+      display:       inline-flex;
+      align-items:   center;
+      gap:           5px;
+      padding:       3px 10px;
+      border-radius: 20px;
+      font-size:     .75rem;
+      font-weight:   600;
+    }
+    .status-badge.pending  { background:#FEF3C7; color:#92400E; }
+    .status-badge.active   { background:#D1FAE5; color:#065F46; }
+    .status-badge.review   { background:#DBEAFE; color:#1E40AF; }
+    .status-badge.rejected { background:#FEE2E2; color:#991B1B; }
+    .status-dot { width:6px; height:6px; border-radius:50%; background:currentColor; }
+
+    .priority-chip {
+      display:       inline-block;
+      padding:       2px 8px;
+      border-radius: 4px;
+      font-size:     .72rem;
+      font-weight:   700;
+      text-transform:uppercase;
+    }
+    .priority-chip.high   { background:#FEE2E2; color:#991B1B; }
+    .priority-chip.medium { background:#FEF3C7; color:#92400E; }
+    .priority-chip.low    { background:#F3F4F6; color:#6B7280; }
+
+    .btn-row-action {
+      padding:       5px 12px;
+      background:    transparent;
+      border:        1.5px solid var(--border);
+      border-radius: 6px;
+      font-size:     .78rem;
+      font-weight:   500;
+      color:         var(--navy);
+      transition:    all .15s;
+    }
+    .btn-row-action:hover { background:var(--navy); color:var(--white); border-color:var(--navy); }
+
+    /* welcome banner */
+    .welcome-banner {
+      background:    linear-gradient(135deg, var(--navy) 0%, var(--navy-l) 100%);
+      border-radius: 14px;
+      padding:       24px 28px;
+      color:         var(--white);
+      margin-bottom: 24px;
+      display:       flex;
+      align-items:   center;
+      justify-content:space-between;
+      gap:           16px;
+    }
+    .welcome-banner h2 {
+      font-family:   'Poppins',sans-serif;
+      font-weight:   700;
+      font-size:     1.2rem;
+      margin-bottom: 6px;
+    }
+    .welcome-banner p { font-size:.875rem; color:rgba(255,255,255,.7); max-width:420px; }
+    .banner-badge {
+      flex-shrink:   0;
+      padding:       8px 16px;
+      background:    rgba(229,182,93,.2);
+      border:        1px solid rgba(229,182,93,.4);
+      border-radius: 8px;
+      font-size:     .8rem;
+      font-weight:   600;
+      color:         var(--gold);
+      white-space:   nowrap;
+    }
+
+    /* ─── Responsive tweaks ──────────────────────────────────── */
+    @media (max-width: 768px) {
+      .sidebar { display:none; }
+      .lp-nav-links { display:none; }
+      .form-row { grid-template-columns:1fr; }
+      .welcome-banner { flex-direction:column; align-items:flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════════════════
+     VIEW 1 · LANDING PAGE
+══════════════════════════════════════════════════════════ -->
+<div id="view-landing" data-view class="active">
+
+  <nav class="lp-nav">
+    <div class="brand">
+      <span class="brand-dot"></span>Decidr
+    </div>
+    <div class="lp-nav-links">
+      <a href="#">Product</a>
+      <a href="#">Solutions</a>
+      <a href="#">Pricing</a>
+      <a href="#">Docs</a>
+    </div>
+    <div class="nav-cta">
+      <button class="btn-ghost" onclick="showAuth('signin')">Sign In</button>
+      <button class="btn-primary" onclick="showAuth('register')">Get Started Free</button>
+    </div>
+  </nav>
+
+  <section class="lp-hero">
+    <div class="hero-badge">&#9889; New — AI-powered routing</div>
+    <h1>Make every decision<br><span>fast, auditable</span> and on time.</h1>
+    <p>Decidr brings all your approval workflows, escalations, and decision gates into one place — so nothing slips through the cracks.</p>
+    <div class="hero-btns">
+      <button class="btn-lg primary" onclick="showAuth('register')">Start for free</button>
+      <button class="btn-lg outline" onclick="showAuth('signin')">Sign In</button>
+    </div>
+  </section>
+
+  <section class="lp-features">
+    <div class="feat-card">
+      <div class="feat-icon">&#9881;</div>
+      <h3>Visual Workflow Builder</h3>
+      <p>Drag-and-drop steps, conditions, and approvers. No code required.</p>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon">&#128202;</div>
+      <h3>Real-Time Tracking</h3>
+      <p>Know exactly where each request stands — and who's holding it up.</p>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon">&#128272;</div>
+      <h3>Role-Based Permissions</h3>
+      <p>Granular access control for every team, department, or external partner.</p>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon">&#128276;</div>
+      <h3>Smart Notifications</h3>
+      <p>Automated reminders, escalations and Slack/email alerts built in.</p>
+    </div>
+  </section>
+
+  <section class="lp-social">
+    <p>Trusted by teams at</p>
+    <div class="logo-row">
+      <div class="logo-pill">BSIC BANK</div>
+      <div class="logo-pill">ACMECORP</div>
+      <div class="logo-pill">NOVA GROUP</div>
+      <div class="logo-pill">FINSERV</div>
+      <div class="logo-pill">AXIA</div>
+    </div>
+  </section>
+
+  <footer class="lp-footer">
+    &copy; 2026 <span>Decidr</span> &mdash; Decision workflow, simplified.
+  </footer>
+
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════════
+     VIEW 2 · AUTH (Sign In / Register)
+══════════════════════════════════════════════════════════ -->
+<div id="view-auth" data-view>
+
+  <div class="auth-card">
+
+    <div class="auth-logo">
+      <span class="brand-dot"></span>Decidr
+    </div>
+    <p class="auth-tagline">Decision workflows, simplified.</p>
+
+    <div class="auth-tabs">
+      <button class="auth-tab active" id="tab-signin" onclick="switchTab('signin')">Sign In</button>
+      <button class="auth-tab"        id="tab-register" onclick="switchTab('register')">Register</button>
+    </div>
+
+    <!-- SIGN IN -->
+    <div class="auth-panel active" id="panel-signin">
+      <div class="form-group">
+        <label>Email address</label>
+        <input type="email" placeholder="you@company.com">
+      </div>
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" placeholder="••••••••">
+      </div>
+      <button class="btn-auth" onclick="startOnboarding()">Sign In</button>
+
+      <div class="auth-divider">or continue with</div>
+      <button class="btn-oauth">
+        <svg width="18" height="18" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.1 0 5.8 1.1 7.9 2.9l5.9-5.9C34.4 3.3 29.5 1 24 1 14.8 1 7 6.7 3.7 14.7l6.9 5.3C12.2 13.6 17.6 9.5 24 9.5z"/><path fill="#4285F4" d="M46.1 24.5c0-1.6-.1-3.1-.4-4.5H24v8.5h12.5c-.5 2.8-2.2 5.2-4.7 6.8l7.2 5.6c4.2-3.9 6.6-9.6 6.6-16.4z"/><path fill="#FBBC05" d="M10.6 28.7A14.5 14.5 0 0 1 9.5 24c0-1.6.3-3.2.8-4.7L3.4 14c-1.3 2.7-2 5.7-2 8.9s.7 6.3 2 8.9l7.2-3.1z"/><path fill="#34A853" d="M24 47c5.5 0 10.1-1.8 13.5-4.9l-7.2-5.6c-1.8 1.2-4.1 1.9-6.3 1.9-6.4 0-11.8-4.3-13.7-10.2l-6.9 5.3C7 41.3 14.8 47 24 47z"/></svg>
+        Sign in with Google
+      </button>
+    </div>
+
+    <!-- REGISTER -->
+    <div class="auth-panel" id="panel-register">
+      <div class="form-row">
+        <div class="form-group">
+          <label>First name</label>
+          <input type="text" placeholder="Jean" id="reg-firstname">
+        </div>
+        <div class="form-group">
+          <label>Last name</label>
+          <input type="text" placeholder="Dupont" id="reg-lastname">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Work email</label>
+        <input type="email" placeholder="you@company.com" id="reg-email">
+      </div>
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" placeholder="8+ characters">
+      </div>
+      <button class="btn-auth" onclick="startOnboarding()">Create account</button>
+
+      <div class="auth-divider">or sign up with</div>
+      <button class="btn-oauth">
+        <svg width="18" height="18" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.1 0 5.8 1.1 7.9 2.9l5.9-5.9C34.4 3.3 29.5 1 24 1 14.8 1 7 6.7 3.7 14.7l6.9 5.3C12.2 13.6 17.6 9.5 24 9.5z"/><path fill="#4285F4" d="M46.1 24.5c0-1.6-.1-3.1-.4-4.5H24v8.5h12.5c-.5 2.8-2.2 5.2-4.7 6.8l7.2 5.6c4.2-3.9 6.6-9.6 6.6-16.4z"/><path fill="#FBBC05" d="M10.6 28.7A14.5 14.5 0 0 1 9.5 24c0-1.6.3-3.2.8-4.7L3.4 14c-1.3 2.7-2 5.7-2 8.9s.7 6.3 2 8.9l7.2-3.1z"/><path fill="#34A853" d="M24 47c5.5 0 10.1-1.8 13.5-4.9l-7.2-5.6c-1.8 1.2-4.1 1.9-6.3 1.9-6.4 0-11.8-4.3-13.7-10.2l-6.9 5.3C7 41.3 14.8 47 24 47z"/></svg>
+        Sign up with Google
+      </button>
+    </div>
+
+    <div class="auth-back">
+      <a href="#" onclick="showView('view-landing');return false;">&larr; Back to home</a>
+    </div>
+  </div>
+
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════════
+     VIEW 3 · ONBOARDING WIZARD (4 steps)
+══════════════════════════════════════════════════════════ -->
+<div id="view-onboarding" data-view>
+  <div class="onb-shell">
+
+    <div class="onb-brand">
+      <span class="brand-dot"></span>Decidr
+    </div>
+
+    <!-- Progress indicator -->
+    <div class="onb-progress" id="onb-progress">
+      <div class="onb-dot active" id="dot-0">1</div>
+      <div class="onb-line"       id="line-0"></div>
+      <div class="onb-dot"        id="dot-1">2</div>
+      <div class="onb-line"       id="line-1"></div>
+      <div class="onb-dot"        id="dot-2">3</div>
+      <div class="onb-line"       id="line-2"></div>
+      <div class="onb-dot"        id="dot-3">4</div>
+    </div>
+
+    <div class="onb-card">
+
+      <!-- ── STEP 1 · Workspace ─────────────────────────────── -->
+      <div class="onb-step active" id="step-0">
+        <div class="step-icon-wrap">&#127970;</div>
+        <h2>Set up your workspace</h2>
+        <p>This will be your team's home in Decidr. You can change it later.</p>
+
+        <div class="form-group">
+          <label>Organisation / Company name</label>
+          <input type="text" placeholder="e.g. Acme Corp" id="onb-orgname">
+        </div>
+        <div class="form-group">
+          <label>Industry</label>
+          <select style="width:100%;height:42px;padding:0 12px;border:1.5px solid var(--border);border-radius:8px;font-size:.9rem;background:#FAFAFA;color:#1F2937;appearance:none;">
+            <option>Banking &amp; Finance</option>
+            <option>Insurance</option>
+            <option>Healthcare</option>
+            <option>Government</option>
+            <option>Manufacturing</option>
+            <option>Technology</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Team size</label>
+          <select style="width:100%;height:42px;padding:0 12px;border:1.5px solid var(--border);border-radius:8px;font-size:.9rem;background:#FAFAFA;color:#1F2937;appearance:none;">
+            <option>1 – 10 people</option>
+            <option>11 – 50 people</option>
+            <option>51 – 200 people</option>
+            <option>200+ people</option>
+          </select>
+        </div>
+
+        <div class="onb-nav">
+          <span></span>
+          <button class="btn-next-step" onclick="nextStep(1)">Continue &rarr;</button>
+        </div>
+      </div>
+
+      <!-- ── STEP 2 · Workflow type ─────────────────────────── -->
+      <div class="onb-step" id="step-1">
+        <div class="step-icon-wrap">&#9881;</div>
+        <h2>What will you mainly use Decidr for?</h2>
+        <p>Pick one to get a tailored starting template. You can add more later.</p>
+
+        <div class="tile-grid" id="workflow-tiles">
+          <div class="tile selected" onclick="selectTile(this)">
+            <div class="tile-icon">&#128196;</div>
+            <div class="tile-label">Approvals</div>
+            <div class="tile-sub">POs, invoices, requests</div>
+          </div>
+          <div class="tile" onclick="selectTile(this)">
+            <div class="tile-icon">&#128203;</div>
+            <div class="tile-label">Compliance</div>
+            <div class="tile-sub">Audits &amp; reviews</div>
+          </div>
+          <div class="tile" onclick="selectTile(this)">
+            <div class="tile-icon">&#128104;&#8205;&#128188;</div>
+            <div class="tile-label">HR Decisions</div>
+            <div class="tile-sub">Hiring, promotions</div>
+          </div>
+          <div class="tile" onclick="selectTile(this)">
+            <div class="tile-icon">&#128640;</div>
+            <div class="tile-label">Projects</div>
+            <div class="tile-sub">Gate reviews</div>
+          </div>
+          <div class="tile" onclick="selectTile(this)">
+            <div class="tile-icon">&#128176;</div>
+            <div class="tile-label">Budget</div>
+            <div class="tile-sub">CAPEX / OPEX</div>
+          </div>
+          <div class="tile" onclick="selectTile(this)">
+            <div class="tile-icon">&#10024;</div>
+            <div class="tile-label">Custom</div>
+            <div class="tile-sub">Build from scratch</div>
+          </div>
+        </div>
+
+        <div class="onb-nav">
+          <button class="btn-back-step" onclick="nextStep(0)">&larr; Back</button>
+          <button class="btn-next-step" onclick="nextStep(2)">Continue &rarr;</button>
+        </div>
+      </div>
+
+      <!-- ── STEP 3 · Team members ──────────────────────────── -->
+      <div class="onb-step" id="step-2">
+        <div class="step-icon-wrap">&#128101;</div>
+        <h2>Invite your team</h2>
+        <p>Add colleagues who will create or approve decisions. Skip if you'd rather do this later.</p>
+
+        <div class="member-input-row">
+          <div class="form-group" style="flex:1;margin-bottom:0;">
+            <input type="email" placeholder="colleague@company.com" id="member-input">
+          </div>
+          <button class="btn-add-member" onclick="addMember()">+</button>
+        </div>
+        <div class="member-tags" id="member-tags"></div>
+
+        <p style="font-size:.8rem;color:var(--muted);margin-bottom:20px;">They'll receive an email invitation with a direct link to join your workspace.</p>
+
+        <!-- Notifications toggles -->
+        <div style="border:1px solid var(--border);border-radius:10px;padding:0 16px;margin-bottom:8px;">
+          <div class="toggle-row">
+            <div class="toggle-info">
+              <h4>Email notifications</h4>
+              <p>Receive decision updates by email</p>
+            </div>
+            <label class="toggle"><input type="checkbox" checked><span class="toggle-slider"></span></label>
+          </div>
+          <div class="toggle-row">
+            <div class="toggle-info">
+              <h4>Slack alerts</h4>
+              <p>Connect your Slack workspace</p>
+            </div>
+            <label class="toggle"><input type="checkbox"><span class="toggle-slider"></span></label>
+          </div>
+          <div class="toggle-row">
+            <div class="toggle-info">
+              <h4>Escalation reminders</h4>
+              <p>Auto-remind approvers after 48 h</p>
+            </div>
+            <label class="toggle"><input type="checkbox" checked><span class="toggle-slider"></span></label>
+          </div>
+        </div>
+
+        <div class="onb-nav">
+          <button class="btn-back-step" onclick="nextStep(1)">&larr; Back</button>
+          <button class="btn-next-step" onclick="nextStep(3)">Continue &rarr;</button>
+        </div>
+      </div>
+
+      <!-- ── STEP 4 · Ready ─────────────────────────────────── -->
+      <div class="onb-step" id="step-3">
+        <div class="ready-screen">
+          <div class="ready-check">&#10003;</div>
+          <h2>You're all set!</h2>
+          <p>Your workspace is ready. Here's a summary of what you've configured.</p>
+          <div class="summary-pills" id="summary-pills">
+            <div class="summary-pill">&#127970; Acme Corp</div>
+            <div class="summary-pill">&#128196; Approval workflows</div>
+            <div class="summary-pill">&#128101; 2 members invited</div>
+            <div class="summary-pill">&#128276; Email + escalation alerts on</div>
+          </div>
+          <button class="btn-next-step gold-btn" style="width:100%;height:46px;font-size:1rem;" onclick="showApp()">
+            Open my workspace &rarr;
+          </button>
+        </div>
+      </div>
+
+    </div><!-- /onb-card -->
+  </div><!-- /onb-shell -->
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════════
+     VIEW 4 · APP DASHBOARD
+══════════════════════════════════════════════════════════ -->
+<div id="view-app" data-view>
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sb-brand">
+      <span class="brand-dot"></span>Decidr
+    </div>
+
+    <div class="sb-section-title">Workspace</div>
+    <div class="sb-item active"><span class="sb-icon">&#127968;</span> Dashboard</div>
+    <div class="sb-item"><span class="sb-icon">&#9881;</span> Workflows</div>
+    <div class="sb-item">
+      <span class="sb-icon">&#128203;</span> Decisions
+      <span class="sb-badge">4</span>
+    </div>
+    <div class="sb-item"><span class="sb-icon">&#128202;</span> Analytics</div>
+
+    <div class="sb-section-title">Team</div>
+    <div class="sb-item"><span class="sb-icon">&#128101;</span> Members</div>
+    <div class="sb-item"><span class="sb-icon">&#128272;</span> Roles &amp; Access</div>
+    <div class="sb-item"><span class="sb-icon">&#128276;</span> Notifications</div>
+
+    <div class="sb-section-title">More</div>
+    <div class="sb-item"><span class="sb-icon">&#128279;</span> Integrations</div>
+    <div class="sb-item"><span class="sb-icon">&#9881;</span> Settings</div>
+
+    <div class="sb-spacer"></div>
+
+    <div class="sb-user">
+      <div class="sb-avatar" id="sb-avatar">JD</div>
+      <div class="sb-user-info">
+        <div class="sb-user-name" id="sb-username">Jean Dupont</div>
+        <div class="sb-user-role">Admin</div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <div class="app-main">
+
+    <div class="app-topbar">
+      <div class="topbar-title">Dashboard</div>
+      <div class="topbar-actions">
+        <button class="btn-topbar outline">&#128197; Mar 2026</button>
+        <button class="btn-topbar filled">+ New Decision</button>
+      </div>
+    </div>
+
+    <div class="app-content">
+
+      <!-- Welcome banner -->
+      <div class="welcome-banner">
+        <div>
+          <h2>Welcome to Decidr! &#127881;</h2>
+          <p>Your workspace is ready. Create your first workflow or explore the demo decisions below.</p>
+        </div>
+        <div class="banner-badge">Setup complete</div>
+      </div>
+
+      <!-- Stats -->
+      <div class="stats-row">
+        <div class="stat-card">
+          <div class="stat-label">Open Decisions</div>
+          <div class="stat-value">12</div>
+          <div class="stat-delta">+3 this week</div>
+        </div>
+        <div class="stat-card gold-accent">
+          <div class="stat-label">Pending Approval</div>
+          <div class="stat-value">4</div>
+          <div class="stat-delta" style="color:#F59E0B;">Awaiting action</div>
+        </div>
+        <div class="stat-card green-accent">
+          <div class="stat-label">Resolved this month</div>
+          <div class="stat-value">28</div>
+          <div class="stat-delta">+12% vs last month</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Avg. Resolution Time</div>
+          <div class="stat-value">1.4<span style="font-size:1rem;font-weight:500;color:var(--muted);">d</span></div>
+          <div class="stat-delta">-0.3 d improved</div>
+        </div>
+      </div>
+
+      <!-- Recent decisions table -->
+      <div class="section-header">
+        <div class="section-title">Recent Decisions</div>
+        <button class="btn-topbar outline" style="font-size:.78rem;padding:6px 14px;">View all</button>
+      </div>
+      <div class="wf-table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Decision</th>
+              <th>Status</th>
+              <th>Priority</th>
+              <th>Assignee</th>
+              <th>Due</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <div class="wf-name">Q1 Budget Approval
+                  <small>Finance &rarr; CFO review</small>
+                </div>
+              </td>
+              <td><span class="status-badge pending"><span class="status-dot"></span>Pending</span></td>
+              <td><span class="priority-chip high">High</span></td>
+              <td>Sophie M.</td>
+              <td>15 Mar</td>
+              <td><button class="btn-row-action">Review</button></td>
+            </tr>
+            <tr>
+              <td>
+                <div class="wf-name">Vendor Contract #142
+                  <small>Procurement &rarr; Legal &rarr; CFO</small>
+                </div>
+              </td>
+              <td><span class="status-badge review"><span class="status-dot"></span>In Review</span></td>
+              <td><span class="priority-chip medium">Medium</span></td>
+              <td>Alain K.</td>
+              <td>18 Mar</td>
+              <td><button class="btn-row-action">Review</button></td>
+            </tr>
+            <tr>
+              <td>
+                <div class="wf-name">New Hire Approval — Dev
+                  <small>HR &rarr; Department Head</small>
+                </div>
+              </td>
+              <td><span class="status-badge active"><span class="status-dot"></span>Approved</span></td>
+              <td><span class="priority-chip low">Low</span></td>
+              <td>Marie T.</td>
+              <td>10 Mar</td>
+              <td><button class="btn-row-action">View</button></td>
+            </tr>
+            <tr>
+              <td>
+                <div class="wf-name">Cloud Infra Upgrade
+                  <small>IT &rarr; Security &rarr; CTO</small>
+                </div>
+              </td>
+              <td><span class="status-badge pending"><span class="status-dot"></span>Pending</span></td>
+              <td><span class="priority-chip high">High</span></td>
+              <td>David O.</td>
+              <td>20 Mar</td>
+              <td><button class="btn-row-action">Review</button></td>
+            </tr>
+            <tr>
+              <td>
+                <div class="wf-name">Office Supplies PO
+                  <small>Admin &rarr; Manager</small>
+                </div>
+              </td>
+              <td><span class="status-badge rejected"><span class="status-dot"></span>Rejected</span></td>
+              <td><span class="priority-chip low">Low</span></td>
+              <td>Claire B.</td>
+              <td>8 Mar</td>
+              <td><button class="btn-row-action">View</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div><!-- /app-content -->
+  </div><!-- /app-main -->
+
+</div><!-- /view-app -->
+
+
+<!-- ══════════════════════════════════════════════════════════
+     JAVASCRIPT — view routing + interactive logic
+══════════════════════════════════════════════════════════ -->
+<script>
+  /* ── View router ───────────────────────────────────────── */
+  function showView(id) {
+    document.querySelectorAll('[data-view]').forEach(el => el.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    window.scrollTo(0, 0);
+  }
+
+  /* ── Auth helpers ──────────────────────────────────────── */
+  function showAuth(tab) {
+    showView('view-auth');
+    switchTab(tab);
+  }
+
+  function switchTab(tab) {
+    ['signin','register'].forEach(t => {
+      document.getElementById('tab-' + t).classList.toggle('active', t === tab);
+      document.getElementById('panel-' + t).classList.toggle('active', t === tab);
+    });
+  }
+
+  /* ── Onboarding wizard ─────────────────────────────────── */
+  let currentStep = 0;
+  const TOTAL = 4;
+
+  function startOnboarding() {
+    // pull name from register fields if present
+    const fn = document.getElementById('reg-firstname')?.value || 'Jean';
+    const ln = document.getElementById('reg-lastname')?.value  || 'Dupont';
+    document.getElementById('sb-username').textContent = fn + ' ' + ln;
+    document.getElementById('sb-avatar').textContent   =
+      (fn[0] || 'J').toUpperCase() + (ln[0] || 'D').toUpperCase();
+
+    currentStep = 0;
+    gotoStep(0);
+    showView('view-onboarding');
+  }
+
+  function gotoStep(n) {
+    // hide all steps
+    document.querySelectorAll('.onb-step').forEach(s => s.classList.remove('active'));
+    document.getElementById('step-' + n).classList.add('active');
+
+    // update dots
+    for (let i = 0; i < TOTAL; i++) {
+      const dot  = document.getElementById('dot-' + i);
+      const line = document.getElementById('line-' + i);
+      dot.classList.remove('active','done');
+      if (i < n)       dot.classList.add('done'),   dot.textContent = '✓';
+      else if (i === n) dot.classList.add('active'), dot.textContent = i + 1;
+      else              dot.textContent = i + 1;
+      if (line) line.classList.toggle('done', i < n);
+    }
+    currentStep = n;
+  }
+
+  function nextStep(n) { gotoStep(n); }
+
+  /* tile selection */
+  function selectTile(el) {
+    el.closest('.tile-grid').querySelectorAll('.tile').forEach(t => t.classList.remove('selected'));
+    el.classList.add('selected');
+  }
+
+  /* member invite */
+  const members = [];
+  function addMember() {
+    const inp = document.getElementById('member-input');
+    const val = inp.value.trim();
+    if (!val || members.includes(val)) { inp.value=''; return; }
+    members.push(val);
+    renderMembers();
+    inp.value = '';
+  }
+  document.getElementById('member-input')?.addEventListener('keydown', e => {
+    if (e.key === 'Enter') { e.preventDefault(); addMember(); }
+  });
+  function removeMember(email) {
+    const idx = members.indexOf(email);
+    if (idx > -1) members.splice(idx, 1);
+    renderMembers();
+  }
+  function renderMembers() {
+    const wrap = document.getElementById('member-tags');
+    wrap.innerHTML = members.map(m =>
+      `<div class="member-tag">${m}
+         <button onclick="removeMember('${m}')">&times;</button>
+       </div>`
+    ).join('');
+  }
+
+  /* summary on last step */
+  function updateSummary() {
+    const org   = document.getElementById('onb-orgname')?.value || 'Your company';
+    const wfTile = document.querySelector('#workflow-tiles .tile.selected .tile-label');
+    const wf    = wfTile ? wfTile.textContent : 'Approvals';
+    const mCnt  = members.length;
+    document.getElementById('summary-pills').innerHTML =
+      `<div class="summary-pill">&#127970; ${org}</div>
+       <div class="summary-pill">&#128196; ${wf}</div>
+       <div class="summary-pill">&#128101; ${mCnt} member${mCnt !== 1 ? 's' : ''} invited</div>
+       <div class="summary-pill">&#128276; Email + escalation alerts on</div>`;
+  }
+
+  // patch nextStep to update summary when reaching step 3
+  const _nextStep = nextStep;
+  window.nextStep = function(n) {
+    if (n === 3) updateSummary();
+    _nextStep(n);
+  };
+
+  /* ── Go to app ─────────────────────────────────────────── */
+  function showApp() {
+    showView('view-app');
+  }
+</script>
+
+</body>
+</html>
